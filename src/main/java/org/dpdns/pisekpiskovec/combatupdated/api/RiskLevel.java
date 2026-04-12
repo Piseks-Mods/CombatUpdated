@@ -1,5 +1,10 @@
 package org.dpdns.pisekpiskovec.combatupdated.api;
 
 public enum RiskLevel {
-    ZAYIN, TETH, HE, WAW, ALEPH
+    // Constants
+    ZAYIN, TETH, HE, WAW, ALEPH;
+
+    public int diffFrom(RiskLevel other) {
+        return this.ordinal() - other.ordinal();
+    }
 }
