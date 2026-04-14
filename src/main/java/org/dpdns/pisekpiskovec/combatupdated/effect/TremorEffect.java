@@ -35,7 +35,7 @@ public class TremorEffect extends CUStatusEffect {
         // 2. Stagger if hunger zeroed
         if (newHunger == 0) {
             int staggerTicks = (int) Math.ceil(getCount() * 1.5f);
-            StaggerCapability.get(player).ifpresent(cap -> cap.applyStagger(staggerTicks));
+            StaggerCapability.get(player).ifPresent(cap -> cap.applyStagger(staggerTicks));
         }
 
         // 3. Decrement count by 1

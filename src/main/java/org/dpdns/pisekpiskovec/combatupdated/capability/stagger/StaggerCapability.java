@@ -1,11 +1,27 @@
 package org.dpdns.pisekpiskovec.combatupdated.capability.stagger;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.common.util.NonNullConsumer;
 
 public class StaggerCapability implements INBTSerializable<CompoundTag> {
     private int staggerTickRemaining = 0;
     private int cooldownTickRemaining = 0; // low-HP stagger cooldown only
+
+    // --- Static accessor ---
+
+    public static LazyOptional<StaggerCapability> get(LivingEntity entity) {
+        return entity.getCapability(StaggerCapabilityProvider.CAPABILITY);
+    }
+
+    /**
+     * Runs the action only if the capability is present.
+     */
+    public static void ifPresent(LivingEntity entity, java.util.function.Consumer<StaggerCapability> action) {
+        get(entity).ifPresent((NonNullConsumer<? super StaggerCapability>) action);
+    }
 
     // --- Stagger control ---
 
@@ -42,9 +58,7 @@ public class StaggerCapability implements INBTSerializable<CompoundTag> {
         if (cooldownTickRemaining > 0) cooldownTickRemaining--;
     }
 
-
     // --- NBT ---
-
 
     @Override
     public CompoundTag serializeNBT() {
