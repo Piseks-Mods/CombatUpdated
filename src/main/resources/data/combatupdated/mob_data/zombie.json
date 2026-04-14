@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:zombie",
+  "risk_level": "TETH",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "WEAK",
+    "BLUNT": "ENDURED"
+  }
+}
