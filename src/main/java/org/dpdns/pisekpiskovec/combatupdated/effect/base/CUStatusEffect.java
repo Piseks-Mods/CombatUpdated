@@ -67,6 +67,16 @@ public abstract class CUStatusEffect {
         this.count += addCount;
     }
 
+    /**
+     * Decrements count directly without firing onTrigger.
+     *
+     * @return true if expired.
+     */
+    public boolean decrementCount(int subCount) {
+        this.count -= subCount;
+        return count <= 0;
+    }
+
     // --- Helpers ---
 
     /**
