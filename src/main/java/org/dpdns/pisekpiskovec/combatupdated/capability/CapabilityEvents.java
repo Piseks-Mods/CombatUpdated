@@ -8,6 +8,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.dpdns.pisekpiskovec.combatupdated.CombatUpdated;
+import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
+import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapabilityProvider;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapabilityProvider;
 
@@ -19,6 +21,7 @@ public class CapabilityEvents {
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         // event.register(StatusEffectCapability.class);
         event.register(StaggerCapability.class);
+        event.register(SanityCapability.class);
     }
 
     // Called on the FORGE bus - attach to players
@@ -31,6 +34,7 @@ public class CapabilityEvents {
         //         new StatusEffectCapabilityProvider()
         // );
         event.addCapability(new ResourceLocation(CombatUpdated.MODID, "stagger"), new StaggerCapabilityProvider());
+        event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "sanity"), new SanityCapabilityProvider());
     }
 
     // Copy capabilities on player respawn / dimensional travel
@@ -43,6 +47,11 @@ public class CapabilityEvents {
         // Stagger - intentionally NOT copied on death, only on dimension travel
         if (!event.isWasDeath()) {
             event.getOriginal().getCapability(StaggerCapabilityProvider.CAPABILITY).ifPresent(old -> event.getEntity().getCapability(StaggerCapabilityProvider.CAPABILITY).ifPresent(fresh -> fresh.deserializeNBT(old.serializeNBT())));
+        }
+
+        // Sanity - intentionally NOT copied on death, only on dimension travel
+        if (!event.isWasDeath()) {
+            event.getOriginal().getCapability(SanityCapabilityProvider.CAPABILITY).ifPresent(old -> event.getEntity().getCapability(SanityCapabilityProvider.CAPABILITY).ifPresent(fresh -> fresh.deserializeNBT(old.serializeNBT())));
         }
 
         event.getOriginal().invalidateCaps();
