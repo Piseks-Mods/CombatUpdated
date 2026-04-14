@@ -12,6 +12,7 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapabilityProvider;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapabilityProvider;
+import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapabilityProvider;
 
 @Mod.EventBusSubscriber(modid = CombatUpdated.MODID)
 public class CapabilityEvents {
@@ -29,11 +30,8 @@ public class CapabilityEvents {
     public static void onAttachCapabilities(AttachCapabilitiesEvent<net.minecraft.world.entity.Entity> event) {
         if (!(event.getObject() instanceof Player)) return;
 
-        // event.addCapability(
-        //         new ResourceLocation(CombatUpdated.MODID, "status_effects"),
-        //         new StatusEffectCapabilityProvider()
-        // );
-        event.addCapability(new ResourceLocation(CombatUpdated.MODID, "stagger"), new StaggerCapabilityProvider());
+        event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "status_effects"), new StatusEffectCapabilityProvider());
+        event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "stagger"), new StaggerCapabilityProvider());
         event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "sanity"), new SanityCapabilityProvider());
     }
 
@@ -43,6 +41,9 @@ public class CapabilityEvents {
         event.getOriginal().reviveCaps();
 
         // Status effects - intentionally NOT copied on death, only on dimension travel
+        if (!event.isWasDeath()) {
+            event.getOriginal().getCapability(StatusEffectCapabilityProvider.CAPABILITY).ifPresent(old -> event.getEntity().getCapability(StatusEffectCapabilityProvider.CAPABILITY).ifPresent(fresh -> fresh.deserializeNBT(old.serializeNBT())));
+        }
 
         // Stagger - intentionally NOT copied on death, only on dimension travel
         if (!event.isWasDeath()) {
