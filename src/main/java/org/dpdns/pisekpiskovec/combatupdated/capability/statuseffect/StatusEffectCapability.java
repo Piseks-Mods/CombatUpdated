@@ -20,6 +20,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effects ---
     private final BleedEffect bleed = new BleedEffect();
     private final BurnEffect burn = new BurnEffect();
+    private final ChargeEffect charge = new ChargeEffect();
     private final PoiseEffect poise = new PoiseEffect();
     private final RuptureEffect rupture = new RuptureEffect();
     private final SinkingEffect sinking = new SinkingEffect();
@@ -97,6 +98,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
         return switch (type) {
             case BLEED -> bleed;
             case BURN -> burn;
+            case CHARGE -> charge;
             case POISE -> poise;
             case RUPTURE -> rupture;
             case SINKING -> sinking;
@@ -142,6 +144,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        BLEED, BURN, POISE, RUPTURE, SINKING, TREMOR
+        BLEED, BURN, CHARGE, POISE, RUPTURE, SINKING, TREMOR
     }
 }
