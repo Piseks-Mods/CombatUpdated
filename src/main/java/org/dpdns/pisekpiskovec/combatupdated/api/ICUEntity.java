@@ -1,6 +1,6 @@
 package org.dpdns.pisekpiskovec.combatupdated.api;
 
-public interface IAdvancedEntity {
+public interface ICUEntity {
     RiskLevel getRiskLevel();
 
     ResistanceType getResistance(AttackType attackType);
