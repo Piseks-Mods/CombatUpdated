@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:fox",
+  "risk_level": "ZAYIN",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "WEAK",
+    "PIERCE": "NORMAL",
+    "BLUNT": "NORMAL"
+  }
+}

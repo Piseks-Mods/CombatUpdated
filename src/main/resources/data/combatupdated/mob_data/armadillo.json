@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:armadillo",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "ENDURED",
+    "BLUNT": "ENDURED"
+  }
+}

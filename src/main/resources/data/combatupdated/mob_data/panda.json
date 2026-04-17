@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:panda",
+  "risk_level": "ZAYIN",
+  "attack_type": "SLASH",
+  "resistances": {
+    "SLASH": "WEAK",
+    "PIERCE": "WEAK",
+    "BLUNT": "NORMAL"
+  }
+}

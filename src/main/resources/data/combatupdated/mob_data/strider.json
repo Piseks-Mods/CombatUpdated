@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:strider",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "WEAK",
+    "PIERCE": "WEAK",
+    "BLUNT": "NORMAL"
+  }
+}

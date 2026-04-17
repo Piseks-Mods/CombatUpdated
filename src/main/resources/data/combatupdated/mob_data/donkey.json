@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:donkey",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "ENDURED",
+    "BLUNT": "NORMAL"
+  }
+}

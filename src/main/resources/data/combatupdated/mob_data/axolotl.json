@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:axolotl",
+  "risk_level": "ZAYIN",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "WEAK",
+    "BLUNT": "ENDURED"
+  }
+}

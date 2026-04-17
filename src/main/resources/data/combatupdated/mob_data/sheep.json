@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:sheep",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "WEAK",
+    "BLUNT": "NORMAL"
+  }
+}

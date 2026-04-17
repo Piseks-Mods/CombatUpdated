@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:pufferfish",
+  "risk_level": "ZAYIN",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "ENDURED",
+    "BLUNT": "NORMAL"
+  }
+}

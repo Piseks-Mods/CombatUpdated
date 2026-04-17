@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:glow_squid",
+  "risk_level": "ZAYIN",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "ENDURED",
+    "BLUNT": "ENDURED"
+  }
+}

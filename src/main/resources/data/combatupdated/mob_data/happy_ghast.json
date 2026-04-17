@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:happy_ghast",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "FATAL",
+    "PIERCE": "FATAL",
+    "BLUNT": "FATAL"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:rabbit",
+  "risk_level": "ZAYIN",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "WEAK",
+    "PIERCE": "WEAK",
+    "BLUNT": "NORMAL"
+  }
+}

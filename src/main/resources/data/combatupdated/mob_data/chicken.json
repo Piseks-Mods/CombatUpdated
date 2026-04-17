@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:chicken",
+  "risk_level": "ZAYIN",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "ENDURED",
+    "BLUNT": "NORMAL"
+  }
+}

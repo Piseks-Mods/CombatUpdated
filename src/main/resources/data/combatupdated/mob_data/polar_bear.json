@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:polar_bear",
+  "risk_level": "ZAYIN",
+  "attack_type": "SLASH",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "NORMAL",
+    "BLUNT": "WEAK"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:turtle",
+  "risk_level": "ZAYIN",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "INEFFECTIVE",
+    "PIERCE": "INEFFECTIVE",
+    "BLUNT": "INEFFECTIVE"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:mooshroom",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "NORMAL",
+    "BLUNT": "ENDURED"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:frog",
+  "risk_level": "ZAYIN",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "NORMAL",
+    "BLUNT": "INEFFECTIVE"
+  }
+}

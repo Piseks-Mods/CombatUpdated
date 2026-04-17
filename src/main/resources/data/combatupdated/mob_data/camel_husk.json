@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:camel_husk",
+  "risk_level": "ZAYIN",
+  "attack_type": "SLASH",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "NORMAL",
+    "BLUNT": "NORMAL"
+  }
+}
