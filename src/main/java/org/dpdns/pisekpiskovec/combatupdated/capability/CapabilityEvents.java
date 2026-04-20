@@ -12,6 +12,7 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapabilityProvider;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapabilityProvider;
+import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapabilityProvider;
 
 @Mod.EventBusSubscriber(modid = CombatUpdated.MODID)
@@ -20,7 +21,7 @@ public class CapabilityEvents {
     // Called on the MOD bus - register capability types
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
-        // event.register(StatusEffectCapability.class);
+        event.register(StatusEffectCapability.class);
         event.register(StaggerCapability.class);
         event.register(SanityCapability.class);
     }
