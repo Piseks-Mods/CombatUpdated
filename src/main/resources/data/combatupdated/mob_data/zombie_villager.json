@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:zombie",
+  "entity": "minecraft:zombie_villager",
   "risk_level": "TETH",
   "attack_type": "BLUNT",
   "resistances": {

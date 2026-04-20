@@ -1,9 +1,9 @@
 {
-  "entity": "minecraft:zombie",
+  "entity": "minecraft:hoglin",
   "risk_level": "TETH",
   "attack_type": "BLUNT",
   "resistances": {
-    "SLASH": "NORMAL",
+    "SLASH": "WEAK",
     "PIERCE": "WEAK",
     "BLUNT": "NORMAL"
   }

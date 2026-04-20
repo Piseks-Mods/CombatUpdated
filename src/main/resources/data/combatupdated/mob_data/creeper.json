@@ -1,10 +1,10 @@
 {
-  "entity": "minecraft:zombie",
+  "entity": "minecraft:creeper",
   "risk_level": "TETH",
-  "attack_type": "BLUNT",
+  "attack_type": "SLASH",
   "resistances": {
     "SLASH": "NORMAL",
     "PIERCE": "WEAK",
-    "BLUNT": "NORMAL"
+    "BLUNT": "INEFFECTIVE"
   }
 }

@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:ghast",
+  "risk_level": "TETH",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "WEAK",
+    "PIERCE": "ENDURED",
+    "BLUNT": "FATAL"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:magma_cube",
+  "risk_level": "TETH",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "NORMAL",
+    "BLUNT": "ENDURED"
+  }
+}

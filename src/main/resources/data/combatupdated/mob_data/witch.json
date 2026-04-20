@@ -1,10 +1,10 @@
 {
-  "entity": "minecraft:zombie",
+  "entity": "minecraft:witch",
   "risk_level": "TETH",
-  "attack_type": "BLUNT",
+  "attack_type": "SLASH",
   "resistances": {
     "SLASH": "NORMAL",
-    "PIERCE": "WEAK",
+    "PIERCE": "NORMAL",
     "BLUNT": "NORMAL"
   }
 }

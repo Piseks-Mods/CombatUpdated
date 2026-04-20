@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:zombie",
+  "entity": "minecraft:enderman",
   "risk_level": "TETH",
   "attack_type": "BLUNT",
   "resistances": {

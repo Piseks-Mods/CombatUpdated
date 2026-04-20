@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:vex",
+  "risk_level": "TETH",
+  "attack_type": "SLASH",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "ENDURED",
+    "BLUNT": "NORMAL"
+  }
+}

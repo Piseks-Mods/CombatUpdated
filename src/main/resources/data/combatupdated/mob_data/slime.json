@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:slime",
+  "risk_level": "TETH",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "NORMAL",
+    "BLUNT": "ENDURED"
+  }
+}

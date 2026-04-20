@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:silverfish",
+  "risk_level": "TETH",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "ENDURED",
+    "BLUNT": "FATAL"
+  }
+}
