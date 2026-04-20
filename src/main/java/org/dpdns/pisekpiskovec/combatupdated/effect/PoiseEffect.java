@@ -1,6 +1,7 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
+import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 import java.util.Set;
@@ -19,7 +20,7 @@ public class PoiseEffect extends CUStatusEffect {
             if (entity.getRandom().nextFloat() < procChance) {
                 // +20 % damage bonus - stored as a flag for DamageCalculator to read this tick
                 // Set a short-lived flag on the capability; CombatEventHandler reads and clears it
-                // StatusEffectCapability.get(entity).ifPresent(cap -> cap.setPoiseDamageBonus(0.20f));
+                StatusEffectCapability.ifPresent(entity, cap -> cap.setPoiseDamageBonus(0.20f));
             }
             // count -= 1 handled by trigger()
         }
