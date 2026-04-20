@@ -17,6 +17,7 @@ import org.dpdns.pisekpiskovec.combatupdated.api.RiskLevel;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.damage.DamageCalculator;
+import org.dpdns.pisekpiskovec.combatupdated.data.ItemDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
@@ -37,12 +38,12 @@ public class CombatEventHandler {
 
         if (attacker instanceof Player player) {
             ItemStack held = player.getMainHandItem();
-            ItemData itemData = ItemDataManager.get(held);
+            ItemDataManager.ItemData itemData = ItemDataManager.get(held);
             attackerRisk = itemData.riskLevel();
             attackType = itemData.attackType();
         } else if (attacker instanceof ICUEntity adv) {
             attackerRisk = adv.getRiskLevel();
-            attackType = AttackType.SLASH;
+            attackType = AttackType.BLUNT;
         } else {
             MobDataManager.MobData mobData = MobDataManager.get(attacker);
             attackerRisk = mobData.riskLevel();
