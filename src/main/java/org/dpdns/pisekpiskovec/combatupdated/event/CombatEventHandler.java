@@ -17,6 +17,7 @@ import org.dpdns.pisekpiskovec.combatupdated.api.RiskLevel;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.damage.DamageCalculator;
+import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 @Mod.EventBusSubscriber(modid = CombatUpdated.MODID)
@@ -43,9 +44,9 @@ public class CombatEventHandler {
             attackerRisk = adv.getRiskLevel();
             attackType = AttackType.SLASH;
         } else {
-            ModData modData = MobDataManager.get(attacker);
-            attackerRisk = modData.riskLevel();
-            attackType = modData.attackType();
+            MobDataManager.MobData mobData = MobDataManager.get(attacker);
+            attackerRisk = mobData.riskLevel();
+            attackType = mobData.attackType();
         }
 
         // --- Resolve defender risk + attack type + stagger ---
@@ -58,7 +59,7 @@ public class CombatEventHandler {
             resistance = adv.getResistance(attackType);
             isStaggered = adv.isStaggered();
         } else {
-            ModData defData = MobDataManager.get(target);
+            MobDataManager.MobData defData = MobDataManager.get(target);
             defenderRisk = defData.riskLevel();
             resistance = defData.getResistance(attackType);
             isStaggered = StaggerCapability.get(target).map(StaggerCapability::isStaggered).orElse(false);
