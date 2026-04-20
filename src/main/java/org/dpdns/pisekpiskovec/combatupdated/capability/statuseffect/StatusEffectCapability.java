@@ -5,8 +5,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
-import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
-import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapabilityProvider;
 import org.dpdns.pisekpiskovec.combatupdated.effect.*;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
@@ -30,12 +28,12 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private float poiseDamageBonus = 0f;
 
     // --- Static accessor ---
-    public static LazyOptional<SanityCapability> get(LivingEntity entity) {
-        return entity.getCapability(SanityCapabilityProvider.CAPABILITY);
+    public static LazyOptional<StatusEffectCapability> get(LivingEntity entity) {
+        return entity.getCapability(StatusEffectCapabilityProvider.CAPABILITY);
     }
 
-    public static void ifPresent(LivingEntity entity, java.util.function.Consumer<SanityCapability> action) {
-        get(entity).ifPresent((NonNullConsumer<? super SanityCapability>) action);
+    public static void ifPresent(LivingEntity entity, java.util.function.Consumer<StatusEffectCapability> action) {
+        get(entity).ifPresent((NonNullConsumer<? super StatusEffectCapability>) action);
     }
 
     // --- Apply / Stack ---
