@@ -16,6 +16,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     public static final int MAX_COUNT_CHARGE = 20;
 
     // --- Effects ---
+    /// --- Keyword ---
     private final BleedEffect bleed = new BleedEffect();
     private final BurnEffect burn = new BurnEffect();
     private final ChargeEffect charge = new ChargeEffect();
@@ -23,6 +24,9 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final RuptureEffect rupture = new RuptureEffect();
     private final SinkingEffect sinking = new SinkingEffect();
     private final TremorEffect tremor = new TremorEffect();
+
+    /// --- Debuffs ---
+    private final TremorBurstEffect tremor_burst = new TremorBurstEffect();
 
     // Transient - set by Poise proc, read and cleared by CombatEventHandler in the same hit
     private float poiseDamageBonus = 0f;
@@ -100,6 +104,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case POISE -> poise;
             case RUPTURE -> rupture;
             case SINKING -> sinking;
+            case TREMOR_BURST -> tremor_burst;
             case TREMOR -> tremor;
         };
     }
@@ -109,7 +114,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     }
 
     // --- NBT serialization ---
-
 
     @Override
     public CompoundTag serializeNBT() {
@@ -142,6 +146,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        BLEED, BURN, CHARGE, POISE, RUPTURE, SINKING, TREMOR
+        BLEED, BURN, CHARGE, POISE, RUPTURE, SINKING, TREMOR_BURST, TREMOR
     }
 }
