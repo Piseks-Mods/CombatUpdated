@@ -13,6 +13,9 @@ public class SinkingEffect extends CUStatusEffect {
 
     @Override
     protected void onTrigger(LivingEntity entity, int potency, int count, TriggerType type) {
+        // SanityCapability only exist on players - ifPresent is a no-op for mobs,
+        // which is intentional: mobs have not sanity to drain.
+        // TODO: Add sanity to drain to panic-capable mobs
         SanityCapability.get(entity).ifPresent(cap -> cap.reduce(potency));
     }
 }

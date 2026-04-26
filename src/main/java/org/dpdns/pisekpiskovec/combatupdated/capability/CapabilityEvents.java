@@ -1,6 +1,7 @@
 package org.dpdns.pisekpiskovec.combatupdated.capability;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -29,11 +30,14 @@ public class CapabilityEvents {
     // Called on the FORGE bus - attach to players
     @SubscribeEvent
     public static void onAttachCapabilities(AttachCapabilitiesEvent<net.minecraft.world.entity.Entity> event) {
-        if (!(event.getObject() instanceof Player)) return;
+        if (event.getObject() instanceof LivingEntity) {
+            event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "status_effects"), new StatusEffectCapabilityProvider());
+            event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "stagger"), new StaggerCapabilityProvider());
+        }
 
-        event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "status_effects"), new StatusEffectCapabilityProvider());
-        event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "stagger"), new StaggerCapabilityProvider());
-        event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "sanity"), new SanityCapabilityProvider());
+        if (event.getObject() instanceof Player) {
+            event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "sanity"), new SanityCapabilityProvider());
+        }
     }
 
     // Copy capabilities on player respawn / dimensional travel
