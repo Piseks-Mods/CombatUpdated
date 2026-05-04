@@ -7,8 +7,12 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
 
 public class StaggerCapability implements INBTSerializable<CompoundTag> {
+    public static final float DEFAULT_THRESHOLD_FRACTION = 0.18f;
+
     private int staggerTickRemaining = 0;
     private int cooldownTickRemaining = 0; // low-HP stagger cooldown only
+    private float baseThresholdFraction = DEFAULT_THRESHOLD_FRACTION;
+    private float thresholdBonus = 0f;
 
     // --- Static accessor ---
 
@@ -23,6 +27,36 @@ public class StaggerCapability implements INBTSerializable<CompoundTag> {
         get(entity).ifPresent((NonNullConsumer<? super StaggerCapability>) action);
     }
 
+    // --- Threshold ---
+
+    /**
+     * The HP value at or below which this entity staggers.
+     * = maxHP * baseThresholdFraction + thresholdBonus
+     */
+    public float getEffectiveThreshold(LivingEntity entity) {
+        return (entity.getMaxHealth() * baseThresholdFraction) + thresholdBonus;
+    }
+
+    /**
+     * Adds a flat HP bonus to the stagger threshold.
+     * Called by Tremor Burst with the Tremor potency value.
+     */
+    public void addThresholdBonus(float bonus) {
+        this.thresholdBonus += bonus;
+    }
+
+    public void setBaseThresholdFraction(float fraction) {
+        this.baseThresholdFraction = fraction;
+    }
+
+    public float getBaseThresholdFraction() {
+        return baseThresholdFraction;
+    }
+
+    public float getThresholdBonus() {
+        return thresholdBonus;
+    }
+
     // --- Stagger control ---
 
     /**
@@ -31,6 +65,7 @@ public class StaggerCapability implements INBTSerializable<CompoundTag> {
      */
     public void applyStagger(int ticks) {
         this.staggerTickRemaining = Math.max(this.staggerTickRemaining, ticks);
+        this.thresholdBonus = 0f; // Reset threshold bonus when stagger fires
     }
 
     public boolean isStaggered() {
@@ -41,7 +76,7 @@ public class StaggerCapability implements INBTSerializable<CompoundTag> {
         this.staggerTickRemaining = 0;
     }
 
-    // --- Low-HP stagger cooldown ---
+    // --- Low-HP stagger cooldown (prevent stagger re-triggering every tick at low HP) ---
 
     public void setCooldown(int ticks) {
         this.cooldownTickRemaining = ticks;
@@ -65,6 +100,8 @@ public class StaggerCapability implements INBTSerializable<CompoundTag> {
         CompoundTag tag = new CompoundTag();
         tag.putInt("stagger_ticks", staggerTickRemaining);
         tag.putInt("cooldown_ticks", cooldownTickRemaining);
+        tag.putFloat("base_threshold", baseThresholdFraction);
+        tag.putFloat("threshold_bonus", thresholdBonus);
         return tag;
     }
 
@@ -72,5 +109,7 @@ public class StaggerCapability implements INBTSerializable<CompoundTag> {
     public void deserializeNBT(CompoundTag nbt) {
         staggerTickRemaining = nbt.getInt("stagger_ticks");
         cooldownTickRemaining = nbt.getInt("cooldown_ticks");
+        baseThresholdFraction = nbt.contains("base_threshold") ? nbt.getFloat("base_threshold") : DEFAULT_THRESHOLD_FRACTION;
+        thresholdBonus = nbt.getFloat("threshold_bonus");
     }
 }

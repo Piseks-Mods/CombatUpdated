@@ -86,13 +86,19 @@ public class CombatEventHandler {
 
         StatusEffectCapability.ifPresent(target, cap -> cap.triggerAll(target, CUStatusEffect.TriggerType.ON_HIT));
 
-        // --- Low-HP stagger check ---
+        // --- Threshold-based stagger check ---
 
+        // hpAfter is approximate here since event.setAmount doesn't deal damage yet;
+        // Forge applies it after the event. We use it for the threshold check only.
         float hpAfter = target.getHealth() - final_;
+
         StaggerCapability.get(target).ifPresent(stagger -> {
-            if (hpAfter <= 6.0f && !stagger.isOnCooldown()) {
-                stagger.applyStagger(40); // 2 seconds
-                stagger.setCooldown(200); // 10 seconds immunity
+            if (stagger.isStaggered() || stagger.isOnCooldown()) return;
+
+            float threshold = stagger.getEffectiveThreshold(target);
+            if (hpAfter <= threshold) {
+                stagger.applyStagger(40);
+                stagger.setCooldown(100);
             }
         });
     }

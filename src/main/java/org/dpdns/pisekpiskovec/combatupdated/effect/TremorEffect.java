@@ -1,7 +1,6 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
@@ -14,29 +13,33 @@ public class TremorEffect extends CUStatusEffect {
 
     @Override
     protected void onTrigger(LivingEntity entity, int potency, int count, TriggerType type) {
-        // Passive decay: just consume 3 count, no other effect
+        // Passive decay: just consume 1 count, no other effect
         // BURST trigger is handled by TremorBurstEffect directly, not here
     }
 
     /**
      * Called by TremorBurstEffect - not a normal trigger flow.
-     * Players: Depletes hunger by potency, staggers if hunger zeroed, decrements count by 1.
-     * Mobs: Does nothing
+     * <p>
+     * Raises the target's stagger threshold by Tremor Potency (flat HP).
+     * Then check if current HP is at or below the new effective threshold -
+     * if so, applies stagger for (count * 1.5) ticks rounded up.
+     * Tremor count decrements by 1. Works identically for players and mobs.
      *
      * @return true if expired
      */
     public boolean applyBurst(LivingEntity entity) {
-        if (entity instanceof Player player) {
-            // 1. Deplete hunger by potency
-            int newHunger = Math.max(0, player.getFoodData().getFoodLevel() - getPotency());
-            player.getFoodData().setFoodLevel(newHunger);
+        StaggerCapability.get(entity).ifPresent(stagger -> {
+            // 1. Raise threshold by potency
+            stagger.addThresholdBonus(getPotency());
 
-            // 2. Stagger if hunger zeroed
-            if (newHunger == 0) {
+            // 2. Check if current HP is now at or below the effective threshold
+            float effectiveThreshold = stagger.getEffectiveThreshold(entity);
+            if (entity.getHealth() <= effectiveThreshold && !stagger.isOnCooldown()) {
                 int staggerTicks = (int) Math.ceil(getCount() * 1.5f);
-                StaggerCapability.get(player).ifPresent(cap -> cap.applyStagger(staggerTicks));
+                stagger.applyStagger(staggerTicks);
+                stagger.setCooldown(100);
             }
-        }
+        });
 
         // 3. Decrement count by 1
         return decrementCount(1);
