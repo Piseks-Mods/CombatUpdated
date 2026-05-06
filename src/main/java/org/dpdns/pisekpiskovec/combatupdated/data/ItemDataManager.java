@@ -18,6 +18,7 @@ import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.api.RiskLevel;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -25,8 +26,8 @@ import java.util.Map;
 public class ItemDataManager extends SimpleJsonResourceReloadListener {
     // --- Data record ---
 
-    public record ItemData(RiskLevel riskLevel, AttackType attackType) {
-        public static final ItemData DEFAULT = new ItemData(RiskLevel.ZAYIN, AttackType.BLUNT);
+    public record ItemData(RiskLevel riskLevel, AttackType attackType, List<InflictEntry> inflicts) {
+        public static final ItemData DEFAULT = new ItemData(RiskLevel.ZAYIN, AttackType.BLUNT, List.of());
     }
 
     // --- Singleton ---
@@ -82,7 +83,9 @@ public class ItemDataManager extends SimpleJsonResourceReloadListener {
         // Required: attack_type
         AttackType attackType = parseEnum(json, "attack_type", AttackType.class, AttackType.BLUNT, fileId);
 
-        return new ItemData(riskLevel, attackType);
+        List<InflictEntry> inflicts = InflictParser.parse(json, fileId);
+
+        return new ItemData(riskLevel, attackType, inflicts);
     }
 
     // --- Lookup ---

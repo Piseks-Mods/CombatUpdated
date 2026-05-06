@@ -55,7 +55,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
         if (effect.isExpired()) {
             // Fresh application
             int clampedCount = Math.min(count, maxCount);
-            effect.apply(clampedCount, clampedPotency);
+            effect.apply(clampedCount, clampedPotency == 0 ? 1 : clampedPotency);
         } else {
             // Stacking - clamp total count after addition
             int newCount = Math.min(effect.getCount() + count, maxCount);

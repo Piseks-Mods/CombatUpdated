@@ -27,7 +27,7 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
     // --- Data record ---
 
     public record MobData(RiskLevel riskLevel, AttackType attackType, Map<AttackType, ResistanceType> resistances,
-                          float staggerThreshold) {
+                          float staggerThreshold, List<InflictEntry> inflicts) {
         public ResistanceType getResistance(AttackType type) {
             return resistances.getOrDefault(type, ResistanceType.NORMAL);
         }
@@ -36,7 +36,7 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
             return staggerThreshold < 0 ? Config.staggerThreshold : staggerThreshold;
         }
 
-        public static final MobData DEFAULT = new MobData(RiskLevel.ZAYIN, AttackType.BLUNT, Map.of(AttackType.SLASH, ResistanceType.NORMAL, AttackType.PIERCE, ResistanceType.NORMAL, AttackType.BLUNT, ResistanceType.NORMAL), -1);
+        public static final MobData DEFAULT = new MobData(RiskLevel.ZAYIN, AttackType.BLUNT, Map.of(AttackType.SLASH, ResistanceType.NORMAL, AttackType.PIERCE, ResistanceType.NORMAL, AttackType.BLUNT, ResistanceType.NORMAL), -1, List.of());
     }
 
     // --- Singleton ---
@@ -116,7 +116,9 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
             staggerThreshold = Math.max(0f, Math.min(1f, json.get("stagger_threshold").getAsFloat()));
         }
 
-        return new MobData(riskLevel, attackType, Collections.unmodifiableMap(resistances), staggerThreshold);
+        List<InflictEntry> inflicts = InflictParser.parse(json, fileId);
+
+        return new MobData(riskLevel, attackType, Collections.unmodifiableMap(resistances), staggerThreshold, inflicts);
     }
 
     // --- Lookup ---
