@@ -39,7 +39,7 @@ public class InflictParser {
                     continue;
                 }
 
-                String raw = entry.get("effect").getAsString().toLowerCase(Locale.ROOT);
+                String raw = entry.get("effect").getAsString().toUpperCase(Locale.ROOT);
                 StatusEffectCapability.EffectType effectType;
                 try {
                     effectType = StatusEffectCapability.EffectType.valueOf(raw);

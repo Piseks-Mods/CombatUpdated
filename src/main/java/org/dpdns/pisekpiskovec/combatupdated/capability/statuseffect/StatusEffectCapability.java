@@ -49,17 +49,26 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     public void apply(EffectType type, int count, int potency) {
         CUStatusEffect effect = getEffect(type);
         int maxCount = (type == EffectType.CHARGE) ? MAX_COUNT_CHARGE : MAX_COUNT;
-
         int clampedPotency = Math.min(potency, MAX_POTENCY);
+        int clampedCount = Math.min(count, maxCount);
 
         if (effect.isExpired()) {
             // Fresh application
-            int clampedCount = Math.min(count, maxCount);
-            effect.apply(clampedCount, clampedPotency == 0 ? 1 : clampedPotency);
+            // Need at least 1 count to be active,
+            // but ONLY if count wa actually requested
+            int freshCount = Math.max(clampedCount, 0);
+            if (freshCount == 0 && clampedPotency == 0) return;
+            // If only potency is give with no count, don't activate the effect
+            if (freshCount == 0) return;
+            effect.apply(freshCount, clampedPotency == 0 ? 1 : clampedPotency);
         } else {
             // Stacking - clamp total count after addition
-            int newCount = Math.min(effect.getCount() + count, maxCount);
-            effect.stack(newCount - effect.getCount(), clampedPotency);
+            if (clampedCount > 0) {
+                int newCount = Math.min(effect.getCount() + clampedCount, maxCount);
+                effect.stack(newCount - effect.getCount(), clampedPotency);
+            } else if (clampedPotency > 0) {
+                effect.stack(0, clampedPotency);
+            }
         }
     }
 

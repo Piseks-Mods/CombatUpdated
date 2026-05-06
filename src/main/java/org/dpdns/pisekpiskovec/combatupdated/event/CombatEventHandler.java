@@ -16,12 +16,10 @@ import org.dpdns.pisekpiskovec.combatupdated.api.RiskLevel;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.damage.DamageCalculator;
-import org.dpdns.pisekpiskovec.combatupdated.data.InflictEntry;
+import org.dpdns.pisekpiskovec.combatupdated.data.InflictHelper;
 import org.dpdns.pisekpiskovec.combatupdated.data.ItemDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
-
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = CombatUpdated.MODID)
 public class CombatEventHandler {
@@ -93,8 +91,10 @@ public class CombatEventHandler {
 
         // --- Apply attacker's inflicts to target ---
 
-        List<InflictEntry> inflicts = itemData.inflicts();
-        inflicts.addAll(MobDataManager.get(attacker).inflicts());
+        if (hasItemEntry) {
+            InflictHelper.apply(target, itemData.inflicts());
+        }
+        InflictHelper.apply(target, MobDataManager.get(attacker).inflicts());
 
         // --- Threshold-based stagger check ---
 
