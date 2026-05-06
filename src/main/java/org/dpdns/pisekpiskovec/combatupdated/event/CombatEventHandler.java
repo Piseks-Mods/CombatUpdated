@@ -43,7 +43,7 @@ public class CombatEventHandler {
             attackType = itemData.attackType();
         } else if (attacker instanceof ICUEntity adv) {
             attackerRisk = adv.getRiskLevel();
-            attackType = AttackType.BLUNT;
+            attackType = adv.getAttackType();
         } else {
             MobDataManager.MobData mobData = MobDataManager.get(attacker);
             attackerRisk = mobData.riskLevel();

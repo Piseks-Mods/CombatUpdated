@@ -3,6 +3,8 @@ package org.dpdns.pisekpiskovec.combatupdated.api;
 public interface ICUEntity {
     RiskLevel getRiskLevel();
 
+    AttackType getAttackType();
+
     ResistanceType getResistance(AttackType attackType);
 
     boolean isStaggered();
