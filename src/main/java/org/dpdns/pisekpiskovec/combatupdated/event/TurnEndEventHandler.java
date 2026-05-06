@@ -24,7 +24,7 @@ public class TurnEndEventHandler {
         if (!(event.level instanceof ServerLevel level)) return;
 
         String dimKey = level.dimension().location().toString();
-        long currentDay = level.getDayTime() / 240000L;
+        long currentDay = level.getDayTime() / 24000L;
         long lastDay = lastKnownDay.getOrDefault(dimKey, currentDay);
 
         if (currentDay > lastDay) {
