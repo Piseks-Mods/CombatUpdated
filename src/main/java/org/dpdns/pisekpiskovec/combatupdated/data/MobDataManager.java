@@ -77,7 +77,7 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
             }
         }
 
-        CombatUpdated.LOGGER.info("[CombatUpdated] Loaded {} mod data entries.", registry.size());
+        CombatUpdated.LOGGER.info("[CombatUpdated] Loaded {} mob data entries.", registry.size());
     }
 
     private static MobData parse(JsonObject json, ResourceLocation fileId) {
