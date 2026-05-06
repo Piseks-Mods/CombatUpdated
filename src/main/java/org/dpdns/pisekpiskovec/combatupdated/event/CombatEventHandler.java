@@ -3,7 +3,6 @@ package org.dpdns.pisekpiskovec.combatupdated.event;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -36,10 +35,13 @@ public class CombatEventHandler {
         RiskLevel attackerRisk;
         AttackType attackType;
 
-        if (attacker instanceof Player player) {
-            ItemStack held = player.getMainHandItem();
-            ItemDataManager.ItemData itemData = ItemDataManager.get(held);
-            attackerRisk = itemData.riskLevel();
+        ItemStack heldItem = attacker.getMainHandItem();
+        ItemDataManager.ItemData itemData = ItemDataManager.get(heldItem);
+        boolean hasItemEntry = !heldItem.isEmpty() && itemData != ItemDataManager.ItemData.DEFAULT;
+
+        if (hasItemEntry) {
+            MobDataManager.MobData mobData = MobDataManager.get(attacker);
+            attackerRisk = itemData.riskLevel().max(mobData.riskLevel());
             attackType = itemData.attackType();
         } else if (attacker instanceof ICUEntity adv) {
             attackerRisk = adv.getRiskLevel();
