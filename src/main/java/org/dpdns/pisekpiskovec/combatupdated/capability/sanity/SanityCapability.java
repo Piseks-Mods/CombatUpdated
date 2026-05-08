@@ -9,6 +9,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import org.dpdns.pisekpiskovec.combatupdated.util.ApotheosisCompat;
+import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 
 public class SanityCapability implements INBTSerializable<CompoundTag> {
     public static final int MIN_SANITY = -45;
@@ -41,7 +42,7 @@ public class SanityCapability implements INBTSerializable<CompoundTag> {
     }
 
     public void setSanity(int value) {
-        this.sanity = Math.max(MIN_SANITY, Math.min(MAX_SANITY, value));
+        this.sanity = CUMath.clamp(MIN_SANITY, value, MAX_SANITY);
     }
 
     public int getSanity() {

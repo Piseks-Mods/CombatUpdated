@@ -18,6 +18,7 @@ import org.dpdns.pisekpiskovec.combatupdated.Config;
 import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.api.ResistanceType;
 import org.dpdns.pisekpiskovec.combatupdated.api.RiskLevel;
+import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 
 import java.util.*;
 
@@ -113,7 +114,7 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
         // Optional: stagger_threshold (0.0-1.0), -1 if absent
         float staggerThreshold = -1f;
         if (json.has("stagger_threshold")) {
-            staggerThreshold = Math.max(0f, Math.min(1f, json.get("stagger_threshold").getAsFloat()));
+            staggerThreshold = CUMath.clamp(0f, json.get("stagger_threshold").getAsFloat(), 1f);
         }
 
         List<InflictEntry> inflicts = InflictParser.parse(json, fileId);
