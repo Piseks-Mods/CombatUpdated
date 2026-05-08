@@ -14,6 +14,10 @@ public record InflictEntry(StatusEffectCapability.EffectType effect, int count, 
         return new InflictEntry(effect, count, 0);
     }
 
+    /**
+     * Raises potency on an EXISTING active effect only.
+     * Has no effect if the target doesn't already have this effect active.
+     */
     public static InflictEntry potencyOnly(StatusEffectCapability.EffectType effect, int potency) {
         return new InflictEntry(effect, 0, potency);
     }
