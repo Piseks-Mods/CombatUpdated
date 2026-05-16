@@ -6,5 +6,26 @@
     "SLASH": "NORMAL",
     "PIERCE": "WEAK",
     "BLUNT": "NORMAL"
+  },
+  "inflicts": [
+    {
+      "effect": "BLEED",
+      "count": 1,
+      "potency": 3
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "SINKING",
+        "count": 4,
+        "potency": 3
+      },
+      {
+        "effect": "POWER_DOWN",
+        "count": 1,
+        "potency": 1
+      }
+    ]
   }
 }

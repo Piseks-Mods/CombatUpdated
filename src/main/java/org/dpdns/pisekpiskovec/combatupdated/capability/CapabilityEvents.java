@@ -9,12 +9,15 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.dpdns.pisekpiskovec.combatupdated.CombatUpdated;
+import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapability;
+import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapabilityProvider;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapabilityProvider;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapabilityProvider;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapabilityProvider;
+import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 
 @Mod.EventBusSubscriber(modid = CombatUpdated.MODID)
 public class CapabilityEvents {
@@ -25,14 +28,19 @@ public class CapabilityEvents {
         event.register(StatusEffectCapability.class);
         event.register(StaggerCapability.class);
         event.register(SanityCapability.class);
+        event.register(MobSanityCapability.class);
     }
 
     // Called on the FORGE bus - attach to players
     @SubscribeEvent
     public static void onAttachCapabilities(AttachCapabilitiesEvent<net.minecraft.world.entity.Entity> event) {
-        if (event.getObject() instanceof LivingEntity) {
+        if (event.getObject() instanceof LivingEntity living) {
             event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "status_effects"), new StatusEffectCapabilityProvider());
             event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "stagger"), new StaggerCapabilityProvider());
+
+            if (!(living instanceof Player) && MobDataManager.get(living).hasSanity()) {
+                event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "mob_sanity"), new MobSanityCapabilityProvider());
+            }
         }
 
         if (event.getObject() instanceof Player) {

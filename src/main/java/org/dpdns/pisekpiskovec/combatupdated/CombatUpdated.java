@@ -24,6 +24,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.dpdns.pisekpiskovec.combatupdated.event.CombatEventHandler;
 import org.dpdns.pisekpiskovec.combatupdated.event.OnUseEventHandler;
+import org.dpdns.pisekpiskovec.combatupdated.event.SanityEventHandler;
 import org.dpdns.pisekpiskovec.combatupdated.event.TurnEndEventHandler;
 import org.slf4j.Logger;
 
@@ -69,6 +70,7 @@ public class CombatUpdated {
         MinecraftForge.EVENT_BUS.register(CombatEventHandler.class);
         MinecraftForge.EVENT_BUS.register(TurnEndEventHandler.class);
         MinecraftForge.EVENT_BUS.register(OnUseEventHandler.class);
+        MinecraftForge.EVENT_BUS.register(SanityEventHandler.class);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

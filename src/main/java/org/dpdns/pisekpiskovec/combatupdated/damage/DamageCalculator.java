@@ -5,7 +5,7 @@ import org.dpdns.pisekpiskovec.combatupdated.api.RiskLevel;
 import org.dpdns.pisekpiskovec.combatupdated.util.RiskLevelDiffCalculator;
 
 public class DamageCalculator {
-    public static float calculate(float baseDamage, RiskLevel attackerRisk, RiskLevel defenderRisk, ResistanceType resistance, boolean isStaggered, float poiseBonus) {
+    public static float calculate(float baseDamage, RiskLevel attackerRisk, RiskLevel defenderRisk, ResistanceType resistance, boolean isStaggered, float poiseBonus, float powerDownPenalty) {
         // Damage modifier: Risk Level difference
         float riskMod = RiskLevelDiffCalculator.getMultiplier(attackerRisk, defenderRisk);
 
@@ -14,10 +14,14 @@ public class DamageCalculator {
         float resMod = (float) (effectiveResistance.getMultiplier() - 1.0);
 
         // Final calculation
-        return Math.max(0f, baseDamage * (riskMod + resMod + poiseBonus));
+        return Math.max(0f, baseDamage * (riskMod + resMod + poiseBonus) - powerDownPenalty);
+    }
+
+    public static float calculate(float baseDamage, RiskLevel attackerRisk, RiskLevel defenderRisk, ResistanceType resistance, boolean isStaggered, float poiseBonus) {
+        return calculate(baseDamage, attackerRisk, defenderRisk, resistance, isStaggered, poiseBonus, 0f);
     }
 
     public static float calculate(float baseDamage, RiskLevel attackerRisk, RiskLevel defenderRisk, ResistanceType resistance, boolean isStaggered) {
-        return calculate(baseDamage, attackerRisk, defenderRisk, resistance, isStaggered, 0f);
+        return calculate(baseDamage, attackerRisk, defenderRisk, resistance, isStaggered, 0f, 0f);
     }
 }

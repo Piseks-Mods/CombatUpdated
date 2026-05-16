@@ -28,7 +28,11 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
     // --- Data record ---
 
     public record MobData(RiskLevel riskLevel, AttackType attackType, Map<AttackType, ResistanceType> resistances,
-                          float staggerThreshold, List<InflictEntry> inflicts) {
+                          float staggerThreshold, List<InflictEntry> inflicts, MobSanityData sanity) {
+        public boolean hasSanity() {
+            return sanity.isPresent();
+        }
+
         public ResistanceType getResistance(AttackType type) {
             return resistances.getOrDefault(type, ResistanceType.NORMAL);
         }
@@ -37,7 +41,7 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
             return staggerThreshold < 0 ? Config.staggerThreshold : staggerThreshold;
         }
 
-        public static final MobData DEFAULT = new MobData(RiskLevel.ZAYIN, AttackType.BLUNT, Map.of(AttackType.SLASH, ResistanceType.NORMAL, AttackType.PIERCE, ResistanceType.NORMAL, AttackType.BLUNT, ResistanceType.NORMAL), -1, List.of());
+        public static final MobData DEFAULT = new MobData(RiskLevel.ZAYIN, AttackType.BLUNT, Map.of(AttackType.SLASH, ResistanceType.NORMAL, AttackType.PIERCE, ResistanceType.NORMAL, AttackType.BLUNT, ResistanceType.NORMAL), -1, List.of(), MobSanityData.NONE);
     }
 
     // --- Singleton ---
@@ -119,7 +123,14 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
 
         List<InflictEntry> inflicts = InflictParser.parse(json, fileId);
 
-        return new MobData(riskLevel, attackType, Collections.unmodifiableMap(resistances), staggerThreshold, inflicts);
+        MobSanityData sanity = MobSanityData.NONE;
+        if (json.has("sanity")) {
+            JsonObject sanityJson = json.getAsJsonObject("sanity");
+            List<InflictEntry> panicGains = InflictParser.parse(sanityJson, "panic-gains", fileId);
+            sanity = new MobSanityData(panicGains);
+        }
+
+        return new MobData(riskLevel, attackType, Collections.unmodifiableMap(resistances), staggerThreshold, inflicts, sanity);
     }
 
     // --- Lookup ---

@@ -14,25 +14,16 @@ import java.util.Locale;
 
 public class InflictParser {
 
-    /**
-     * Parses an optional "inflicts" array from a JSON object.
-     * Return an unmodified list, empty if the field is absent or all entries fail.
-     * <p>
-     * Example JSON:
-     * "inflicts": [
-     * { "effect: "RUPTURE", "count": 1, "potency": 3 },
-     * { "effect: "BLEED", "count": 2, "potency": 0 }
-     * ]
-     */
-    public static List<InflictEntry> parse(JsonObject json, ResourceLocation fileId) {
-        if (!json.has("inflicts")) return List.of();
+    public static List<InflictEntry> parse(JsonObject json, String arrayKey, ResourceLocation fileId) {
+        if (!json.has(arrayKey)) return List.of();
+        return parseArray(json.getAsJsonArray(arrayKey), fileId); // reuse existing logic but reading json.getAsJsonArray(arrayKey)
+    }
 
-        JsonArray arr = json.getAsJsonArray("inflicts");
-        List<InflictEntry> result = new ArrayList<>(arr.size());
-
-        for (int i = 0; i < arr.size(); i++) {
+    public static List<InflictEntry> parseArray(JsonArray json, ResourceLocation fileId) {
+        List<InflictEntry> result = new ArrayList<>(json.size());
+        for (int i = 0; i < json.size(); i++) {
             try {
-                JsonObject entry = arr.get(i).getAsJsonObject();
+                JsonObject entry = json.get(i).getAsJsonObject();
 
                 if (!entry.has("effect")) {
                     CombatUpdated.LOGGER.warn("[CombatUpdated] inflicts[{}] in '{}' missing 'effect', skipping.", i, fileId);
@@ -62,5 +53,20 @@ public class InflictParser {
         }
 
         return Collections.unmodifiableList(result);
+    }
+
+    /**
+     * Parses an optional "inflicts" array from a JSON object.
+     * Return an unmodified list, empty if the field is absent or all entries fail.
+     * <p>
+     * Example JSON:
+     * "inflicts": [
+     * { "effect: "RUPTURE", "count": 1, "potency": 3 },
+     * { "effect: "BLEED", "count": 2, "potency": 0 }
+     * ]
+     */
+    public static List<InflictEntry> parse(JsonObject json, ResourceLocation fileId) {
+        if (!json.has("inflicts")) return List.of();
+        return parseArray(json.getAsJsonArray("inflicts"), fileId);
     }
 }

@@ -73,10 +73,17 @@ public class CombatEventHandler {
 
         float poiseBonus = StatusEffectCapability.get(attacker).map(StatusEffectCapability::consumePoiseDamageBonus).orElse(0f);
 
+        // --- Damage debuffs ---
+
+        float powerDownPenalty = StatusEffectCapability.get(attacker).map(cap -> {
+            var pd = cap.getEffect(StatusEffectCapability.EffectType.POWER_DOWN);
+            return pd.isExpired() ? 0f : (float) pd.getPotency();
+        }).orElse(0f);
+
         // --- Calculate final damage ---
 
         float raw = event.getAmount();
-        float final_ = DamageCalculator.calculate(raw, attackerRisk, defenderRisk, resistance, isStaggered, poiseBonus);
+        float final_ = DamageCalculator.calculate(raw, attackerRisk, defenderRisk, resistance, isStaggered, poiseBonus, powerDownPenalty);
         event.setAmount(final_);
 
         // --- Fire ON_HIT effects on target ---

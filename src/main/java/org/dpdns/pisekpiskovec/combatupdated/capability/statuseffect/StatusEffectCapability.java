@@ -26,6 +26,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final TremorEffect tremor = new TremorEffect();
 
     /// --- Debuffs ---
+    private final PowerDownEffect power_down = new PowerDownEffect();
     private final TremorBurstEffect tremor_burst = new TremorBurstEffect();
 
     // Transient - set by Poise proc, read and cleared by CombatEventHandler in the same hit
@@ -111,6 +112,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case BURN -> burn;
             case CHARGE -> charge;
             case POISE -> poise;
+            case POWER_DOWN -> power_down;
             case RUPTURE -> rupture;
             case SINKING -> sinking;
             case TREMOR_BURST -> tremor_burst;
@@ -155,6 +157,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        BLEED, BURN, CHARGE, POISE, RUPTURE, SINKING, TREMOR_BURST, TREMOR
+        BLEED, BURN, CHARGE, POISE, POWER_DOWN, RUPTURE, SINKING, TREMOR_BURST, TREMOR
     }
 }
