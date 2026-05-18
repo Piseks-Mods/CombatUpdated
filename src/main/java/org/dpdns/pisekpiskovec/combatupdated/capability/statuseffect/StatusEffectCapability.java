@@ -7,6 +7,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import org.dpdns.pisekpiskovec.combatupdated.effect.*;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
+import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 
 public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
 
@@ -51,23 +52,29 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
         CUStatusEffect effect = getEffect(type);
         int maxCount = (type == EffectType.CHARGE) ? MAX_COUNT_CHARGE : MAX_COUNT;
         int clampedPotency = Math.min(potency, MAX_POTENCY);
-        int clampedCount = Math.min(count, maxCount);
+        int clampedCount = CUMath.clamp(0, count, maxCount);
+
+        if (clampedCount == 0 && clampedPotency == 0) return;
 
         if (effect.isExpired()) {
             // Fresh application
-            // Need at least 1 count to be active,
-            // but ONLY if count wa actually requested
-            int freshCount = Math.max(clampedCount, 0);
-            if (freshCount == 0 && clampedPotency == 0) return;
-            // If only potency is give with no count, don't activate the effect
-            if (freshCount == 0) return;
-            effect.apply(freshCount, clampedPotency == 0 ? 1 : clampedPotency);
+            // If potency=0 -> default to 1 potency
+            // If count=0 -> default to 1 count
+            int freshCount = clampedCount > 0 ? clampedCount : 1;
+            int freshPotency = clampedPotency > 0 ? clampedPotency : 1;
+            effect.apply(freshCount, freshPotency);
         } else {
             // Stacking - clamp total count after addition
-            if (clampedCount > 0) {
+            if (clampedCount > 0 && clampedPotency > 0) {
+                // Add count, raise potency if higher
                 int newCount = Math.min(effect.getCount() + clampedCount, maxCount);
                 effect.stack(newCount - effect.getCount(), clampedPotency);
-            } else if (clampedPotency > 0) {
+            } else if (clampedCount > 0) {
+                // Add count, leave potency untouched
+                int newCount = Math.min(effect.getCount() + clampedCount, maxCount);
+                effect.stack(newCount - effect.getCount(), effect.getPotency());
+            } else {
+                // Raise potency if higher, leave count untouched
                 effect.stack(0, clampedPotency);
             }
         }

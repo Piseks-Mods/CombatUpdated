@@ -27,7 +27,7 @@ public class SinkingEffect extends CUStatusEffect {
         if (mobData.hasSanity()) {
             MobSanityCapability.get(entity).ifPresent(cap -> {
                 cap.reduce(potency);
-                if (cap.getSanity() <= MobSanityCapability.MAX_SANITY) {
+                if (cap.getSanity() <= MobSanityCapability.MIN_SANITY) {
                     cap.triggerPanic(entity);
                 }
             });
