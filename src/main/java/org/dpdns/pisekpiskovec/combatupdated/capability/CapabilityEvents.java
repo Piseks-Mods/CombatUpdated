@@ -17,7 +17,6 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapabilit
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapabilityProvider;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapabilityProvider;
-import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 
 @Mod.EventBusSubscriber(modid = CombatUpdated.MODID)
 public class CapabilityEvents {
@@ -37,13 +36,11 @@ public class CapabilityEvents {
         if (event.getObject() instanceof LivingEntity living) {
             event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "status_effects"), new StatusEffectCapabilityProvider());
             event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "stagger"), new StaggerCapabilityProvider());
-
-            if (!(living instanceof Player) && MobDataManager.get(living).hasSanity()) {
-                event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "mob_sanity"), new MobSanityCapabilityProvider());
-            }
         }
 
-        if (event.getObject() instanceof Player) {
+        if (event.getObject() instanceof LivingEntity living && !(living instanceof Player)) {
+            event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "mob_sanity"), new MobSanityCapabilityProvider());
+        } else if (event.getObject() instanceof Player) {
             event.addCapability(ResourceLocation.fromNamespaceAndPath(CombatUpdated.MODID, "sanity"), new SanityCapabilityProvider());
         }
     }
