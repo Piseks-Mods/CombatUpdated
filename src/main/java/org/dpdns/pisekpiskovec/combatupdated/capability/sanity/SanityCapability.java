@@ -37,12 +37,25 @@ public class SanityCapability implements INBTSerializable<CompoundTag> {
         setSanity(this.sanity + amount);
     }
 
+    public void increaseAndSync(int amount, Player player) {
+        setSanityAndSync(this.sanity + amount, player);
+    }
+
     public void reduce(int amount) {
         setSanity(this.sanity - amount);
     }
 
+    public void reduceAndSync(int amount, Player player) {
+        setSanityAndSync(this.sanity - amount, player);
+    }
+
     public void setSanity(int value) {
         this.sanity = CUMath.clamp(MIN_SANITY, value, MAX_SANITY);
+    }
+
+    public void setSanityAndSync(int value, Player player) {
+        setSanity(value);
+        syncAttributes(player);
     }
 
     public int getSanity() {

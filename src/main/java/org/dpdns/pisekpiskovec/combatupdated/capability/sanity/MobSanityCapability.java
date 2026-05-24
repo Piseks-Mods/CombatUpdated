@@ -102,10 +102,16 @@ public class MobSanityCapability implements INBTSerializable<CompoundTag> {
                 Object goal = goalField.get(wrappedGoal);
 
                 if (goal instanceof PanicGoal) {
+                    // PanicGoal.canUse() checks getLastHurtByMob() != null
+                    // and getLastHurtByMobTimestanp is recent.
+                    // Use self-reference as dummy attacker to both conditions
+                    pathfinder.setLastHurtByMob(pathfinder);
+
                     // Force-start the panic goal by simulating a hurt source.
                     // PanicGoal.canUse() checks lastHurtByMob - we set a dummy
                     // hurt timestamp so it activates on next AI tick.
                     entity.invulnerableTime = 0;
+
                     // The goal will self-activate on the next AI tick
                     // since the entity's recentlyHurt flag is set by damage events
                     return true;
