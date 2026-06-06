@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:wither",
+  "risk_level": "ALEPH",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "INEFFECTIVE",
+    "BLUNT": "INEFFECTIVE"
+  }
+}

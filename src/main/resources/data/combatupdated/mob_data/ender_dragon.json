@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:ender_dragon",
+  "risk_level": "ALEPH",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "INEFFECTIVE",
+    "PIERCE": "ENDURED",
+    "BLUNT": "ENDURED"
+  }
+}
