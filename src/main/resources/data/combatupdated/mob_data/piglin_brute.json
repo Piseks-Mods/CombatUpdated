@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:piglin_brute",
+  "risk_level": "WAW",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "NORMAL",
+    "BLUNT": "NORMAL"
+  }
+}

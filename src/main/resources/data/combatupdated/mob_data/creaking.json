@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:creaking",
+  "risk_level": "WAW",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "ENDURED",
+    "BLUNT": "INEFFECTIVE"
+  }
+}
