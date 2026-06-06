@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:guardian",
+  "risk_level": "HE",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "FATAL",
+    "BLUNT": "ENDURED"
+  }
+}

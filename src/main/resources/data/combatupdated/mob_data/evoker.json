@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:evoker",
+  "risk_level": "HE",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "NORMAL",
+    "BLUNT": "NORMAL"
+  }
+}

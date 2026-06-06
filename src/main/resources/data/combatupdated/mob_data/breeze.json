@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:breeze",
+  "risk_level": "HE",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "ENDURED",
+    "BLUNT": "NORMAL"
+  }
+}
