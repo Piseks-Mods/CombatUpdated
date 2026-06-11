@@ -108,8 +108,7 @@ public class CombatEventHandler {
             boolean hasDeluge = (hasItemEntry && itemData.inflicts().stream().anyMatch(e -> e.effect() == StatusEffectCapability.EffectType.SINKING_DELUGE)) || MobDataManager.get(attacker).inflicts().stream().anyMatch(e -> e.effect() == StatusEffectCapability.EffectType.SINKING_DELUGE);
 
             if (hasDeluge) {
-                final AttackType finalAttackType = attackType;
-                SinkingDelugeEffect.apply(target, finalAttackType);
+                SinkingDelugeEffect.apply(target, attackType);
             }
         }
 

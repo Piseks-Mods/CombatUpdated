@@ -46,6 +46,11 @@ public abstract class CUStatusEffect {
 
     // --- Stack management ---
 
+    /**
+     * Set effect values to desired numbers.
+     * @param count
+     * @param potency
+     */
     public void apply(int count, int potency) {
         this.count = count;
         this.potency = potency;
