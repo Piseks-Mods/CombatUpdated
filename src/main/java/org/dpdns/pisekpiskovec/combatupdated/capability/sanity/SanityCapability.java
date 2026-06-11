@@ -28,7 +28,7 @@ public class SanityCapability implements INBTSerializable<CompoundTag> {
     }
 
     public static void ifPresent(LivingEntity entity, java.util.function.Consumer<SanityCapability> action) {
-        get(entity).ifPresent((NonNullConsumer<? super SanityCapability>) action);
+        get(entity).ifPresent(action::accept);
     }
 
     // --- Sanity modifications ---

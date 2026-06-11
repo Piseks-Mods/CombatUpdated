@@ -40,7 +40,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     }
 
     public static void ifPresent(LivingEntity entity, java.util.function.Consumer<StatusEffectCapability> action) {
-        get(entity).ifPresent((NonNullConsumer<? super StatusEffectCapability>) action);
+        get(entity).ifPresent(action::accept);
     }
 
     // --- Apply / Stack ---

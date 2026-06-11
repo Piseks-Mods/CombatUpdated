@@ -24,7 +24,7 @@ public class StaggerCapability implements INBTSerializable<CompoundTag> {
      * Runs the action only if the capability is present.
      */
     public static void ifPresent(LivingEntity entity, java.util.function.Consumer<StaggerCapability> action) {
-        get(entity).ifPresent((NonNullConsumer<? super StaggerCapability>) action);
+        get(entity).ifPresent(action::accept);
     }
 
     // --- Threshold ---
