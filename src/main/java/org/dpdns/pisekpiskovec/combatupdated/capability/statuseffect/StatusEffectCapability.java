@@ -52,7 +52,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     public void apply(EffectType type, int count, int potency) {
         CUStatusEffect effect = getEffect(type);
         int maxCount = (type == EffectType.CHARGE) ? MAX_COUNT_CHARGE : MAX_COUNT;
-        int clampedPotency = Math.min(potency, MAX_POTENCY);
+        int clampedPotency = CUMath.clamp(0, potency, MAX_POTENCY);
         int clampedCount = CUMath.clamp(0, count, maxCount);
 
         if (clampedCount == 0 && clampedPotency == 0) return;
@@ -66,17 +66,15 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             effect.apply(freshCount, freshPotency);
         } else {
             // Stacking - clamp total count after addition
-            if (clampedCount > 0 && clampedPotency > 0) {
+            if (clampedCount > 0) {
                 // Add count, raise potency if higher
                 int newCount = Math.min(effect.getCount() + clampedCount, maxCount);
-                effect.stack(newCount - effect.getCount(), clampedPotency);
-            } else if (clampedCount > 0) {
+                effect.addCount(newCount - effect.getCount());
+            }
+            if (clampedPotency > 0) {
                 // Add count, leave potency untouched
-                int newCount = Math.min(effect.getCount() + clampedCount, maxCount);
-                effect.stack(newCount - effect.getCount(), effect.getPotency());
-            } else {
-                // Raise potency if higher, leave count untouched
-                effect.stack(0, clampedPotency);
+                int newPotency = Math.min(effect.getPotency() + clampedPotency, MAX_POTENCY);
+                effect.addPotency(newPotency - effect.getPotency());
             }
         }
     }
