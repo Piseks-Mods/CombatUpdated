@@ -87,6 +87,10 @@ public class CombatEventHandler {
         float final_ = DamageCalculator.calculate(raw, attackerRisk, defenderRisk, resistance, isStaggered, poiseBonus, powerDownPenalty);
         event.setAmount(final_);
 
+        // --- Fire ON_ATTACK effects on attacker ---
+
+        StatusEffectCapability.ifPresent(attacker, cap -> cap.triggerAll(attacker, CUStatusEffect.TriggerType.ON_ATTACK));
+
         // --- Fire ON_HIT effects on target ---
         // Note: Poise bonus was already consumed above; the proc chance roll
         // happens inside PoiseEffect.onTrigger which sets the bonus for the

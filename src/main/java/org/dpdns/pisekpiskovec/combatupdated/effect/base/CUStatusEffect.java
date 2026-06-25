@@ -8,6 +8,7 @@ public abstract class CUStatusEffect {
     public enum TriggerType {
         TURN_END, // on new day
         ON_HIT, // entity receives a hit
+        ON_ATTACK, // this entity lands a hit
         ON_USE, // entity uses an item (attack swing, place, right-click)
     }
 

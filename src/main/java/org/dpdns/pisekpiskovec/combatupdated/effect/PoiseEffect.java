@@ -9,12 +9,12 @@ import java.util.Set;
 public class PoiseEffect extends CUStatusEffect {
 
     public PoiseEffect() {
-        super(Set.of(TriggerType.ON_HIT, TriggerType.TURN_END));
+        super(Set.of(TriggerType.ON_ATTACK, TriggerType.TURN_END));
     }
 
     @Override
     protected void onTrigger(LivingEntity entity, int potency, int count, TriggerType type) {
-        if (type == TriggerType.ON_HIT) {
+        if (type == TriggerType.ON_ATTACK) {
             // Proc chance: (potency * 5)%
             float procChance = potency * 0.05f;
             if (entity.getRandom().nextFloat() < procChance) {
