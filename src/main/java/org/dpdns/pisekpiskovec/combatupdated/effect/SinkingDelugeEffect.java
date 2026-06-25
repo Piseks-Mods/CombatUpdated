@@ -66,6 +66,7 @@ public class SinkingDelugeEffect extends CUStatusEffect {
                     mobSanityCap.ifPresent(c -> c.setSanity(spAfter));
                 }
             }
+            cap.getEffect(StatusEffectCapability.EffectType.SINKING_DELUGE).apply(0, 0);
         });
     }
 
