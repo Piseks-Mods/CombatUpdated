@@ -23,6 +23,7 @@ public class ApotheosisCompat {
     public static boolean isLoaded() {
         if (loaded == null) {
             loaded = ModList.get().isLoaded(MODID);
+            System.out.println("[CombatUpdated] Apotheosis loaded.");
         }
         return loaded;
     }
