@@ -1,5 +1,12 @@
 {
   "item": "minecraft:flint_and_steel",
   "risk_level": "ZAYIN",
-  "attack_type": "BLUNT"
+  "attack_type": "BLUNT",
+  "inflicts": [
+    { "effect": "BURN", "count": 1, "potency": 5 },
+    { "effect": "RUPTURE", "count": 1, "potency": 3 }
+  ],
+  "gains": [
+    { "effect": "BURN", "count": 0, "potency": 2 }
+  ]
 }

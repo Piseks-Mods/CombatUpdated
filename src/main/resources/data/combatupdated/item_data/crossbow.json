@@ -1,5 +1,11 @@
 {
   "item": "minecraft:crossbow",
   "risk_level": "TETH",
-  "attack_type": "PIERCE"
+  "attack_type": "PIERCE",
+  "inflicts": [
+    { "effect": "BLEED", "count": 0, "potency": 4 }
+  ],
+  "gains": [
+    { "effect": "POISE", "count": 0, "potency": 6 }
+  ]
 }

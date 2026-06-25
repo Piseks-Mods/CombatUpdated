@@ -1,5 +1,11 @@
 {
   "item": "minecraft:bow",
   "risk_level": "ZAYIN",
-  "attack_type": "PIERCE"
+  "attack_type": "PIERCE",
+  "inflicts": [
+    { "effect": "BLEED", "count": 4, "potency": 3 }
+  ],
+  "gains": [
+    { "effect": "POISE", "count": 3, "potency": 2 }
+  ]
 }

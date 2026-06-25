@@ -1,5 +1,8 @@
 {
   "item": "minecraft:brush",
   "risk_level": "ZAYIN",
-  "attack_type": "BLUNT"
+  "attack_type": "BLUNT",
+  "gains": [
+    { "effect": "POISE", "count": 2, "potency": 4 }
+  ]
 }

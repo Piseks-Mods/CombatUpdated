@@ -1,5 +1,9 @@
 {
   "item": "minecraft:mace",
   "risk_level": "HE",
-  "attack_type": "BLUNT"
+  "attack_type": "BLUNT",
+  "inflicts": [
+    { "effect": "TREMOR", "count": 5, "potency": 5 },
+    { "effect": "TREMOR_BURST", "count": 0, "potency": 0 }
+  ]
 }

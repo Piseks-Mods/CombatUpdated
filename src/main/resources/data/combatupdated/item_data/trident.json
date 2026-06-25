@@ -1,5 +1,12 @@
 {
   "item": "minecraft:trident",
   "risk_level": "TETH",
-  "attack_type": "PIERCE"
+  "attack_type": "PIERCE",
+  "inflicts": [
+    { "effect": "SINKING", "count": 6, "potency": 3 },
+    { "effect": "SINKING_DELUGE", "count": 1, "potency": 1 }
+  ],
+  "gains": [
+    { "effect": "TREMOR", "count": 3, "potency": 1 }
+  ]
 }

@@ -1,5 +1,8 @@
 {
   "item": "minecraft:shears",
   "risk_level": "ZAYIN",
-  "attack_type": "SLASH"
+  "attack_type": "SLASH",
+  "inflicts": [
+    { "effect": "RUPTURE", "count": 3, "potency": 4 }
+  ]
 }
