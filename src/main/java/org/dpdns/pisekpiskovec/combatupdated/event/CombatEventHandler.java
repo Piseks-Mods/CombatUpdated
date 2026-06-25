@@ -112,6 +112,13 @@ public class CombatEventHandler {
             }
         }
 
+        // --- Apply attacker's gains to attacker ---
+
+        if (hasItemEntry) {
+            InflictHelper.apply(attacker, itemData.gains());
+        }
+        InflictHelper.apply(attacker, MobDataManager.get(attacker).gains());
+
         // --- Threshold-based stagger check ---
 
         // hpAfter is approximate here since event.setAmount doesn't deal damage yet;
