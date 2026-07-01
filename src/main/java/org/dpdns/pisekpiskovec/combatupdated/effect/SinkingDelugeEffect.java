@@ -28,31 +28,30 @@ public class SinkingDelugeEffect extends CUStatusEffect {
             SinkingEffect sinking = (SinkingEffect) cap.getEffect(StatusEffectCapability.EffectType.SINKING);
             if (sinking.isExpired()) return;
 
-            int deluge_effect = sinking.getCount() * sinking.getPotency();
+            int totalSPDamage = sinking.getCount() * sinking.getPotency();
             sinking.apply(0, 0);
 
-            var playerSanityCap = SanityCapability.get(entity);
-            var mobSanityCap = MobSanityCapability.get(entity);
+            boolean isPlayerWithSanity = SanityCapability.get(entity).isPresent();
+            boolean isMobWithSanity = !isPlayerWithSanity && MobDataManager.get(entity).hasSanity();
 
-            boolean hasSanity = playerSanityCap.isPresent() || mobSanityCap.isPresent();
-
-            if (!hasSanity) {
-                float hpDamage = applyTypeResistance(entity, deluge_effect, attackType);
+            if (!isPlayerWithSanity && !isMobWithSanity) {
+                // No SP pool at all - full amount converts to HP damage
+                float hpDamage = applyTypeResistance(entity, totalSPDamage, attackType);
                 entity.setHealth(Math.max(0f, entity.getHealth() - hpDamage));
                 return;
             }
 
-            int currentSP = playerSanityCap.isPresent() ? playerSanityCap.map(SanityCapability::getSanity).orElse(0) : mobSanityCap.map(MobSanityCapability::getSanity).orElse(0);
-            int spAfter = currentSP - deluge_effect;
+            int currentSP = isPlayerWithSanity ? SanityCapability.get(entity).map(SanityCapability::getSanity).orElse(0) : MobSanityCapability.get(entity).map(MobSanityCapability::getSanity).orElse(0);
+            int spAfter = currentSP - totalSPDamage;
 
             if (spAfter < SanityCapability.MIN_SANITY) {
                 int excess = SanityCapability.MIN_SANITY - spAfter;
                 float hpDamage = applyTypeResistance(entity, excess, attackType);
 
-                if (playerSanityCap.isPresent() && entity instanceof Player player) {
-                    playerSanityCap.ifPresent(c -> c.setSanityAndSync(SanityCapability.MIN_SANITY, player));
+                if (isPlayerWithSanity && entity instanceof Player player) {
+                    SanityCapability.get(entity).ifPresent(c -> c.setSanityAndSync(SanityCapability.MIN_SANITY, player));
                 } else {
-                    mobSanityCap.ifPresent(c -> {
+                    MobSanityCapability.get(entity).ifPresent(c -> {
                         c.setSanity(MobSanityCapability.MIN_SANITY);
                         c.triggerPanic(entity);
                     });
@@ -60,13 +59,12 @@ public class SinkingDelugeEffect extends CUStatusEffect {
 
                 entity.setHealth(Math.max(0f, entity.getHealth() - hpDamage));
             } else {
-                if (playerSanityCap.isPresent() && entity instanceof Player player) {
-                    playerSanityCap.ifPresent(c -> c.setSanityAndSync(spAfter, player));
+                if (isPlayerWithSanity && entity instanceof Player player) {
+                    SanityCapability.get(entity).ifPresent(c -> c.setSanityAndSync(spAfter, player));
                 } else {
-                    mobSanityCap.ifPresent(c -> c.setSanity(spAfter));
+                    MobSanityCapability.get(entity).ifPresent(c -> c.setSanity(spAfter));
                 }
             }
-            cap.getEffect(StatusEffectCapability.EffectType.SINKING_DELUGE).apply(0, 0);
         });
     }
 

@@ -19,7 +19,6 @@ import org.dpdns.pisekpiskovec.combatupdated.damage.DamageCalculator;
 import org.dpdns.pisekpiskovec.combatupdated.data.InflictHelper;
 import org.dpdns.pisekpiskovec.combatupdated.data.ItemDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
-import org.dpdns.pisekpiskovec.combatupdated.effect.SinkingDelugeEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 @Mod.EventBusSubscriber(modid = CombatUpdated.MODID)
@@ -104,24 +103,16 @@ public class CombatEventHandler {
         // --- Apply attacker's inflicts to target ---
 
         if (hasItemEntry) {
-            InflictHelper.apply(target, itemData.inflicts());
+            InflictHelper.apply(target, itemData.inflicts(), attackType);
         }
-        InflictHelper.apply(target, MobDataManager.get(attacker).inflicts());
-
-        if (hasItemEntry && !itemData.inflicts().isEmpty() || !MobDataManager.get(attacker).inflicts().isEmpty()) {
-            boolean hasDeluge = (hasItemEntry && itemData.inflicts().stream().anyMatch(e -> e.effect() == StatusEffectCapability.EffectType.SINKING_DELUGE)) || MobDataManager.get(attacker).inflicts().stream().anyMatch(e -> e.effect() == StatusEffectCapability.EffectType.SINKING_DELUGE);
-
-            if (hasDeluge) {
-                SinkingDelugeEffect.apply(target, attackType);
-            }
-        }
+        InflictHelper.apply(target, MobDataManager.get(attacker).inflicts(), attackType);
 
         // --- Apply attacker's gains to attacker ---
 
         if (hasItemEntry) {
-            InflictHelper.apply(attacker, itemData.gains());
+            InflictHelper.apply(attacker, itemData.gains(), attackType);
         }
-        InflictHelper.apply(attacker, MobDataManager.get(attacker).gains());
+        InflictHelper.apply(attacker, MobDataManager.get(attacker).gains(), attackType);
 
         // --- Threshold-based stagger check ---
 
