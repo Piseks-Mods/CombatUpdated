@@ -18,7 +18,8 @@ public abstract class CUStatusEffect {
     public enum StackType {
         STACKABLE, // count and potency accumulate on application
         REPLACEABLE, // on application set count and potency to the applied values
-        INSTANT // fires immediately on application, never stored as state
+        INSTANT, // fires immediately on application, never stored as state
+        LOCKED, // fresh application only; external re-application blocked
     }
 
     public enum Keywordness {

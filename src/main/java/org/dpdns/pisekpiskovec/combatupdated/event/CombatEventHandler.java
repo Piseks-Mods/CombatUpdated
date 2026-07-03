@@ -98,7 +98,9 @@ public class CombatEventHandler {
         //     2. trigger ON_HIT -> Poise may set bonus for the next hit
         //     3. next hit reads is
 
+        StatusEffectCapability.ifPresent(target, cap -> cap.setAttackerContext(attacker));
         StatusEffectCapability.ifPresent(target, cap -> cap.triggerAll(target, CUStatusEffect.TriggerType.ON_HIT));
+        StatusEffectCapability.ifPresent(target, cap -> cap.setAttackerContext(null));
 
         // --- Apply attacker's inflicts to target ---
 

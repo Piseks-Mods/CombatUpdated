@@ -31,6 +31,10 @@ public class InflictHelper {
                         default -> {
                         }
                     }
+                } else if (entry.effect() == StatusEffectCapability.EffectType.BUTTERFLY && !effect.isExpired()) {
+                    // Rule: external effect cannot raise Butterfly that's already active.
+                    // "Inflict additional Sinking" effect inflict Sinking instead.
+                    cap.apply(StatusEffectCapability.EffectType.SINKING, entry.count(), entry.potency());
                 } else {
                     cap.apply(entry.effect(), entry.count(), entry.potency());
                 }

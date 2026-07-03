@@ -7,8 +7,21 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.dpdns.pisekpiskovec.combatupdated.effect.*;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
+import org.jetbrains.annotations.Nullable;
 
 public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
+
+    @Nullable
+    private LivingEntity attackerContext = null;
+
+    public void setAttackerContext(@Nullable LivingEntity attacker) {
+        this.attackerContext = attacker;
+    }
+
+    @Nullable
+    public LivingEntity getAttackerContext() {
+        return attackerContext;
+    }
 
     // --- Effects ---
     /// --- Keyword ---
@@ -21,6 +34,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final TremorEffect tremor = new TremorEffect();
 
     /// --- Debuffs ---
+    private final ButterflyEffect butterfly = new ButterflyEffect();
     private final PowerDownEffect power_down = new PowerDownEffect();
     private final SinkingDelugeEffect sinking_deluge = new SinkingDelugeEffect();
     private final TremorBurstEffect tremor_burst = new TremorBurstEffect();
@@ -51,39 +65,39 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
         int maxCount = effect.getMaxCount();
         int maxPotency = effect.getMaxPotency();
 
-        int resolvedCount = count > 0 ? count : effect.getDefaultCount();
-        int resolvedPotency = potency > 0 ? potency : effect.getDefaultPotency();
-
-        int clampedCount = CUMath.clamp(0, resolvedCount, maxCount);
-        int clampedPotency = CUMath.clamp(0, resolvedPotency, maxPotency);
-
-        if (clampedCount == 0 && clampedPotency == 0) return;
-
         if (effect.isExpired()) {
-            // Fresh application
-            // If potency=0 -> default to 1 potency
-            // If count=0 -> default to 1 count
-            int freshCount = clampedCount > 0 ? clampedCount : 1;
-            int freshPotency = clampedPotency > 0 ? clampedPotency : 1;
+            // Fresh application - 0 means "use this effect's default"
+            int freshCount = count > 0 ? Math.min(count, maxCount) : effect.getDefaultCount();
+            int freshPotency = potency > 0 ? Math.min(potency, maxPotency) : effect.getDefaultPotency();
+            if (freshCount == 0 && freshPotency == 0) return;
             effect.apply(freshCount, freshPotency);
         } else {
+            int clampedCount = CUMath.clamp(0, count, maxCount);
+            int clampedPotency = CUMath.clamp(0, potency, maxPotency);
+            if (clampedPotency == 0 && clampedPotency == 0) return;
+
             switch (effect.getStackType()) {
                 case STACKABLE -> {
                     if (clampedCount > 0) {
-                        // Add count, raise potency if higher
+                        // Add count, leave potency untouched
                         int newCount = Math.min(effect.getCount() + clampedCount, maxCount);
                         effect.addCount(newCount - effect.getCount());
                     }
                     if (clampedPotency > 0) {
-                        // Add count, leave potency untouched
+                        // Add potency, leave count untouched
                         int newPotency = Math.min(effect.getPotency() + clampedPotency, maxPotency);
                         effect.addPotency(newPotency - effect.getPotency());
                     }
                 }
                 case REPLACEABLE -> {
-                    int newCount = Math.max(effect.getCount(), clampedCount);
-                    int newPotency = Math.max(effect.getPotency(), clampedPotency);
+                    // Each field only updates if the incoming value beats the current
+                    int newCount = clampedCount > 0 ? Math.max(effect.getCount(), clampedCount) : effect.getCount();
+                    int newPotency = clampedPotency > 0 ? Math.max(effect.getPotency(), clampedPotency) : effect.getPotency();
                     effect.apply(newCount, newPotency);
+                }
+                case LOCKED -> {
+                    // External stacking blocked - InflictHelper handles BUTTERFLY redirect.
+                    // Commands force-expire first via effect.apply(0, 0), so fresh works here.
                 }
             }
 
@@ -101,7 +115,10 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             if (effect.isExpired()) continue;
             if (!effect.hasTrigger(type)) continue;
 
-            int decrement = (et == EffectType.TREMOR && type == CUStatusEffect.TriggerType.TURN_END) ? 3 : 1;
+            int decrement;
+            if (et == EffectType.TREMOR && type == CUStatusEffect.TriggerType.TURN_END) decrement = 3;
+            else if (et == EffectType.BUTTERFLY) decrement = 0; // Handled inside onTrigger
+            else decrement = 1;
             effect.trigger(entity, type, decrement);
         }
     }
@@ -127,6 +144,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
         return switch (type) {
             case BLEED -> bleed;
             case BURN -> burn;
+            case BUTTERFLY -> butterfly;
             case CHARGE -> charge;
             case POISE -> poise;
             case POWER_DOWN -> power_down;
@@ -171,6 +189,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        BLEED, BURN, CHARGE, POISE, POWER_DOWN, RUPTURE, SINKING_DELUGE, SINKING, TREMOR_BURST, TREMOR
+        BLEED, BURN, BUTTERFLY, CHARGE, POISE, POWER_DOWN, RUPTURE, SINKING_DELUGE, SINKING, TREMOR_BURST, TREMOR
     }
 }
