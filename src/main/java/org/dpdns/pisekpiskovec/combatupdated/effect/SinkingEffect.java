@@ -7,11 +7,9 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
-import java.util.Set;
-
 public class SinkingEffect extends CUStatusEffect {
     public SinkingEffect() {
-        super(Set.of(TriggerType.ON_HIT));
+        super(props().triggers(TriggerType.ON_HIT).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 1).keywording(Keywordness.KEYWORD));
     }
 
     @Override

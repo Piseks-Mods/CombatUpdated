@@ -4,11 +4,9 @@ import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
-import java.util.Set;
-
 public class TremorBurstEffect extends CUStatusEffect {
     public TremorBurstEffect() {
-        super(Set.of()); // No trigger type
+        super(props().category(Category.NEGATIVE).stackType(StackType.INSTANT).maxCount(0).maxPotency(0).defaults(0, 0).keywording(Keywordness.REGULAR));
     }
 
     @Override

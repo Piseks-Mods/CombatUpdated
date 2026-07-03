@@ -3,12 +3,10 @@ package org.dpdns.pisekpiskovec.combatupdated.effect;
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
-import java.util.Set;
-
 public class ChargeEffect extends CUStatusEffect {
 
     public ChargeEffect() {
-        super(Set.of(TriggerType.TURN_END));
+        super(props().triggers(TriggerType.TURN_END).category(Category.POSITIVE).stackType(StackType.STACKABLE).maxCount(20).maxPotency(99).defaults(1, 0).keywording(Keywordness.KEYWORD));
     }
 
     @Override

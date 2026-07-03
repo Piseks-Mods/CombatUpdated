@@ -19,14 +19,6 @@ import java.util.Collection;
 
 public class StatusCommand {
 
-    // Effects classification
-    private static final java.util.Set<StatusEffectCapability.EffectType> POSITIVE = java.util.Set.of(StatusEffectCapability.EffectType.POISE, StatusEffectCapability.EffectType.CHARGE);
-
-    private static final java.util.Set<StatusEffectCapability.EffectType> NEUTRAL = java.util.Set.of(
-            // Currently none
-    );
-    //  Everything else is negative
-
     static LiteralArgumentBuilder<CommandSourceStack> register() {
         return Commands.literal("status").then(Commands.argument("target", EntityArgument.entities()).executes(ctx -> {
             Collection<? extends Entity> targets = EntityArgument.getEntities(ctx, "target");
@@ -57,7 +49,7 @@ public class StatusCommand {
                 if (effect.isExpired()) continue;
                 anyActive = true;
 
-                ChatFormatting color = colorFor(type);
+                ChatFormatting color = colorFor(cap, type);
                 MutableComponent line = Component.literal(String.format("  %-14s Count: %2d  Potency: %2d", type.name(), effect.getCount(), effect.getPotency())).withStyle(color);
                 source.sendSuccess(() -> line, false);
             }
@@ -88,9 +80,11 @@ public class StatusCommand {
         });
     }
 
-    static ChatFormatting colorFor(StatusEffectCapability.EffectType type) {
-        if (POSITIVE.contains(type)) return ChatFormatting.GOLD;
-        if (NEUTRAL.contains(type)) return ChatFormatting.GRAY;
-        return ChatFormatting.RED;
+    static ChatFormatting colorFor(StatusEffectCapability cap, StatusEffectCapability.EffectType type) {
+        return switch (cap.getEffect(type).getCategory()) {
+            case POSITIVE -> ChatFormatting.GOLD;
+            case NEUTRAL -> ChatFormatting.GRAY;
+            case NEGATIVE -> ChatFormatting.RED;
+        };
     }
 }

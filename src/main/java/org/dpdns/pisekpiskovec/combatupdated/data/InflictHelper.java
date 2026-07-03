@@ -5,6 +5,7 @@ import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.SinkingDelugeEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.TremorBurstEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 import java.util.List;
 
@@ -19,13 +20,21 @@ public class InflictHelper {
     public static void apply(LivingEntity target, List<InflictEntry> entries, AttackType attackType) {
         if (entries.isEmpty()) return;
 
-        for (InflictEntry entry : entries) {
-            switch (entry.effect()) {
-                case TREMOR_BURST -> TremorBurstEffect.apply(target);
-                case SINKING_DELUGE -> SinkingDelugeEffect.apply(target, attackType);
-                default ->
-                        StatusEffectCapability.ifPresent(target, cap -> cap.apply(entry.effect(), entry.count(), entry.potency()));
+        StatusEffectCapability.get(target).ifPresent(cap -> {
+            for (InflictEntry entry : entries) {
+                CUStatusEffect effect = cap.getEffect(entry.effect());
+
+                if (effect.getStackType() == CUStatusEffect.StackType.INSTANT) {
+                    switch (entry.effect()) {
+                        case SINKING_DELUGE -> SinkingDelugeEffect.apply(target, attackType);
+                        case TREMOR_BURST -> TremorBurstEffect.apply(target);
+                        default -> {
+                        }
+                    }
+                } else {
+                    cap.apply(entry.effect(), entry.count(), entry.potency());
+                }
             }
-        }
+        });
     }
 }

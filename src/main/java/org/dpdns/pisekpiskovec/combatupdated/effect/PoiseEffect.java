@@ -4,12 +4,10 @@ import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
-import java.util.Set;
-
 public class PoiseEffect extends CUStatusEffect {
 
     public PoiseEffect() {
-        super(Set.of(TriggerType.ON_ATTACK, TriggerType.TURN_END));
+        super(props().triggers(TriggerType.ON_ATTACK).triggers(TriggerType.TURN_END).category(Category.POSITIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 1).keywording(Keywordness.KEYWORD));
     }
 
     @Override

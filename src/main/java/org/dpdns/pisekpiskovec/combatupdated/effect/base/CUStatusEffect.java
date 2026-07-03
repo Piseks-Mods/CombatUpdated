@@ -1,6 +1,7 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect.base;
 
 import net.minecraft.world.entity.LivingEntity;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
@@ -12,12 +13,99 @@ public abstract class CUStatusEffect {
         ON_USE, // entity uses an item (attack swing, place, right-click)
     }
 
-    private int count;
-    private int potency;
-    private final Set<TriggerType> triggerTypes;
+    public enum Category {POSITIVE, NEGATIVE, NEUTRAL}
 
-    protected CUStatusEffect(Set<TriggerType> triggerTypes) {
-        this.triggerTypes = triggerTypes;
+    public enum StackType {
+        STACKABLE, // count and potency accumulate on application
+        REPLACEABLE, // on application set count and potency to the applied values
+        INSTANT // fires immediately on application, never stored as state
+    }
+
+    public enum Keywordness {
+        KEYWORD, // main archetype
+        UNIQUE_KEYWORD, // derivatives of main archetypes
+        REGULAR, // no archetype
+    }
+
+    public static final class Properties {
+        Set<TriggerType> triggers = Set.of();
+        Category category = Category.NEUTRAL;
+        StackType stackType = StackType.STACKABLE;
+        Keywordness keyword = Keywordness.REGULAR;
+        @Nullable CUStatusEffect unique = null;
+        int maxCount = 99;
+        int maxPotency = 99;
+        int defaultCount = 1;
+        int defaultPotency = 1;
+
+        public Properties triggers(TriggerType... t) {
+            this.triggers = Set.of(t);
+            return this;
+        }
+
+        public Properties category(Category c) {
+            this.category = c;
+            return this;
+        }
+
+        public Properties stackType(StackType s) {
+            this.stackType = s;
+            return this;
+        }
+
+        public Properties maxCount(int n) {
+            this.maxCount = n;
+            return this;
+        }
+
+        public Properties maxPotency(int n) {
+            this.maxPotency = n;
+            return this;
+        }
+
+        public Properties defaults(int count, int potency) {
+            this.defaultCount = count;
+            this.defaultPotency = potency;
+            return this;
+        }
+
+        public Properties keywording(Keywordness k) {
+            this.keyword = k;
+            return this;
+        }
+
+        public Properties uniqueness(CUStatusEffect e) {
+            this.unique = e.keyword == Keywordness.KEYWORD ? e : null;
+            return this;
+        }
+    }
+
+    public static Properties props() {
+        return new Properties();
+    }
+
+    private int count = 0;
+    private int potency = 0;
+    private final Set<TriggerType> triggerTypes;
+    private final Category category;
+    private final StackType stackType;
+    private final Keywordness keyword;
+    @Nullable CUStatusEffect unique;
+    private final int maxCount;
+    private final int maxPotency;
+    private final int defaultCount;
+    private final int defaultPotency;
+
+    protected CUStatusEffect(Properties p) {
+        this.triggerTypes = p.triggers;
+        this.category = p.category;
+        this.stackType = p.stackType;
+        this.maxCount = p.maxCount;
+        this.maxPotency = p.maxPotency;
+        this.defaultCount = p.defaultCount;
+        this.defaultPotency = p.defaultPotency;
+        this.keyword = p.keyword;
+        this.unique = p.unique;
     }
 
     // --- Core trigger entry point ---
@@ -48,21 +136,12 @@ public abstract class CUStatusEffect {
     // --- Stack management ---
 
     /**
-     * Set effect values to desired numbers.
-     * @param count
-     * @param potency
+     * Bypass all stacking logic.
+     * Use for fresh apply and NBT restore.
      */
     public void apply(int count, int potency) {
         this.count = count;
         this.potency = potency;
-    }
-
-    /**
-     * Re-applying the same effect: count adds, potency takes the higher value.
-     */
-    public void stack(int addCount, int newPotency) {
-        this.count += addCount;
-        this.potency = Math.max(this.potency, newPotency);
     }
 
     public void addPotency(int addPotency) {
@@ -72,6 +151,8 @@ public abstract class CUStatusEffect {
     public void addCount(int addCount) {
         this.count += addCount;
     }
+
+    // --- Helpers ---
 
     /**
      * Decrements count directly without firing onTrigger.
@@ -83,14 +164,11 @@ public abstract class CUStatusEffect {
         return count <= 0;
     }
 
-    // --- Helpers ---
-
     /**
      * Deals damage that bypasses armor, resistance, and enchantments.
      */
     protected void dealTrueDamage(LivingEntity entity, float amount) {
-        float newHealth = entity.getHealth() - amount;
-        entity.setHealth(Math.max(0f, newHealth));
+        entity.setHealth(Math.max(0f, entity.getHealth() - amount));
     }
 
     public boolean hasTrigger(TriggerType type) {
@@ -99,6 +177,38 @@ public abstract class CUStatusEffect {
 
     public Set<TriggerType> getTriggerTypes() {
         return triggerTypes;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public StackType getStackType() {
+        return stackType;
+    }
+
+    public Keywordness getKeyword() {
+        return keyword;
+    }
+
+    public @Nullable CUStatusEffect getUnique() {
+        return unique;
+    }
+
+    public int getMaxCount() {
+        return maxCount;
+    }
+
+    public int getMaxPotency() {
+        return maxPotency;
+    }
+
+    public int getDefaultCount() {
+        return defaultCount;
+    }
+
+    public int getDefaultPotency() {
+        return defaultPotency;
     }
 
     public int getCount() {

@@ -11,11 +11,9 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffec
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
-import java.util.Set;
-
 public class SinkingDelugeEffect extends CUStatusEffect {
     public SinkingDelugeEffect() {
-        super(Set.of()); // No trigger type
+        super(props().category(Category.NEGATIVE).stackType(StackType.INSTANT).maxCount(0).maxPotency(0).defaults(0, 0).keywording(Keywordness.REGULAR));
     }
 
     @Override

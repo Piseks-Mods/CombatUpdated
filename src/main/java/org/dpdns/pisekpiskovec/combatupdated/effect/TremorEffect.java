@@ -4,11 +4,9 @@ import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
-import java.util.Set;
-
 public class TremorEffect extends CUStatusEffect {
     public TremorEffect() {
-        super(Set.of(TriggerType.TURN_END));
+        super(props().triggers(TriggerType.TURN_END).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 1).keywording(Keywordness.KEYWORD));
     }
 
     @Override

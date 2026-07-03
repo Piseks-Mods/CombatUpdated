@@ -3,11 +3,9 @@ package org.dpdns.pisekpiskovec.combatupdated.effect;
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
-import java.util.Set;
-
 public class PowerDownEffect extends CUStatusEffect {
     public PowerDownEffect() {
-        super(Set.of(TriggerType.TURN_END));
+        super(props().triggers(TriggerType.TURN_END).category(Category.NEGATIVE).stackType(StackType.REPLACEABLE).maxCount(99).maxPotency(1).defaults(1, 0).keywording(Keywordness.REGULAR));
     }
 
     @Override

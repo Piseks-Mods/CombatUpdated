@@ -4,17 +4,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
 import org.dpdns.pisekpiskovec.combatupdated.effect.*;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 
 public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
-
-    // --- Caps ---
-    public static final int MAX_POTENCY = 99;
-    public static final int MAX_COUNT = 99;
-    public static final int MAX_COUNT_CHARGE = 20;
 
     // --- Effects ---
     /// --- Keyword ---
@@ -51,9 +45,17 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
      */
     public void apply(EffectType type, int count, int potency) {
         CUStatusEffect effect = getEffect(type);
-        int maxCount = (type == EffectType.CHARGE) ? MAX_COUNT_CHARGE : MAX_COUNT;
-        int clampedPotency = CUMath.clamp(0, potency, MAX_POTENCY);
-        int clampedCount = CUMath.clamp(0, count, maxCount);
+
+        if (effect.getStackType() == CUStatusEffect.StackType.INSTANT) return; // Dispatched by InflictHelper directly
+
+        int maxCount = effect.getMaxCount();
+        int maxPotency = effect.getMaxPotency();
+
+        int resolvedCount = count > 0 ? count : effect.getDefaultCount();
+        int resolvedPotency = potency > 0 ? potency : effect.getDefaultPotency();
+
+        int clampedCount = CUMath.clamp(0, resolvedCount, maxCount);
+        int clampedPotency = CUMath.clamp(0, resolvedPotency, maxPotency);
 
         if (clampedCount == 0 && clampedPotency == 0) return;
 
@@ -65,17 +67,26 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             int freshPotency = clampedPotency > 0 ? clampedPotency : 1;
             effect.apply(freshCount, freshPotency);
         } else {
-            // Stacking - clamp total count after addition
-            if (clampedCount > 0) {
-                // Add count, raise potency if higher
-                int newCount = Math.min(effect.getCount() + clampedCount, maxCount);
-                effect.addCount(newCount - effect.getCount());
+            switch (effect.getStackType()) {
+                case STACKABLE -> {
+                    if (clampedCount > 0) {
+                        // Add count, raise potency if higher
+                        int newCount = Math.min(effect.getCount() + clampedCount, maxCount);
+                        effect.addCount(newCount - effect.getCount());
+                    }
+                    if (clampedPotency > 0) {
+                        // Add count, leave potency untouched
+                        int newPotency = Math.min(effect.getPotency() + clampedPotency, maxPotency);
+                        effect.addPotency(newPotency - effect.getPotency());
+                    }
+                }
+                case REPLACEABLE -> {
+                    int newCount = Math.max(effect.getCount(), clampedCount);
+                    int newPotency = Math.max(effect.getPotency(), clampedPotency);
+                    effect.apply(newCount, newPotency);
+                }
             }
-            if (clampedPotency > 0) {
-                // Add count, leave potency untouched
-                int newPotency = Math.min(effect.getPotency() + clampedPotency, MAX_POTENCY);
-                effect.addPotency(newPotency - effect.getPotency());
-            }
+
         }
     }
 
@@ -125,10 +136,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case TREMOR_BURST -> tremor_burst;
             case TREMOR -> tremor;
         };
-    }
-
-    public TremorEffect getTremor() {
-        return tremor;
     }
 
     // --- NBT serialization ---

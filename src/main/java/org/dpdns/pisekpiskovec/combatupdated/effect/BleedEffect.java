@@ -3,11 +3,9 @@ package org.dpdns.pisekpiskovec.combatupdated.effect;
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
-import java.util.Set;
-
 public class BleedEffect extends CUStatusEffect {
     public BleedEffect() {
-        super(Set.of(TriggerType.ON_USE));
+        super(props().triggers(TriggerType.ON_USE).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 1).keywording(Keywordness.KEYWORD));
     }
 
     @Override

@@ -77,7 +77,7 @@ public class CombatEventHandler {
 
         float powerDownPenalty = StatusEffectCapability.get(attacker).map(cap -> {
             var pd = cap.getEffect(StatusEffectCapability.EffectType.POWER_DOWN);
-            return pd.isExpired() ? 0f : (float) pd.getPotency();
+            return pd.isExpired() ? 0f : (float) pd.getCount();
         }).orElse(0f);
 
         // --- Calculate final damage ---
