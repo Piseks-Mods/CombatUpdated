@@ -3,8 +3,7 @@
   "risk_level": "ZAYIN",
   "attack_type": "BLUNT",
   "inflicts": [
-    { "effect": "BURN", "count": 1, "potency": 5 },
-    { "effect": "RUPTURE", "count": 1, "potency": 3 }
+    { "effect": "BURN", "count": 1, "potency": 11 }
   ],
   "gains": [
     { "effect": "BURN", "count": 0, "potency": 2 }

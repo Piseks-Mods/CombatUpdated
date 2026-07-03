@@ -3,9 +3,6 @@
   "risk_level": "TETH",
   "attack_type": "BLUNT",
   "inflicts": [
-    { "effect": "TREMOR", "count": 3, "potency": 4 }
-  ],
-  "gains": [
-    { "effect": "TREMOR", "count": 3, "potency": 0 }
+    { "effect": "TREMOR", "count": 5, "potency": 0 }
   ]
 }

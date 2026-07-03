@@ -3,6 +3,6 @@
   "risk_level": "ZAYIN",
   "attack_type": "BLUNT",
   "gains": [
-    { "effect": "POISE", "count": 2, "potency": 4 }
+    { "effect": "POISE", "count": 1, "potency": 3 }
   ]
 }

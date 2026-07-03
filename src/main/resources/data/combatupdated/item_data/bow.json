@@ -3,9 +3,9 @@
   "risk_level": "ZAYIN",
   "attack_type": "PIERCE",
   "inflicts": [
-    { "effect": "BLEED", "count": 4, "potency": 3 }
+    { "effect": "BLEED", "count": 0, "potency": 3 }
   ],
   "gains": [
-    { "effect": "POISE", "count": 3, "potency": 2 }
+    { "effect": "POISE", "count": 1, "potency": 0 }
   ]
 }
