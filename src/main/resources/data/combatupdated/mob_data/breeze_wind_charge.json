@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:breeze_wind_charge",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "INEFFECTIVE",
+    "PIERCE": "INEFFECTIVE",
+    "BLUNT": "NORMAL"
+  }
+}

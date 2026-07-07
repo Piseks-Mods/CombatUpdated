@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:end_crystal",
+  "risk_level": "ZAYIN",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "FATAL",
+    "PIERCE": "FATAL",
+    "BLUNT": "FATAL"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:mangrove_boat",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "WEAK",
+    "BLUNT": "INEFFECTIVE"
+  }
+}

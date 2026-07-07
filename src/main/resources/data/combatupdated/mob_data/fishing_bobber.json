@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:fishing_bobber",
+  "risk_level": "ZAYIN",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "FATAL",
+    "PIERCE": "NORMAL",
+    "BLUNT": "INEFFECTIVE"
+  }
+}

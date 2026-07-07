@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:wither_skull",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "INEFFECTIVE",
+    "PIERCE": "INEFFECTIVE",
+    "BLUNT": "INEFFECTIVE"
+  }
+}

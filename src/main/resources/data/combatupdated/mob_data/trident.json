@@ -1,0 +1,13 @@
+{
+  "entity": "minecraft:trident",
+  "risk_level": "TETH",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "INEFFECTIVE",
+    "PIERCE": "INEFFECTIVE",
+    "BLUNT": "INEFFECTIVE"
+  },
+  "inflicts": [
+  { "effect": "SINKING_DELUGE", "count": 1, "potency": 1 }
+]
+}

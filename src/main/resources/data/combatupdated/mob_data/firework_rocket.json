@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:firework_rocket",
+  "risk_level": "ZAYIN",
+  "attack_type": "PIERCE",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "FATAL",
+    "BLUNT": "INEFFECTIVE"
+  }
+}

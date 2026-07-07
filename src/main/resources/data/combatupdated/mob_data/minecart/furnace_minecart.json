@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:furnace_minecart",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "ENDURED",
+    "BLUNT": "ENDURED"
+  }
+}
