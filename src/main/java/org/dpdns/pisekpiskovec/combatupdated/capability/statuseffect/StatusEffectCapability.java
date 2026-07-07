@@ -163,6 +163,11 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
         CompoundTag tag = new CompoundTag();
         for (EffectType type : EffectType.values()) {
             CUStatusEffect effect = getEffect(type);
+
+            if (effect.getStackType() == CUStatusEffect.StackType.INSTANT) continue; // Skip INSTANT
+
+            if (effect.isExpired()) continue; // No point in storing zeroes
+
             CompoundTag effectTag = new CompoundTag();
             effectTag.putInt("count", effect.getCount());
             effectTag.putInt("potency", effect.getPotency());
@@ -176,13 +181,12 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
         for (EffectType type : EffectType.values()) {
             String key = type.name().toLowerCase();
             if (!nbt.contains(key)) continue;
+
             CompoundTag effectTag = nbt.getCompound(key);
             int count = effectTag.getInt("count");
             int potency = effectTag.getInt("potency");
-            if (count > 0) {
-                // Apply directly - bypasses stacking logic since we're restoring state
-                getEffect(type).apply(count, potency);
-            }
+            // Apply directly - bypasses stacking logic since we're restoring state
+            getEffect(type).apply(count, potency);
         }
     }
 
