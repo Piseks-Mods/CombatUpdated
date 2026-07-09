@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:tadpole",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "NORMAL",
+    "PIERCE": "FATAL",
+    "BLUNT": "ENDURED"
+  }
+}

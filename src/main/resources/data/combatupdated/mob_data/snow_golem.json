@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:snow_golem",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "WEAK",
+    "PIERCE": "WEAK",
+    "BLUNT": "WEAK"
+  }
+}

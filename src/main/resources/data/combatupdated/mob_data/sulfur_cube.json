@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:sulfur_cube",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "resistances": {
+    "SLASH": "ENDURED",
+    "PIERCE": "NORMAL",
+    "BLUNT": "ENDURED"
+  }
+}
