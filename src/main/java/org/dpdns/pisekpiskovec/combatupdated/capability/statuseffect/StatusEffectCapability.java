@@ -74,7 +74,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
         } else {
             int clampedCount = CUMath.clamp(0, count, maxCount);
             int clampedPotency = CUMath.clamp(0, potency, maxPotency);
-            if (clampedPotency == 0 && clampedPotency == 0) return;
+            if (clampedCount == 0 && clampedPotency == 0) return;
 
             switch (effect.getStackType()) {
                 case STACKABLE -> {
