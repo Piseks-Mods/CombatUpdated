@@ -3,6 +3,7 @@ package org.dpdns.pisekpiskovec.combatupdated.data;
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
+import org.dpdns.pisekpiskovec.combatupdated.effect.ReloadEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.SinkingDelugeEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.TremorBurstEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
@@ -29,6 +30,7 @@ public class InflictHelper {
                     switch (entry.effect()) {
                         case SINKING_DELUGE -> SinkingDelugeEffect.apply(target, attackType);
                         case TREMOR_BURST -> TremorBurstEffect.apply(target);
+                        case RELOAD -> ReloadEffect.apply(target);
                         default -> {
                         }
                     }

@@ -33,6 +33,10 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final SinkingEffect sinking = new SinkingEffect();
     private final TremorEffect tremor = new TremorEffect();
 
+    /// --- Neutral ---
+    private final AmmoEffect ammo = new AmmoEffect();
+    private final ReloadEffect reload = new ReloadEffect();
+
     /// --- Debuffs ---
     private final ButterflyEffect butterfly = new ButterflyEffect();
     private final PowerDownEffect power_down = new PowerDownEffect();
@@ -142,12 +146,14 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
 
     public CUStatusEffect getEffect(EffectType type) {
         return switch (type) {
+            case AMMO -> ammo;
             case BLEED -> bleed;
             case BURN -> burn;
             case BUTTERFLY -> butterfly;
             case CHARGE -> charge;
             case POISE -> poise;
             case POWER_DOWN -> power_down;
+            case RELOAD -> reload;
             case RUPTURE -> rupture;
             case SINKING_DELUGE -> sinking_deluge;
             case SINKING -> sinking;
@@ -193,6 +199,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        BLEED, BURN, BUTTERFLY, CHARGE, POISE, POWER_DOWN, RUPTURE, SINKING_DELUGE, SINKING, TREMOR_BURST, TREMOR
+        AMMO, BLEED, BURN, BUTTERFLY, CHARGE, POISE, POWER_DOWN, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, TREMOR_BURST, TREMOR
     }
 }
