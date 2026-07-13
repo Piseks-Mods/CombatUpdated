@@ -22,18 +22,11 @@ public abstract class CUStatusEffect {
         LOCKED, // fresh application only; external re-application blocked
     }
 
-    public enum Keywordness {
-        KEYWORD, // main archetype
-        UNIQUE_KEYWORD, // derivatives of main archetypes
-        REGULAR, // no archetype
-    }
-
     public static final class Properties {
         Set<TriggerType> triggers = Set.of();
         Category category = Category.NEUTRAL;
         StackType stackType = StackType.STACKABLE;
-        Keywordness keyword = Keywordness.REGULAR;
-        @Nullable CUStatusEffect unique = null;
+        @Nullable String uniqueOf = null;
         int maxCount = 99;
         int maxPotency = 99;
         int defaultCount = 1;
@@ -70,13 +63,8 @@ public abstract class CUStatusEffect {
             return this;
         }
 
-        public Properties keywording(Keywordness k) {
-            this.keyword = k;
-            return this;
-        }
-
-        public Properties uniqueness(CUStatusEffect e) {
-            this.unique = e.keyword == Keywordness.KEYWORD ? e : null;
+        public Properties uniqueOf(String basicEffectName) {
+            this.uniqueOf = basicEffectName;
             return this;
         }
     }
@@ -90,8 +78,7 @@ public abstract class CUStatusEffect {
     private final Set<TriggerType> triggerTypes;
     private final Category category;
     private final StackType stackType;
-    private final Keywordness keyword;
-    @Nullable CUStatusEffect unique;
+    @Nullable String uniqueOf;
     private final int maxCount;
     private final int maxPotency;
     private final int defaultCount;
@@ -105,8 +92,7 @@ public abstract class CUStatusEffect {
         this.maxPotency = p.maxPotency;
         this.defaultCount = p.defaultCount;
         this.defaultPotency = p.defaultPotency;
-        this.keyword = p.keyword;
-        this.unique = p.unique;
+        this.uniqueOf = p.uniqueOf;
     }
 
     // --- Core trigger entry point ---
@@ -188,12 +174,8 @@ public abstract class CUStatusEffect {
         return stackType;
     }
 
-    public Keywordness getKeyword() {
-        return keyword;
-    }
-
-    public @Nullable CUStatusEffect getUnique() {
-        return unique;
+    public @Nullable String getUniqueOf() {
+        return uniqueOf;
     }
 
     public int getMaxCount() {

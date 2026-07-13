@@ -8,6 +8,7 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.TremorBurstEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 import java.util.List;
+import java.util.Locale;
 
 public class InflictHelper {
 
@@ -31,12 +32,18 @@ public class InflictHelper {
                         default -> {
                         }
                     }
-                } else if (entry.effect() == StatusEffectCapability.EffectType.BUTTERFLY && !effect.isExpired()) {
-                    // Rule: external effect cannot raise Butterfly that's already active.
-                    // "Inflict additional Sinking" effect inflict Sinking instead.
-                    cap.apply(StatusEffectCapability.EffectType.SINKING, entry.count(), entry.potency());
                 } else {
-                    cap.apply(entry.effect(), entry.count(), entry.potency());
+                    String uniqueOf = effect.getUniqueOf();
+                    if (!effect.isExpired() && uniqueOf != null) {
+                        try {
+                            var baseType = StatusEffectCapability.EffectType.valueOf(uniqueOf.toUpperCase(Locale.ROOT));
+                            cap.apply(baseType, entry.count(), entry.potency());
+                        } catch (IllegalArgumentException ignored) {
+                            // Unknown base type
+                        }
+                    } else {
+                        cap.apply(entry.effect(), entry.count(), entry.potency());
+                    }
                 }
             }
         });
