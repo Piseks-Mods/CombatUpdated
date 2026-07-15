@@ -7,7 +7,7 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 public class PoiseEffect extends CUStatusEffect {
 
     public PoiseEffect() {
-        super(props().triggers(TriggerType.ON_ATTACK).triggers(TriggerType.TURN_END).category(Category.POSITIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 1).keywording(Keywordness.KEYWORD));
+        super(props().triggers(TriggerType.ON_ATTACK).triggers(TriggerType.TURN_END).category(Category.POSITIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 1));
     }
 
     @Override

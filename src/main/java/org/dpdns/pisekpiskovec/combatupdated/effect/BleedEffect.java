@@ -5,7 +5,7 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 public class BleedEffect extends CUStatusEffect {
     public BleedEffect() {
-        super(props().triggers(TriggerType.ON_USE).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 1).keywording(Keywordness.KEYWORD));
+        super(props().triggers(TriggerType.ON_USE).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 1));
     }
 
     @Override

@@ -13,7 +13,7 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 public class SinkingDelugeEffect extends CUStatusEffect {
     public SinkingDelugeEffect() {
-        super(props().category(Category.NEGATIVE).stackType(StackType.INSTANT).maxCount(0).maxPotency(0).defaults(0, 0).keywording(Keywordness.REGULAR));
+        super(props().category(Category.NEGATIVE).stackType(StackType.INSTANT).maxCount(0).maxPotency(0).defaults(0, 0));
     }
 
     @Override
