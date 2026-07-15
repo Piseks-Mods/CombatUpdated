@@ -1,0 +1,19 @@
+{
+  "item": "minecraft:water_bucket",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "inflicts": [
+    {
+      "effect": "SINKING",
+      "count": 4,
+      "potency": 8
+    }
+  ],
+  "gains": [
+    {
+      "effect": "SINKING",
+      "count": 1,
+      "potency": 3
+    }
+  ]
+}

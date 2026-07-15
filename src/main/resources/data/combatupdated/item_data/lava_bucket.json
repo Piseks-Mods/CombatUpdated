@@ -1,0 +1,19 @@
+{
+  "item": "minecraft:lava_bucket",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "inflicts": [
+    {
+      "effect": "BURN",
+      "count": 4,
+      "potency": 8
+    }
+  ],
+  "gains": [
+    {
+      "effect": "BURN",
+      "count": 1,
+      "potency": 3
+    }
+  ]
+}

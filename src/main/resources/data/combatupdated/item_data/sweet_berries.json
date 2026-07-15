@@ -1,0 +1,21 @@
+{
+  "item": "minecraft:sweet_berries",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "inflicts": [
+    {
+      "effect": "BLEED",
+      "count": 1,
+      "potency": 0
+    },
+    {
+      "effect": "RUPTURE",
+      "count": 4,
+      "potency": 4,
+      "drain": {
+        "effect": "BLEED",
+        "potency": 8
+      }
+    }
+  ]
+}

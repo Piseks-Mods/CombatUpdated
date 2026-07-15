@@ -1,0 +1,21 @@
+{
+  "item": "minecraft:redstone_block",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "gains": [
+    {
+      "effect": "CHARGE",
+      "count": 8,
+      "potency": 0
+    },
+    {
+      "effect": "CHARGE",
+      "count": 0,
+      "potency": 1,
+      "consume": {
+        "effect": "CHARGE",
+        "count": 19
+      }
+    }
+  ]
+}

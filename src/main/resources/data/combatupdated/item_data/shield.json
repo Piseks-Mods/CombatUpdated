@@ -3,6 +3,28 @@
   "risk_level": "TETH",
   "attack_type": "BLUNT",
   "inflicts": [
-    { "effect": "TREMOR", "count": 5, "potency": 0 }
+    {
+      "effect": "TREMOR",
+      "count": 5,
+      "potency": 0
+    },
+    {
+      "effect": "POWER_DOWN",
+      "count": 1,
+      "potency": 1,
+      "drain": {
+        "effect": "TREMOR",
+        "count": 20
+      }
+    },
+    {
+      "effect": "TREMOR_BURST",
+      "count": 0,
+      "potency": 0,
+      "consume": {
+        "effect": "TREMOR",
+        "count": 10
+      }
+    }
   ]
 }

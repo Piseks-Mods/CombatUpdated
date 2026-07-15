@@ -1,0 +1,12 @@
+{
+  "item": "minecraft:redstone",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "gains": [
+    {
+      "effect": "CHARGE",
+      "count": 1,
+      "potency": 0
+    }
+  ]
+}
