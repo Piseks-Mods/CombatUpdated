@@ -11,7 +11,11 @@
     {
       "effect": "BLEED",
       "count": 1,
-      "potency": 3
+      "potency": 3,
+      "consume": {
+        "effect": "POISE",
+        "potency": 10
+      }
     }
   ],
   "sanity": {

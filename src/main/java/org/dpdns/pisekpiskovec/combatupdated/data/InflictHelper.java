@@ -18,19 +18,41 @@ public class InflictHelper {
      * Instant-trigger effect (no normal TriggerTypes) bypass the generic
      * capability.apply() path entirely and dispatch to their dedicated
      * static handler instead - they are not persistent status state.
+     *
+     * @param recipient    entity receiving the effect (target for inflicts, attacker for gains)
+     * @param attackerSide entity checked/consumed by `consume` conditions
+     * @param targetSide   entity checked/consumed by `drain` conditions
      */
-    public static void apply(LivingEntity target, List<InflictEntry> entries, AttackType attackType) {
+    public static void apply(LivingEntity recipient, LivingEntity attackerSide, LivingEntity targetSide, List<InflictEntry> entries, AttackType attackType) {
         if (entries.isEmpty()) return;
 
-        StatusEffectCapability.get(target).ifPresent(cap -> {
+        StatusEffectCapability.get(recipient).ifPresent(recipientCap -> {
             for (InflictEntry entry : entries) {
-                CUStatusEffect effect = cap.getEffect(entry.effect());
+                // --- Check `consume` (attacker-side) ---
+                if (entry.consume() != null) {
+                    var attackerCap = StatusEffectCapability.get(attackerSide);
+                    if (!attackerCap.isPresent()) continue;
+                    boolean[] met = {false};
+                    attackerCap.ifPresent(cap -> met[0] = entry.consume().checkAndConsume(cap));
+                    if (!met[0]) continue;
+                }
+
+                // --- Check `drain` (target-side) ---
+                if (entry.drain() != null) {
+                    var targetCap = StatusEffectCapability.get(targetSide);
+                    if (!targetCap.isPresent()) continue;
+                    boolean[] met = {false};
+                    targetCap.ifPresent(cap -> met[0] = entry.consume().checkAndConsume(cap));
+                    if (!met[0]) continue;
+                }
+
+                CUStatusEffect effect = recipientCap.getEffect(entry.effect());
 
                 if (effect.getStackType() == CUStatusEffect.StackType.INSTANT) {
                     switch (entry.effect()) {
-                        case SINKING_DELUGE -> SinkingDelugeEffect.apply(target, attackType);
-                        case TREMOR_BURST -> TremorBurstEffect.apply(target);
-                        case RELOAD -> ReloadEffect.apply(target);
+                        case SINKING_DELUGE -> SinkingDelugeEffect.apply(recipient, attackType);
+                        case TREMOR_BURST -> TremorBurstEffect.apply(recipient);
+                        case RELOAD -> ReloadEffect.apply(recipient);
                         default -> {
                         }
                     }
@@ -39,12 +61,12 @@ public class InflictHelper {
                     if (!effect.isExpired() && uniqueOf != null) {
                         try {
                             var baseType = StatusEffectCapability.EffectType.valueOf(uniqueOf.toUpperCase(Locale.ROOT));
-                            cap.apply(baseType, entry.count(), entry.potency());
+                            recipientCap.apply(baseType, entry.count(), entry.potency());
                         } catch (IllegalArgumentException ignored) {
                             // Unknown base type
                         }
                     } else {
-                        cap.apply(entry.effect(), entry.count(), entry.potency());
+                        recipientCap.apply(entry.effect(), entry.count(), entry.potency());
                     }
                 }
             }

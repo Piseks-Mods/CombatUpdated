@@ -105,16 +105,16 @@ public class CombatEventHandler {
         // --- Apply attacker's inflicts to target ---
 
         if (hasItemEntry) {
-            InflictHelper.apply(target, itemData.inflicts(), attackType);
+            InflictHelper.apply(target, attacker, target, itemData.inflicts(), attackType);
         }
-        InflictHelper.apply(target, MobDataManager.get(attacker).inflicts(), attackType);
+        InflictHelper.apply(target, attacker, target, MobDataManager.get(attacker).inflicts(), attackType);
 
         // --- Apply attacker's gains to attacker ---
 
         if (hasItemEntry) {
-            InflictHelper.apply(attacker, itemData.gains(), attackType);
+            InflictHelper.apply(attacker, attacker, target, itemData.gains(), attackType);
         }
-        InflictHelper.apply(attacker, MobDataManager.get(attacker).gains(), attackType);
+        InflictHelper.apply(attacker, attacker, target, MobDataManager.get(attacker).gains(), attackType);
 
         // --- Threshold-based stagger check ---
 

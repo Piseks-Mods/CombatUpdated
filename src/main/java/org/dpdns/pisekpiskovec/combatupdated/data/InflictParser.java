@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.dpdns.pisekpiskovec.combatupdated.CombatUpdated;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +25,6 @@ public class InflictParser {
         for (int i = 0; i < json.size(); i++) {
             try {
                 JsonObject entry = json.get(i).getAsJsonObject();
-
                 if (!entry.has("effect")) {
                     CombatUpdated.LOGGER.warn("[CombatUpdated] inflicts[{}] in '{}' missing 'effect', skipping.", i, fileId);
                     continue;
@@ -39,20 +39,43 @@ public class InflictParser {
                     continue;
                 }
 
-                int count = entry.has("count") ? entry.get("count").getAsInt() : 0;
-                int potency = entry.has("potency") ? entry.get("potency").getAsInt() : 0;
+                int count = entry.has("count") ? CUMath.clamp(0, entry.get("count").getAsInt(), 99) : 0;
+                int potency = entry.has("potency") ? CUMath.clamp(0, entry.get("potency").getAsInt(), 99) : 0;
 
-                // Clamp
-                count = CUMath.clamp(0, count, 99);
-                potency = CUMath.clamp(0, potency, 99);
+                ConsumeCondition consume = entry.has("consume") ? parseCondition(entry.getAsJsonObject("consume"), "consume", i, fileId) : null;
+                ConsumeCondition drain = entry.has("drain") ? parseCondition(entry.getAsJsonObject("drain"), "consume", i, fileId) : null;
 
-                result.add(new InflictEntry(effectType, count, potency));
+                result.add(new InflictEntry(effectType, count, potency, consume, drain));
             } catch (Exception e) {
                 CombatUpdated.LOGGER.warn("[CombatUpdated] inflicts[{}] in '{}' failed to parse: {}", i, fileId, e.getMessage());
             }
         }
 
         return Collections.unmodifiableList(result);
+    }
+
+    private static @Nullable ConsumeCondition parseCondition(JsonObject json, String key, int idx, ResourceLocation fileId) {
+        if (!json.has("effect")) {
+            CombatUpdated.LOGGER.warn("[CombatUpdate] {}[{}] in '{}' missing 'effect', skipping,", key, idx, fileId);
+            return null;
+        }
+        String raw = json.get("effect").getAsString().toUpperCase(Locale.ROOT);
+        StatusEffectCapability.EffectType effectType;
+        try {
+            effectType = StatusEffectCapability.EffectType.valueOf(raw);
+        } catch (IllegalArgumentException e) {
+            CombatUpdated.LOGGER.warn("[CombatUpdate] {}[{}] in '{}': unknown effect '{}', skipping,", key, idx, fileId, raw);
+            return null;
+        }
+
+        int potency = json.has("potency") ? CUMath.clamp(0, json.get("potency").getAsInt(), 99) : 0;
+        int count = json.has("count") ? CUMath.clamp(0, json.get("count").getAsInt(), 99) : 0;
+
+        if (potency == 0 && count == 0) {
+            CombatUpdated.LOGGER.warn("[CombatUpdate] {}[{}] in '{}' has no potency and count, skipping,", key, idx, fileId);
+            return null;
+        }
+        return new ConsumeCondition(effectType, potency, count);
     }
 
     /**
