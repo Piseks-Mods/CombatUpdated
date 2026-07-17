@@ -5,7 +5,7 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 public class PowerDownEffect extends CUStatusEffect {
     public PowerDownEffect() {
-        super(props().triggers(TriggerType.TURN_END).category(Category.NEGATIVE).stackType(StackType.REPLACEABLE).maxCount(99).maxPotency(1).defaults(1, 0));
+        super(props().triggers(TriggerType.TURN_END).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(1).defaults(1, 0));
     }
 
     @Override
