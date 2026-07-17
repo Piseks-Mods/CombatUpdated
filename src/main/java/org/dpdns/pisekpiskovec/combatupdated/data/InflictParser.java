@@ -43,7 +43,7 @@ public class InflictParser {
                 int potency = entry.has("potency") ? CUMath.clamp(0, entry.get("potency").getAsInt(), 99) : 0;
 
                 ConsumeCondition consume = entry.has("consume") ? parseCondition(entry.getAsJsonObject("consume"), "consume", i, fileId) : null;
-                ConsumeCondition drain = entry.has("drain") ? parseCondition(entry.getAsJsonObject("drain"), "consume", i, fileId) : null;
+                ConsumeCondition drain = entry.has("drain") ? parseCondition(entry.getAsJsonObject("drain"), "drain", i, fileId) : null;
 
                 result.add(new InflictEntry(effectType, count, potency, consume, drain));
             } catch (Exception e) {
