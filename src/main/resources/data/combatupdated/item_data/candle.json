@@ -5,7 +5,7 @@
   "inflicts": [
     {
       "effect": "BURN",
-      "count": 1,
+      "count": 0,
       "potency": 2
     }
   ]
