@@ -1,6 +1,7 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect.base;
 
 import net.minecraft.world.entity.LivingEntity;
+import org.dpdns.pisekpiskovec.combatupdated.damage.TrueDamageSource;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
@@ -155,7 +156,7 @@ public abstract class CUStatusEffect {
      * Deals damage that bypasses armor, resistance, and enchantments.
      */
     protected void dealTrueDamage(LivingEntity entity, float amount) {
-        entity.setHealth(Math.max(0f, entity.getHealth() - amount));
+        entity.hurt(TrueDamageSource.get(entity), amount);
     }
 
     public boolean hasTrigger(TriggerType type) {

@@ -16,6 +16,7 @@ import org.dpdns.pisekpiskovec.combatupdated.api.RiskLevel;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.damage.DamageCalculator;
+import org.dpdns.pisekpiskovec.combatupdated.damage.TrueDamageSource;
 import org.dpdns.pisekpiskovec.combatupdated.data.InflictHelper;
 import org.dpdns.pisekpiskovec.combatupdated.data.ItemDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
@@ -25,6 +26,8 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 public class CombatEventHandler {
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void onLivingHurt(LivingHurtEvent event) {
+        if (event.getSource().is(TrueDamageSource.TRUE_DAMAGE)) return;
+
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
         Entity rawAttacker = source.getEntity();
