@@ -20,7 +20,7 @@ import org.dpdns.pisekpiskovec.combatupdated.damage.TrueDamageSource;
 import org.dpdns.pisekpiskovec.combatupdated.data.InflictHelper;
 import org.dpdns.pisekpiskovec.combatupdated.data.ItemDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
-import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 @Mod.EventBusSubscriber(modid = CombatUpdated.MODID)
 public class CombatEventHandler {

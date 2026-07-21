@@ -5,7 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import org.dpdns.pisekpiskovec.combatupdated.effect.*;
-import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 import org.jetbrains.annotations.Nullable;
 

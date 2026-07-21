@@ -6,7 +6,7 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffec
 import org.dpdns.pisekpiskovec.combatupdated.effect.ReloadEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.SinkingDelugeEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.TremorBurstEffect;
-import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 import java.util.List;
 import java.util.Locale;

@@ -1,4 +1,4 @@
-package org.dpdns.pisekpiskovec.combatupdated.effect.base;
+package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.damage.TrueDamageSource;

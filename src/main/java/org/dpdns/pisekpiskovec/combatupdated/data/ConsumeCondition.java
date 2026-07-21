@@ -1,7 +1,7 @@
 package org.dpdns.pisekpiskovec.combatupdated.data;
 
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
-import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 /**
  * A conditional requirement attached to an InflictEntry.

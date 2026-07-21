@@ -13,7 +13,7 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapabili
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
-import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 import java.util.Collection;
 

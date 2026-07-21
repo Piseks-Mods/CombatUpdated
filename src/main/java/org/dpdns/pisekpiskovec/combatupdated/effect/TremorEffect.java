@@ -2,7 +2,6 @@ package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
-import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 public class TremorEffect extends CUStatusEffect {
     public TremorEffect() {

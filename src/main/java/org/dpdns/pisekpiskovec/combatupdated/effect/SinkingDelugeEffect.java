@@ -9,7 +9,6 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapabili
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
-import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 public class SinkingDelugeEffect extends CUStatusEffect {
     public SinkingDelugeEffect() {

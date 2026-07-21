@@ -2,7 +2,6 @@ package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
-import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 public class TremorBurstEffect extends CUStatusEffect {
     public TremorBurstEffect() {

@@ -5,7 +5,6 @@ import net.minecraft.world.entity.player.Player;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
-import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 public class SinkingEffect extends CUStatusEffect {
     public SinkingEffect() {

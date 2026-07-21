@@ -1,7 +1,6 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
-import org.dpdns.pisekpiskovec.combatupdated.effect.base.CUStatusEffect;
 
 public class BurnEffect extends CUStatusEffect {
     public BurnEffect() {
