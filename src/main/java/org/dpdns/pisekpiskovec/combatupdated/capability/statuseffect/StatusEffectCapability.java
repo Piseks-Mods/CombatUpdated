@@ -5,7 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import org.dpdns.pisekpiskovec.combatupdated.effect.*;
-import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.DarkFlameEffect;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,12 +39,10 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
 
     /// --- Debuffs ---
     private final ButterflyEffect butterfly = new ButterflyEffect();
+    private final DarkFlameEffect dark_flame = new DarkFlameEffect();
     private final PowerDownEffect power_down = new PowerDownEffect();
     private final SinkingDelugeEffect sinking_deluge = new SinkingDelugeEffect();
     private final TremorBurstEffect tremor_burst = new TremorBurstEffect();
-
-    // Transient - set by Poise proc, read and cleared by CombatEventHandler in the same hit
-    private float poiseDamageBonus = 0f;
 
     // --- Static accessor ---
     public static LazyOptional<StatusEffectCapability> get(LivingEntity entity) {
@@ -127,21 +125,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
         }
     }
 
-    // --- Poise bonus (transient, cleared after each hit) ---
-
-    public void setPoiseDamageBonus(float bonus) {
-        this.poiseDamageBonus = bonus;
-    }
-
-    /**
-     * Read by CombatEventHandler - clears itself after being read.
-     */
-    public float consumePoiseDamageBonus() {
-        float val = this.poiseDamageBonus;
-        this.poiseDamageBonus = 0f;
-        return val;
-    }
-
     // --- Direct accessors ---
 
     public CUStatusEffect getEffect(EffectType type) {
@@ -151,6 +134,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case BURN -> burn;
             case BUTTERFLY -> butterfly;
             case CHARGE -> charge;
+            case DARK_FLAME -> dark_flame;
             case POISE -> poise;
             case POWER_DOWN -> power_down;
             case RELOAD -> reload;
@@ -199,6 +183,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        AMMO, BLEED, BURN, BUTTERFLY, CHARGE, POISE, POWER_DOWN, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, TREMOR_BURST, TREMOR
+        AMMO, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, POISE, POWER_DOWN, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, TREMOR_BURST, TREMOR
     }
 }

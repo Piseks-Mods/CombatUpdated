@@ -21,6 +21,9 @@ import org.dpdns.pisekpiskovec.combatupdated.data.InflictHelper;
 import org.dpdns.pisekpiskovec.combatupdated.data.ItemDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
+import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
+
+import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = CombatUpdated.MODID)
 public class CombatEventHandler {
@@ -72,21 +75,38 @@ public class CombatEventHandler {
             isStaggered = StaggerCapability.get(target).map(StaggerCapability::isStaggered).orElse(false);
         }
 
-        // --- Poise bonus (set by PoiseEffect.onTrigger this same hit) ---
+        // --- Damage de-buffs ---
 
-        float poiseBonus = StatusEffectCapability.get(attacker).map(StatusEffectCapability::consumePoiseDamageBonus).orElse(0f);
-
-        // --- Damage debuffs ---
+        float darkFlamePenalty = StatusEffectCapability.get(target).map(cap -> {
+            var df = cap.getEffect(StatusEffectCapability.EffectType.POWER_DOWN);
+            return df.isExpired() ? 0f : (float) df.getCount();
+        }).orElse(0f);
 
         float powerDownPenalty = StatusEffectCapability.get(attacker).map(cap -> {
             var pd = cap.getEffect(StatusEffectCapability.EffectType.POWER_DOWN);
             return pd.isExpired() ? 0f : (float) pd.getCount();
         }).orElse(0f);
 
+        int poiseChance = StatusEffectCapability.get(attacker).map(cap -> {
+            var pd = cap.getEffect(StatusEffectCapability.EffectType.POISE);
+            return pd.isExpired() ? 0 : pd.getPotency();
+        }).orElse(0);
+
         // --- Calculate final damage ---
 
         float raw = event.getAmount();
-        float final_ = DamageCalculator.calculate(raw, attackerRisk, defenderRisk, resistance, isStaggered, poiseBonus, powerDownPenalty);
+        float final_ = DamageCalculator.calculate(raw, attackerRisk, defenderRisk, resistance, isStaggered);
+
+        // ---> Attacker side <---
+        Random r = new Random();
+        if (r.nextInt(100) < Math.min(5 * poiseChance, 100)) { // Pose bonus
+            final_ *= 1.2f;
+        }
+        final_ += 0 /* Attack Power Up placeholder */ - powerDownPenalty; // Attack Power Up & Attack Power Down
+
+        // ---> Target side <---
+        final_ = CUMath.increase(final_, darkFlamePenalty - 0 + 0); // Dark flame - Defense Level Up + Defense Level Down
+        final_ = CUMath.increase(final_, 10 * 0); // Fragile
         event.setAmount(final_);
 
         // --- Fire ON_ATTACK effects on attacker ---

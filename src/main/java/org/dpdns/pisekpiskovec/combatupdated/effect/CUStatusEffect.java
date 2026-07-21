@@ -1,6 +1,7 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
+import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.damage.TrueDamageSource;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,7 +28,7 @@ public abstract class CUStatusEffect {
         Set<TriggerType> triggers = Set.of();
         Category category = Category.NEUTRAL;
         StackType stackType = StackType.STACKABLE;
-        @Nullable String uniqueOf = null;
+        @Nullable StatusEffectCapability.EffectType uniqueOf = null;
         int maxCount = 99;
         int maxPotency = 99;
         int defaultCount = 1;
@@ -64,7 +65,7 @@ public abstract class CUStatusEffect {
             return this;
         }
 
-        public Properties uniqueOf(String basicEffectName) {
+        public Properties uniqueOf(StatusEffectCapability.EffectType basicEffectName) {
             this.uniqueOf = basicEffectName;
             return this;
         }
@@ -79,7 +80,7 @@ public abstract class CUStatusEffect {
     private final Set<TriggerType> triggerTypes;
     private final Category category;
     private final StackType stackType;
-    @Nullable String uniqueOf;
+    @Nullable StatusEffectCapability.EffectType uniqueOf;
     private final int maxCount;
     private final int maxPotency;
     private final int defaultCount;
@@ -175,7 +176,7 @@ public abstract class CUStatusEffect {
         return stackType;
     }
 
-    public @Nullable String getUniqueOf() {
+    public @Nullable StatusEffectCapability.EffectType getUniqueOf() {
         return uniqueOf;
     }
 
