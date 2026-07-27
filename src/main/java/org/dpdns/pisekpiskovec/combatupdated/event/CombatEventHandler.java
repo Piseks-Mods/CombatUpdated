@@ -36,11 +36,9 @@ public class CombatEventHandler {
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
         Entity rawAttacker = source.getEntity();
-
         if (!(rawAttacker instanceof LivingEntity attacker)) return;
 
         // --- Resolve attacker risk + attack type ---
-
         RiskLevel attackerRisk;
         AttackType attackType;
 
@@ -83,7 +81,6 @@ public class CombatEventHandler {
             resistance = MagicBulletHandler.applyBullet7ResistanceOverride(attacker, target, resistance);
 
         // --- Damage de-buffs ---
-
         float darkFlamePenalty = StatusEffectCapability.get(target).map(cap -> {
             var df = cap.getEffect(StatusEffectCapability.EffectType.DARK_FLAME);
             return df.isExpired() ? 0f : (float) df.getCount();
@@ -125,7 +122,6 @@ public class CombatEventHandler {
         }).orElse(0f);
 
         // --- Calculate final damage ---
-
         float raw = event.getAmount();
         float final_ = DamageCalculator.calculate(raw, attackerRisk, defenderRisk, resistance, isStaggered);
 
@@ -133,16 +129,15 @@ public class CombatEventHandler {
         Random r = new Random();
         if (r.nextInt(100) < Math.min(5 * poiseChance, 100)) { // Pose bonus
             final_ *= 1.2f;
-            StatusEffectCapability.get(attacker).map(cap -> cap.getEffect(StatusEffectCapability.EffectType.POISE).decrementCount(1));
+            StatusEffectCapability.get(attacker).map(cap -> cap.getEffect(StatusEffectCapability.EffectType.POISE).decrementCount(1)); // Consume 1 Count if Critical Hit
         }
         final_ += attackPowerBonus - attackPowerPenalty; // Attack Power Up & Attack Power Down
 
         // ---> Target side <---
         final_ = CUMath.increase(final_, darkFlamePenalty - defenseLevelBonus + defenseLevelPenalty + Math.min(10f * fragilityPenalty, 100f)); // Dark flame - Defense Level Up + Defense Level Down + Fragile
-
         if (paralyzePenalty > 0) {
             final_ = 0;
-            StatusEffectCapability.get(attacker).map(cap -> cap.getEffect(StatusEffectCapability.EffectType.PARALYZE).decrementCount(1));
+            StatusEffectCapability.get(attacker).map(cap -> cap.getEffect(StatusEffectCapability.EffectType.PARALYZE).decrementCount(1)); // Consume 1 Count On Hit
         }
         if (activeBullet != null) {
             final_ = MagicBulletHandler.modifyDamage(activeBullet, final_, target);
@@ -150,30 +145,20 @@ public class CombatEventHandler {
         event.setAmount(final_);
 
         // --- Fire ON_ATTACK effects on attacker ---
-
         StatusEffectCapability.ifPresent(attacker, cap -> cap.triggerAll(attacker, CUStatusEffect.TriggerType.ON_ATTACK));
 
         // --- Fire ON_HIT effects on target ---
-        // Note: Poise bonus was already consumed above; the proc chance roll
-        // happens inside PoiseEffect.onTrigger which sets the bonus for the
-        // *next* call - so the order here is:
-        //     1. consume last-frame Poise bonus (above)
-        //     2. trigger ON_HIT -> Poise may set bonus for the next hit
-        //     3. next hit reads is
-
         StatusEffectCapability.ifPresent(target, cap -> cap.setAttackerContext(attacker));
         StatusEffectCapability.ifPresent(target, cap -> cap.triggerAll(target, CUStatusEffect.TriggerType.ON_HIT));
         StatusEffectCapability.ifPresent(target, cap -> cap.setAttackerContext(null));
 
         // --- Apply attacker's inflicts to target ---
-
         if (hasItemEntry) {
             InflictHelper.apply(target, attacker, target, itemData.inflicts(), attackType);
         }
         InflictHelper.apply(target, attacker, target, MobDataManager.get(attacker).inflicts(), attackType);
 
         // --- Apply attacker's gains to attacker ---
-
         if (hasItemEntry) {
             InflictHelper.apply(attacker, attacker, target, itemData.gains(), attackType);
         }
@@ -189,14 +174,9 @@ public class CombatEventHandler {
         }
 
         // --- Threshold-based stagger check ---
-
-        // hpAfter is approximate here since event.setAmount doesn't deal damage yet;
-        // Forge applies it after the event. We use it for the threshold check only.
         float hpAfter = target.getHealth() - final_;
-
         StaggerCapability.get(target).ifPresent(stagger -> {
             if (stagger.isStaggered() || stagger.isOnCooldown()) return;
-
             float threshold = stagger.getEffectiveThreshold(target);
             if (hpAfter <= threshold) {
                 stagger.applyStagger(40);
