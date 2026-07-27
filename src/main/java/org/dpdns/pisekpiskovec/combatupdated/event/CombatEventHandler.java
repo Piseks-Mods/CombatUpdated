@@ -21,6 +21,8 @@ import org.dpdns.pisekpiskovec.combatupdated.data.InflictHelper;
 import org.dpdns.pisekpiskovec.combatupdated.data.ItemDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.MagicBulletHandler;
+import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.MagicBulletType;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 
 import java.util.Random;
@@ -74,6 +76,11 @@ public class CombatEventHandler {
             resistance = defData.getResistance(attackType);
             isStaggered = StaggerCapability.get(target).map(StaggerCapability::isStaggered).orElse(false);
         }
+
+        // --- Detect Magic Bullet ---
+        MagicBulletType activeBullet = MagicBulletHandler.getActiveBullet(attacker);
+        if (activeBullet == MagicBulletType.SEVEN)
+            resistance = MagicBulletHandler.applyBullet7ResistanceOverride(attacker, target, resistance);
 
         // --- Damage de-buffs ---
 
@@ -137,6 +144,9 @@ public class CombatEventHandler {
             final_ = 0;
             StatusEffectCapability.get(attacker).map(cap -> cap.getEffect(StatusEffectCapability.EffectType.PARALYZE).decrementCount(1));
         }
+        if (activeBullet != null) {
+            final_ = MagicBulletHandler.modifyDamage(activeBullet, final_, target);
+        }
         event.setAmount(final_);
 
         // --- Fire ON_ATTACK effects on attacker ---
@@ -168,6 +178,15 @@ public class CombatEventHandler {
             InflictHelper.apply(attacker, attacker, target, itemData.gains(), attackType);
         }
         InflictHelper.apply(attacker, attacker, target, MobDataManager.get(attacker).gains(), attackType);
+
+        // --- Magic Bullet on-hit effects ---
+        if (activeBullet != null) {
+            MagicBulletHandler.onHit(activeBullet, attacker, target, final_);
+            MagicBulletHandler.spendBullet(attacker);
+            if (activeBullet == MagicBulletType.SEVEN) {
+                attacker.hurt(TrueDamageSource.get(attacker), Float.MAX_VALUE);
+            }
+        }
 
         // --- Threshold-based stagger check ---
 
