@@ -57,11 +57,10 @@ public class InflictHelper {
                         }
                     }
                 } else {
-                    String uniqueOf = effect.getUniqueOf();
+                    StatusEffectCapability.EffectType uniqueOf = effect.getUniqueOf();
                     if (!effect.isExpired() && uniqueOf != null) {
                         try {
-                            var baseType = StatusEffectCapability.EffectType.valueOf(uniqueOf.toUpperCase(Locale.ROOT));
-                            recipientCap.apply(baseType, entry.count(), entry.potency());
+                            recipientCap.apply(uniqueOf, entry.count(), entry.potency());
                         } catch (IllegalArgumentException ignored) {
                             // Unknown base type
                         }
