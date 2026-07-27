@@ -6,6 +6,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import org.dpdns.pisekpiskovec.combatupdated.effect.*;
 import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.DarkFlameEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.MagicAmmoEffect;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,7 +25,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     }
 
     // --- Effects ---
-    /// --- Keyword ---
+    // --- Keyword ---
     private final BleedEffect bleed = new BleedEffect();
     private final BurnEffect burn = new BurnEffect();
     private final ChargeEffect charge = new ChargeEffect();
@@ -33,14 +34,20 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final SinkingEffect sinking = new SinkingEffect();
     private final TremorEffect tremor = new TremorEffect();
 
-    /// --- Neutral ---
+    // --- Neutral ---
     private final AmmoEffect ammo = new AmmoEffect();
+    private final MagicAmmoEffect magic_ammo = new MagicAmmoEffect();
     private final ReloadEffect reload = new ReloadEffect();
 
-    /// --- Debuffs ---
+    // --- Debuffs ---
+    private final AttackPowerDownEffect attack_power_down = new AttackPowerDownEffect();
+    private final AttackPowerUpEffect attack_power_up = new AttackPowerUpEffect();
     private final ButterflyEffect butterfly = new ButterflyEffect();
     private final DarkFlameEffect dark_flame = new DarkFlameEffect();
-    private final PowerDownEffect power_down = new PowerDownEffect();
+    private final DefenseLevelDownEffect defense_level_down = new DefenseLevelDownEffect();
+    private final DefenseLevelUpEffect defense_level_up = new DefenseLevelUpEffect();
+    private final FragileEffect fragile = new FragileEffect();
+    private final ParalyzeEffect paralyze = new ParalyzeEffect();
     private final SinkingDelugeEffect sinking_deluge = new SinkingDelugeEffect();
     private final TremorBurstEffect tremor_burst = new TremorBurstEffect();
 
@@ -130,13 +137,19 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     public CUStatusEffect getEffect(EffectType type) {
         return switch (type) {
             case AMMO -> ammo;
+            case ATTACK_POWER_DOWN -> attack_power_down;
+            case ATTACK_POWER_UP -> attack_power_up;
             case BLEED -> bleed;
             case BURN -> burn;
             case BUTTERFLY -> butterfly;
             case CHARGE -> charge;
             case DARK_FLAME -> dark_flame;
+            case DEFENSE_LEVEL_DOWN -> defense_level_down;
+            case DEFENSE_LEVEL_UP -> defense_level_up;
+            case FRAGILE -> fragile;
+            case MAGIC_AMMO -> magic_ammo;
+            case PARALYZE -> paralyze;
             case POISE -> poise;
-            case POWER_DOWN -> power_down;
             case RELOAD -> reload;
             case RUPTURE -> rupture;
             case SINKING_DELUGE -> sinking_deluge;
@@ -183,6 +196,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        AMMO, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, POISE, POWER_DOWN, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, TREMOR_BURST, TREMOR
+        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, TREMOR_BURST, TREMOR
     }
 }
