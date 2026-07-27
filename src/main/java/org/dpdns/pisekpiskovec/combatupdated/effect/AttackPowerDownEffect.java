@@ -2,8 +2,8 @@ package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
 
-public class PowerDownEffect extends CUStatusEffect {
-    public PowerDownEffect() {
+public class AttackPowerDownEffect extends CUStatusEffect {
+    public AttackPowerDownEffect() {
         super(props().triggers(TriggerType.TURN_END).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(1).defaults(1, 0));
     }
 

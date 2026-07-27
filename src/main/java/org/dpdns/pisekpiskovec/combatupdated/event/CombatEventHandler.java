@@ -78,19 +78,44 @@ public class CombatEventHandler {
         // --- Damage de-buffs ---
 
         float darkFlamePenalty = StatusEffectCapability.get(target).map(cap -> {
-            var df = cap.getEffect(StatusEffectCapability.EffectType.POWER_DOWN);
+            var df = cap.getEffect(StatusEffectCapability.EffectType.DARK_FLAME);
             return df.isExpired() ? 0f : (float) df.getCount();
         }).orElse(0f);
 
-        float powerDownPenalty = StatusEffectCapability.get(attacker).map(cap -> {
-            var pd = cap.getEffect(StatusEffectCapability.EffectType.POWER_DOWN);
-            return pd.isExpired() ? 0f : (float) pd.getCount();
+        float defenseLevelPenalty = StatusEffectCapability.get(target).map(cap -> {
+            var dl = cap.getEffect(StatusEffectCapability.EffectType.DEFENSE_LEVEL_DOWN);
+            return dl.isExpired() ? 0f : (float) dl.getCount();
+        }).orElse(0f);
+
+        float defenseLevelBonus = StatusEffectCapability.get(target).map(cap -> {
+            var dl = cap.getEffect(StatusEffectCapability.EffectType.DEFENSE_LEVEL_UP);
+            return dl.isExpired() ? 0f : (float) dl.getCount();
+        }).orElse(0f);
+
+        float fragilityPenalty = StatusEffectCapability.get(target).map(cap -> {
+            var fr = cap.getEffect(StatusEffectCapability.EffectType.FRAGILE);
+            return fr.isExpired() ? 0f : (float) fr.getCount();
         }).orElse(0f);
 
         int poiseChance = StatusEffectCapability.get(attacker).map(cap -> {
-            var pd = cap.getEffect(StatusEffectCapability.EffectType.POISE);
-            return pd.isExpired() ? 0 : pd.getPotency();
+            var pc = cap.getEffect(StatusEffectCapability.EffectType.POISE);
+            return pc.isExpired() ? 0 : pc.getPotency();
         }).orElse(0);
+
+        float attackPowerPenalty = StatusEffectCapability.get(attacker).map(cap -> {
+            var pd = cap.getEffect(StatusEffectCapability.EffectType.ATTACK_POWER_DOWN);
+            return pd.isExpired() ? 0f : (float) pd.getCount();
+        }).orElse(0f);
+
+        float attackPowerBonus = StatusEffectCapability.get(attacker).map(cap -> {
+            var pu = cap.getEffect(StatusEffectCapability.EffectType.ATTACK_POWER_UP);
+            return pu.isExpired() ? 0f : (float) pu.getCount();
+        }).orElse(0f);
+
+        float paralyzePenalty = StatusEffectCapability.get(attacker).map(cap -> {
+            var pr = cap.getEffect(StatusEffectCapability.EffectType.PARALYZE);
+            return pr.isExpired() ? 0f : (float) pr.getCount();
+        }).orElse(0f);
 
         // --- Calculate final damage ---
 
@@ -101,12 +126,17 @@ public class CombatEventHandler {
         Random r = new Random();
         if (r.nextInt(100) < Math.min(5 * poiseChance, 100)) { // Pose bonus
             final_ *= 1.2f;
+            StatusEffectCapability.get(attacker).map(cap -> cap.getEffect(StatusEffectCapability.EffectType.POISE).decrementCount(1));
         }
-        final_ += 0 /* Attack Power Up placeholder */ - powerDownPenalty; // Attack Power Up & Attack Power Down
+        final_ += attackPowerBonus - attackPowerPenalty; // Attack Power Up & Attack Power Down
 
         // ---> Target side <---
-        final_ = CUMath.increase(final_, darkFlamePenalty - 0 + 0); // Dark flame - Defense Level Up + Defense Level Down
-        final_ = CUMath.increase(final_, 10 * 0); // Fragile
+        final_ = CUMath.increase(final_, darkFlamePenalty - defenseLevelBonus + defenseLevelPenalty + Math.min(10f * fragilityPenalty, 100f)); // Dark flame - Defense Level Up + Defense Level Down + Fragile
+
+        if (paralyzePenalty > 0) {
+            final_ = 0;
+            StatusEffectCapability.get(attacker).map(cap -> cap.getEffect(StatusEffectCapability.EffectType.PARALYZE).decrementCount(1));
+        }
         event.setAmount(final_);
 
         // --- Fire ON_ATTACK effects on attacker ---
