@@ -41,6 +41,6 @@ public class SanityEventHandler {
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         Player player = event.getEntity();
-        SanityCapability.ifPresent(player, cap -> cap.syncAttributes(player));
+        SanityCapability.ifPresent(player, cap -> cap.syncLuck(player));
     }
 }

@@ -72,7 +72,7 @@ public class SanityCapability implements INBTSerializable<CompoundTag> {
 
     // --- Attribute sync ---
 
-    private void syncLuck(Player player) {
+    public void syncLuck(Player player) {
         AttributeInstance luck = player.getAttribute(Attributes.LUCK);
         if (luck == null) return;
 
@@ -82,7 +82,6 @@ public class SanityCapability implements INBTSerializable<CompoundTag> {
     }
 
     // --- NBT ---
-
 
     @Override
     public CompoundTag serializeNBT() {
