@@ -167,7 +167,6 @@ public class CombatEventHandler {
         // --- Magic Bullet on-hit effects ---
         if (activeBullet != null) {
             MagicBulletHandler.onHit(activeBullet, attacker, target, final_);
-            MagicBulletHandler.spendBullet(attacker);
             if (activeBullet == MagicBulletType.SEVEN) {
                 attacker.hurt(TrueDamageSource.get(attacker), Float.MAX_VALUE);
             }

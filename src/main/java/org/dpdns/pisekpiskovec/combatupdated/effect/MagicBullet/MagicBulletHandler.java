@@ -96,15 +96,6 @@ public class MagicBulletHandler {
         }
     }
 
-    // --- Spend one bullet ---
-
-    public static void spendBullet(LivingEntity attacker) {
-        StatusEffectCapability.get(attacker).ifPresent(cap -> {
-            CUStatusEffect eff = cap.getEffect(StatusEffectCapability.EffectType.MAGIC_AMMO);
-            if (eff instanceof MagicAmmoEffect ammo) ammo.spend(1);
-        });
-    }
-
     // --- Helpers ---
     private static void apply(LivingEntity entity, StatusEffectCapability.EffectType type, int count, int potency) {
         StatusEffectCapability.get(entity).ifPresent(cap -> cap.apply(type, count, potency));

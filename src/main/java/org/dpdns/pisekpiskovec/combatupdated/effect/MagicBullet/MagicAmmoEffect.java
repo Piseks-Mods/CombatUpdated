@@ -15,17 +15,6 @@ public class MagicAmmoEffect extends CUStatusEffect {
     }
 
     /**
-     * Attempts to spent `amount` Ammo from the entity.
-     *
-     * @return true if spending succeeded (enough ammo), false if insufficient
-     */
-    public boolean spend(int amount) {
-        if (getCount() < amount) return false;
-        decrementCount(amount);
-        return true;
-    }
-
-    /**
      * @return true if the entity has at least `amount` Ammo.
      */
     public boolean hasAmmo(int amount) {
