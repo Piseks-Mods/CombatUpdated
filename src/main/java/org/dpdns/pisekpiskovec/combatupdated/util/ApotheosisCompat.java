@@ -9,6 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.UUID;
 
+@Deprecated
 public class ApotheosisCompat {
     private static final String MODID = "apotheosis";
 

@@ -7,8 +7,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
-import org.dpdns.pisekpiskovec.combatupdated.util.ApotheosisCompat;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 
 public class SanityCapability implements INBTSerializable<CompoundTag> {
@@ -55,7 +53,7 @@ public class SanityCapability implements INBTSerializable<CompoundTag> {
 
     public void setSanityAndSync(int value, Player player) {
         setSanity(value);
-        syncAttributes(player);
+        syncLuck(player);
     }
 
     public int getSanity() {
@@ -73,18 +71,6 @@ public class SanityCapability implements INBTSerializable<CompoundTag> {
     }
 
     // --- Attribute sync ---
-
-    /**
-     * Syncs sanity to the LUCK attribute.
-     * If Apothic Attributes is present, synced to CRIT_CHANCE as well.
-     * Call this whenever sanity changes.
-     */
-    public void syncAttributes(Player player) {
-        syncLuck(player);
-        if (ApotheosisCompat.isLoaded()) {
-            ApotheosisCompat.syncCritChance(player, sanity);
-        }
-    }
 
     private void syncLuck(Player player) {
         AttributeInstance luck = player.getAttribute(Attributes.LUCK);
