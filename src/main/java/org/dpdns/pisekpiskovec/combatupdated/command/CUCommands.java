@@ -15,6 +15,7 @@ public class CUCommands {
     public static void onRegisterCommands(RegisterCommandsEvent event) {
         CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
 
-        dispatcher.register(Commands.literal("cu").requires(source -> source.hasPermission(2)).then(StatusCommand.register()).then(SanityCommand.register()).then(EffectCommand.register()).then(StaggerCommand.register()).then(RiskCommand.register()));
+        // TODO: On next development phase, increase permission level by 1 for each incremental phase; Alpha = 0, Beta = 1, Release = 2
+        dispatcher.register(Commands.literal("cu").requires(source -> source.hasPermission(0)).then(StatusCommand.register()).then(SanityCommand.register()).then(EffectCommand.register()).then(StaggerCommand.register()).then(RiskCommand.register()));
     }
 }
