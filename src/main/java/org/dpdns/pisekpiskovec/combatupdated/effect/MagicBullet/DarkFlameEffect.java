@@ -6,7 +6,7 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 public class DarkFlameEffect extends CUStatusEffect {
     public DarkFlameEffect() {
-        super(props().triggers(TriggerType.TURN_END).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxCount(7).maxPotency(1).defaults(1, 1).uniqueOf(StatusEffectCapability.EffectType.BURN));
+        super(props().triggers(TriggerType.TURN_END).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxCount(7).maxPotency(1).defaults(1, 0).uniqueOf(StatusEffectCapability.EffectType.BURN));
     }
 
     @Override

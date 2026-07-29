@@ -3,13 +3,13 @@
   "risk_level": "ZAYIN",
   "attack_type": "BLUNT",
   "inflicts": [
-    { "effect": "DARK_FLAME", "count": 0, "potency": 1, "require": { "effect": "MAGIC_AMMO", "count": 1 } },
-    { "effect": "DARK_FLAME", "count": 0, "potency": 1, "require": { "effect": "MAGIC_AMMO", "count": 2 } },
-    { "effect": "DARK_FLAME", "count": 0, "potency": 1, "require": { "effect": "MAGIC_AMMO", "count": 3 } },
-    { "effect": "DARK_FLAME", "count": 0, "potency": 1, "require": { "effect": "MAGIC_AMMO", "count": 4 } },
-    { "effect": "DARK_FLAME", "count": 0, "potency": 1, "require": { "effect": "MAGIC_AMMO", "count": 5 } },
-    { "effect": "DARK_FLAME", "count": 0, "potency": 1, "require": { "effect": "MAGIC_AMMO", "count": 6 } },
-    { "effect": "DARK_FLAME", "count": 0, "potency": 1, "require": { "effect": "MAGIC_AMMO", "count": 7 } }
+    { "effect": "DARK_FLAME", "count": 1, "potency": 0, "require": { "effect": "MAGIC_AMMO", "count": 1 } },
+    { "effect": "DARK_FLAME", "count": 1, "potency": 0, "require": { "effect": "MAGIC_AMMO", "count": 2 } },
+    { "effect": "DARK_FLAME", "count": 1, "potency": 0, "require": { "effect": "MAGIC_AMMO", "count": 3 } },
+    { "effect": "DARK_FLAME", "count": 1, "potency": 0, "require": { "effect": "MAGIC_AMMO", "count": 4 } },
+    { "effect": "DARK_FLAME", "count": 1, "potency": 0, "require": { "effect": "MAGIC_AMMO", "count": 5 } },
+    { "effect": "DARK_FLAME", "count": 1, "potency": 0, "require": { "effect": "MAGIC_AMMO", "count": 6 } },
+    { "effect": "DARK_FLAME", "count": 1, "potency": 0, "require": { "effect": "MAGIC_AMMO", "count": 7 } }
   ],
   "gains": [
     { "effect": "MAGIC_AMMO", "count": 1, "potency": 0 }

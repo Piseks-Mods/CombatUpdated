@@ -6,7 +6,7 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 public class MagicAmmoEffect extends CUStatusEffect {
     public MagicAmmoEffect() {
-        super(props().category(Category.NEUTRAL).stackType(StackType.STACKABLE).maxCount(7).maxPotency(7).defaults(1, 7).uniqueOf(StatusEffectCapability.EffectType.AMMO));
+        super(props().category(Category.NEUTRAL).stackType(StackType.STACKABLE).maxCount(7).maxPotency(1).defaults(1, 0).uniqueOf(StatusEffectCapability.EffectType.AMMO));
     }
 
     @Override
