@@ -3,13 +3,12 @@ package org.dpdns.pisekpiskovec.combatupdated.data;
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
+import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.ReloadEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.SinkingDelugeEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.TremorBurstEffect;
-import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 import java.util.List;
-import java.util.Locale;
 
 public class InflictHelper {
 
@@ -76,12 +75,8 @@ public class InflictHelper {
                     }
                 } else {
                     StatusEffectCapability.EffectType uniqueOf = effect.getUniqueOf();
-                    if (!effect.isExpired() && uniqueOf != null) {
-                        try {
-                            recipientCap.apply(uniqueOf, entry.count(), entry.potency());
-                        } catch (IllegalArgumentException ignored) {
-                            // Unknown base type
-                        }
+                    if (!effect.isExpired() && uniqueOf != null && effect.getStackType() == CUStatusEffect.StackType.LOCKED) {
+                        recipientCap.apply(uniqueOf, entry.count(), entry.potency());
                     } else {
                         recipientCap.apply(entry.effect(), entry.count(), entry.potency());
                     }

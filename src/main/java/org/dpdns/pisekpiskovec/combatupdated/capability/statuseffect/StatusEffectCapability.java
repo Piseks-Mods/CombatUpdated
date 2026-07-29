@@ -76,8 +76,8 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
 
         if (effect.isExpired()) {
             // Fresh application - 0 means "use this effect's default"
-            int freshCount = count > 0 ? Math.min(count, maxCount) : effect.getDefaultCount();
-            int freshPotency = potency > 0 ? Math.min(potency, maxPotency) : effect.getDefaultPotency();
+            int freshPotency = potency > 0 ? Math.min(potency, maxPotency) : count > 0 ? 1 : effect.getDefaultPotency();
+            int freshCount = count > 0 ? Math.min(count, maxCount) : potency > 0 ? 1 : effect.getDefaultCount();
             if (freshCount == 0 && freshPotency == 0) return;
             effect.apply(freshCount, freshPotency);
         } else {
