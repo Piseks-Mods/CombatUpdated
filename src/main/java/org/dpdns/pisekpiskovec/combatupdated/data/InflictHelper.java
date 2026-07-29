@@ -28,6 +28,24 @@ public class InflictHelper {
 
         StatusEffectCapability.get(recipient).ifPresent(recipientCap -> {
             for (InflictEntry entry : entries) {
+                // --- Check `require` ---
+                if (entry.require() != null) {
+                    var attackerCap = StatusEffectCapability.get(attackerSide);
+                    if (!attackerCap.isPresent()) continue;
+                    boolean[] met = {false};
+                    attackerCap.ifPresent(cap -> met[0] = entry.require().check(cap));
+                    if (!met[0]) continue;
+                }
+
+                // --- Check `requireTarget` ---
+                if (entry.requireTarget() != null) {
+                    var targetCap = StatusEffectCapability.get(targetSide);
+                    if (!targetCap.isPresent()) continue;
+                    boolean[] met = {false};
+                    targetCap.ifPresent(cap -> met[0] = entry.requireTarget().check(cap));
+                    if (!met[0]) continue;
+                }
+
                 // --- Check `consume` (attacker-side) ---
                 if (entry.consume() != null) {
                     var attackerCap = StatusEffectCapability.get(attackerSide);

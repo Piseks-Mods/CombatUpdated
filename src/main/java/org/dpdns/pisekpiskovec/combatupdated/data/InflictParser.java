@@ -42,10 +42,13 @@ public class InflictParser {
                 int count = entry.has("count") ? CUMath.clamp(0, entry.get("count").getAsInt(), 99) : 0;
                 int potency = entry.has("potency") ? CUMath.clamp(0, entry.get("potency").getAsInt(), 99) : 0;
 
-                ConsumeCondition consume = entry.has("consume") ? parseCondition(entry.getAsJsonObject("consume"), "consume", i, fileId) : null;
-                ConsumeCondition drain = entry.has("drain") ? parseCondition(entry.getAsJsonObject("drain"), "drain", i, fileId) : null;
+                ConsumeCondition consume = entry.has("consume") ? parseConsumeCondition(entry.getAsJsonObject("consume"), "consume", i, fileId) : null;
+                ConsumeCondition drain = entry.has("drain") ? parseConsumeCondition(entry.getAsJsonObject("drain"), "drain", i, fileId) : null;
 
-                result.add(new InflictEntry(effectType, count, potency, consume, drain));
+                RequireCondition require = entry.has("require") ? parseRequestCondition(entry.getAsJsonObject("require"), "require", i, fileId) : null;
+                RequireCondition requireTarget = entry.has("requireTarget") ? parseRequestCondition(entry.getAsJsonObject("requireTarget"), "requireTarget", i, fileId) : null;
+
+                result.add(new InflictEntry(effectType, count, potency, consume, drain, require, requireTarget));
             } catch (Exception e) {
                 CombatUpdated.LOGGER.warn("[CombatUpdated] inflicts[{}] in '{}' failed to parse: {}", i, fileId, e.getMessage());
             }
@@ -54,7 +57,7 @@ public class InflictParser {
         return Collections.unmodifiableList(result);
     }
 
-    private static @Nullable ConsumeCondition parseCondition(JsonObject json, String key, int idx, ResourceLocation fileId) {
+    private static @Nullable ConsumeCondition parseConsumeCondition(JsonObject json, String key, int idx, ResourceLocation fileId) {
         if (!json.has("effect")) {
             CombatUpdated.LOGGER.warn("[CombatUpdate] {}[{}] in '{}' missing 'effect', skipping,", key, idx, fileId);
             return null;
@@ -76,6 +79,30 @@ public class InflictParser {
             return null;
         }
         return new ConsumeCondition(effectType, potency, count);
+    }
+
+    private static @Nullable RequireCondition parseRequestCondition(JsonObject json, String key, int idx, ResourceLocation fileId) {
+        if (!json.has("effect")) {
+            CombatUpdated.LOGGER.warn("[CombatUpdate] {}[{}] in '{}' missing 'effect', skipping,", key, idx, fileId);
+            return null;
+        }
+        String raw = json.get("effect").getAsString().toUpperCase(Locale.ROOT);
+        StatusEffectCapability.EffectType effectType;
+        try {
+            effectType = StatusEffectCapability.EffectType.valueOf(raw);
+        } catch (IllegalArgumentException e) {
+            CombatUpdated.LOGGER.warn("[CombatUpdate] {}[{}] in '{}': unknown effect '{}', skipping,", key, idx, fileId, raw);
+            return null;
+        }
+
+        int potency = json.has("potency") ? CUMath.clamp(0, json.get("potency").getAsInt(), 99) : 0;
+        int count = json.has("count") ? CUMath.clamp(0, json.get("count").getAsInt(), 99) : 0;
+
+        if (potency == 0 && count == 0) {
+            CombatUpdated.LOGGER.warn("[CombatUpdate] {}[{}] in '{}' has no potency and count, skipping,", key, idx, fileId);
+            return null;
+        }
+        return new RequireCondition(effectType, potency, count);
     }
 
     /**
