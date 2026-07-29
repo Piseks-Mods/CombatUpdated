@@ -1,0 +1,8 @@
+{
+  "item": "minecraft:lightning_rod",
+  "risk_level": "TETH",
+  "attack_type": "BLUNT",
+  "inflicts": [
+    { "effect": "PARALYZE", "count": 1, "potency": 0, "require": { "effect": "CHARGE", "potency": 4 } }
+  ]
+}
