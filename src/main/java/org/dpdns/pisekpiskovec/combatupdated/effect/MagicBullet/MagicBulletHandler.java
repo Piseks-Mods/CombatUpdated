@@ -15,11 +15,14 @@ public class MagicBulletHandler {
 
     @Nullable
     public static MagicBulletType getActiveBullet(LivingEntity attacker) {
-        return StatusEffectCapability.get(attacker).map(cap -> {
+        MagicBulletType[] result = {null};
+        StatusEffectCapability.get(attacker).ifPresent(cap -> {
             CUStatusEffect eff = cap.getEffect(StatusEffectCapability.EffectType.MAGIC_AMMO);
-            if (eff.isExpired()) return null;
-            return MagicBulletType.fromCount(eff.getCount());
-        }).orElse(null);
+            if (!eff.isExpired()) {
+                result[0] = MagicBulletType.fromCount(eff.getCount());
+            }
+        });
+        return result[0];
     }
 
     // --- 7th Magic Bullet ---
