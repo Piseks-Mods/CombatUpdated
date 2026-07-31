@@ -70,6 +70,8 @@ public class InflictHelper {
                         case SINKING_DELUGE -> SinkingDelugeEffect.apply(recipient, attackType);
                         case TREMOR_BURST -> TremorBurstEffect.apply(recipient);
                         case RELOAD -> ReloadEffect.apply(recipient);
+                        case THE_LIVING_AND_THE_DEPARTED_RELOAD ->
+                                org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.ReloadEffect.apply(recipient);
                         default -> {
                         }
                     }

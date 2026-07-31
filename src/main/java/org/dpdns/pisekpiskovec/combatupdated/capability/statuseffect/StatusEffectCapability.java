@@ -7,6 +7,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.dpdns.pisekpiskovec.combatupdated.effect.*;
 import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.DarkFlameEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.MagicAmmoEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.ButterflyEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.TheLivingAndTheDepartedEffect;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,6 +40,8 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final AmmoEffect ammo = new AmmoEffect();
     private final MagicAmmoEffect magic_ammo = new MagicAmmoEffect();
     private final ReloadEffect reload = new ReloadEffect();
+    private final org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.ReloadEffect reload_sl = new org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.ReloadEffect();
+    private final TheLivingAndTheDepartedEffect the_living_and_the_departed = new TheLivingAndTheDepartedEffect();
 
     // --- Debuffs ---
     private final AttackPowerDownEffect attack_power_down = new AttackPowerDownEffect();
@@ -154,6 +158,8 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case RUPTURE -> rupture;
             case SINKING_DELUGE -> sinking_deluge;
             case SINKING -> sinking;
+            case THE_LIVING_AND_THE_DEPARTED -> the_living_and_the_departed;
+            case THE_LIVING_AND_THE_DEPARTED_RELOAD -> reload_sl;
             case TREMOR_BURST -> tremor_burst;
             case TREMOR -> tremor;
         };
@@ -196,6 +202,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, TREMOR_BURST, TREMOR
+        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR
     }
 }

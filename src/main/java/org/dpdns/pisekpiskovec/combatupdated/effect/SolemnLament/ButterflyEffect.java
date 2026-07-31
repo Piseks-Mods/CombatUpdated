@@ -1,4 +1,4 @@
-package org.dpdns.pisekpiskovec.combatupdated.effect;
+package org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -9,6 +9,7 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapabili
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
+import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 public class ButterflyEffect extends CUStatusEffect {
     public ButterflyEffect() {
