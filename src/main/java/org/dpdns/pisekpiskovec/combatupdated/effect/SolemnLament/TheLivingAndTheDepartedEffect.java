@@ -5,7 +5,7 @@ import net.minecraft.world.entity.player.Player;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
-import org.dpdns.pisekpiskovec.combatupdated.damage.TrueDamageSource;
+import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 import java.util.Random;
@@ -56,7 +56,7 @@ public class TheLivingAndTheDepartedEffect extends CUStatusEffect {
             }
         });
 
-        if (getCount() <= 0){
+        if (getCount() <= 0) {
             reload(spender);
         }
 
@@ -72,15 +72,34 @@ public class TheLivingAndTheDepartedEffect extends CUStatusEffect {
 
     public void reload(LivingEntity entity) {
         int spConsumed = (30 - getCount()) / 2;
-        if (entity instanceof Player player) {
-            SanityCapability.get(entity).ifPresent(spCap -> spCap.reduceAndSync(spConsumed, player));
-        } else if (MobSanityCapability.get(entity).isPresent()) {
-            MobSanityCapability.get(entity).ifPresent(spCap -> spCap.reduce(spConsumed));
-        } else {
-            entity.hurt(TrueDamageSource.get(entity), spConsumed);
-        }
+        dealSinkingDamage(entity, spConsumed);
 
         int capacity = isExpired() ? getDefaultPotency() : getPotency();
         apply(capacity, getDefaultPotency());
+    }
+
+    private void dealSinkingDamage(LivingEntity entity, int amount) {
+        // Players and mobs with sanity: always drain sanity
+        var sanityCap = SanityCapability.get(entity);
+        if (sanityCap.isPresent()) {
+            sanityCap.ifPresent(cap -> {
+                if (entity instanceof Player player) cap.reduceAndSync(amount, player);
+                else cap.reduce(amount);
+            });
+            return;
+        }
+
+        // Mobs without sanity: deal true HP damage (like Rupture)
+        MobDataManager.MobData mobData = MobDataManager.get(entity);
+        if (mobData.hasSanity()) {
+            MobSanityCapability.get(entity).ifPresent(cap -> {
+                cap.reduce(amount);
+                if (cap.getSanity() <= MobSanityCapability.MIN_SANITY) {
+                    cap.triggerPanic(entity);
+                }
+            });
+        } else {
+            dealTrueDamage(entity, amount);
+        }
     }
 }
