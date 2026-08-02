@@ -1,7 +1,11 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapability;
+import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
+import org.dpdns.pisekpiskovec.combatupdated.damage.TrueDamageSource;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 import java.util.Random;
@@ -24,8 +28,11 @@ public class TheLivingAndTheDepartedEffect extends CUStatusEffect {
      *
      * @return true if spending succeeded (enough ammo), false if insufficient
      */
-    public boolean spend(int amount, LivingEntity target) {
-        if (getCount() < amount) return false;
+    public boolean spend(int amount, LivingEntity spender, LivingEntity target) {
+        if (getCount() < amount) {
+            reload(spender);
+            return false;
+        }
         decrementCount(amount);
 
         //Roll once per ammo point
@@ -60,5 +67,19 @@ public class TheLivingAndTheDepartedEffect extends CUStatusEffect {
      */
     public boolean hasAmmo(int amount) {
         return !isExpired() && getCount() >= amount;
+    }
+
+    public void reload(LivingEntity entity) {
+        int spConsumed = (30 - getCount()) / 2;
+        if (entity instanceof Player player) {
+            SanityCapability.get(entity).ifPresent(spCap -> spCap.reduceAndSync(spConsumed, player));
+        } else if (MobSanityCapability.get(entity).isPresent()) {
+            MobSanityCapability.get(entity).ifPresent(spCap -> spCap.reduce(spConsumed));
+        } else {
+            entity.hurt(TrueDamageSource.get(entity), spConsumed);
+        }
+
+        int capacity = isExpired() ? getDefaultPotency() : getPotency();
+        apply(capacity, getDefaultPotency());
     }
 }

@@ -21,10 +21,9 @@ public class ReloadEffect extends CUStatusEffect {
     public static void apply(LivingEntity entity) {
         StatusEffectCapability.get(entity).ifPresent(cap -> {
             CUStatusEffect ammo = cap.getEffect(StatusEffectCapability.EffectType.AMMO);
-            if (ammo.isExpired()) return; // Nothing to reload
-
-            int capacity = ammo.getPotency();
-            ammo.apply(capacity, capacity);
+            if (ammo instanceof AmmoEffect ammoEffect) {
+                ammoEffect.reload();
+            }
         });
     }
 }

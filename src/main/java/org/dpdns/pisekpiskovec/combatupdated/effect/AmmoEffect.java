@@ -36,4 +36,13 @@ public class AmmoEffect extends CUStatusEffect {
     public boolean hasAmmo(int amount) {
         return !isExpired() && getCount() >= amount;
     }
+
+    /**
+     * Reload: lose all current Ammo, restore count to capacity (potency).
+     * Does nothing if the entity has no Ammo effect active.
+     */
+    public void reload() {
+        int capacity = isExpired() ? getDefaultCount() : getPotency();
+        apply(capacity, capacity);
+    }
 }

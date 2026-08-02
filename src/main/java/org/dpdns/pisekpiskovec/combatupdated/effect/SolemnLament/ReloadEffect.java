@@ -1,11 +1,7 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapability;
-import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
-import org.dpdns.pisekpiskovec.combatupdated.damage.TrueDamageSource;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 public class ReloadEffect extends CUStatusEffect {
@@ -26,18 +22,9 @@ public class ReloadEffect extends CUStatusEffect {
     public static void apply(LivingEntity entity) {
         StatusEffectCapability.get(entity).ifPresent(cap -> {
             CUStatusEffect ammo = cap.getEffect(StatusEffectCapability.EffectType.THE_LIVING_AND_THE_DEPARTED);
-
-            int spConsumed = (30 - ammo.getCount()) / 2;
-            if (entity instanceof Player player) {
-                SanityCapability.get(entity).ifPresent(spCap -> spCap.reduceAndSync(spConsumed, player));
-            } else if (MobSanityCapability.get(entity).isPresent()) {
-                MobSanityCapability.get(entity).ifPresent(spCap -> spCap.reduce(spConsumed));
-            } else {
-                entity.hurt(TrueDamageSource.get(entity), spConsumed);
+            if (ammo instanceof TheLivingAndTheDepartedEffect tltd) {
+                tltd.reload(entity);
             }
-
-            int capacity = ammo.isExpired() ? ammo.getDefaultPotency() : ammo.getPotency();
-            ammo.apply(capacity, capacity);
         });
     }
 }
