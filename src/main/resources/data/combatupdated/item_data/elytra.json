@@ -1,0 +1,25 @@
+{
+  "item": "minecraft:elytra",
+  "risk_level": "HE",
+  "attack_type": "BLUNT",
+  "inflicts": [
+    {
+      "effect": "TREMOR",
+      "count": 0,
+      "potency": 3,
+      "consume": {
+        "effect": "THE_LIVING_AND_THE_DEPARTED",
+        "count": 1
+      }
+    },
+    {
+      "effect": "TREMOR_BURST",
+      "count": 1,
+      "potency": 1,
+      "consume": {
+        "effect": "TREMOR",
+        "count": 1
+      }
+    }
+  ]
+}
