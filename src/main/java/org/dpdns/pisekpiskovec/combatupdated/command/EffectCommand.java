@@ -26,20 +26,23 @@ public class EffectCommand {
     static LiteralArgumentBuilder<CommandSourceStack> register() {
         return Commands.literal("effect").then(Commands.argument("target", EntityArgument.entities()).then(Commands.argument("effect", StringArgumentType.word()).suggests(EFFECT_SUGGESTIONS)
 
-                // get
-                .then(Commands.literal("get").executes(ctx -> executeGet(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"))))
+                        // get
+                        .then(Commands.literal("get").executes(ctx -> executeGet(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"))))
 
-                // set <count> <potency>
-                .then(Commands.literal("set").then(Commands.argument("count", IntegerArgumentType.integer(0, 99)).then(Commands.argument("potency", IntegerArgumentType.integer(0, 99)).executes(ctx -> executeSet(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), IntegerArgumentType.getInteger(ctx, "count"), IntegerArgumentType.getInteger(ctx, "potency"))))))
+                        // set <count> <potency>
+                        .then(Commands.literal("set").then(Commands.argument("count", IntegerArgumentType.integer(0, 99)).then(Commands.argument("potency", IntegerArgumentType.integer(0, 99)).executes(ctx -> executeSet(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), IntegerArgumentType.getInteger(ctx, "count"), IntegerArgumentType.getInteger(ctx, "potency"))))))
 
-                .then(Commands.literal("add")
-                        // add count <n>
-                        .then(Commands.literal("count").then(Commands.argument("n", IntegerArgumentType.integer(1, 99)).executes(ctx -> executeAdd(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), IntegerArgumentType.getInteger(ctx, "n"), 0))))
-                        // add potency <n>
-                        .then(Commands.literal("potency").then(Commands.argument("n", IntegerArgumentType.integer(1, 99)).executes(ctx -> executeAdd(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), 0, IntegerArgumentType.getInteger(ctx, "n"))))))
+                        .then(Commands.literal("add")
+                                // add count <n>
+                                .then(Commands.literal("count").then(Commands.argument("n", IntegerArgumentType.integer(1, 99)).executes(ctx -> executeAdd(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), IntegerArgumentType.getInteger(ctx, "n"), 0))))
+                                // add potency <n>
+                                .then(Commands.literal("potency").then(Commands.argument("n", IntegerArgumentType.integer(1, 99)).executes(ctx -> executeAdd(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), 0, IntegerArgumentType.getInteger(ctx, "n"))))))
 
-                // clear
-                .then(Commands.literal("clear").executes(ctx -> executeClear(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"))))));
+                        // clear
+                        .then(Commands.literal("clear").executes(ctx -> executeClear(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"))))))
+
+                // trigger
+                .then(Commands.literal("trigger").executes(ctx -> executeTrigger(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"))));
     }
 
     private static StatusEffectCapability.EffectType parseType(CommandSourceStack source, String raw) {
@@ -137,5 +140,22 @@ public class EffectCommand {
         if (affected > 1)
             source.sendSuccess(() -> Component.literal("Cleared from " + fin + " entities.").withStyle(ChatFormatting.WHITE), false);
         return affected;
+    }
+
+    private static int executeTrigger(CommandSourceStack source, Collection<? extends net.minecraft.world.entity.Entity> targets, String effectName) {
+        StatusEffectCapability.EffectType type = parseType(source, effectName);
+        if (type == null) return 0;
+        for (var entity : targets) {
+            if (!(entity instanceof LivingEntity living)) continue;
+            StatusEffectCapability.get(living).ifPresent(cap -> {
+                if (cap.getEffect(type).getStackType() != CUStatusEffect.StackType.INSTANT) {
+                    source.sendFailure(Component.literal(type.name() + " is not an INSTANT effect."));
+                    return;
+                }
+                cap.applyInstant(type, living, AttackType.BLUNT);
+                source.sendSuccess(() -> Component.literal("Triggered " + type.name() + " on " + living.getName().getString()).withStyle(ChatFormatting.WHITE), false);
+            });
+        }
+        return targets.size();
     }
 }
