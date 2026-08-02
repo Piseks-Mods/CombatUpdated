@@ -4,6 +4,11 @@
   "attack_type": "BLUNT",
   "inflicts": [
     {
+      "effect": "SINKING",
+      "count": 0,
+      "potency": 3
+    },
+    {
       "effect": "TREMOR",
       "count": 0,
       "potency": 3

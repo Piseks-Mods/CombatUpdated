@@ -29,10 +29,7 @@ public class TheLivingAndTheDepartedEffect extends CUStatusEffect {
      * @return true if spending succeeded (enough ammo), false if insufficient
      */
     public boolean spend(int amount, LivingEntity spender, LivingEntity target) {
-        if (getCount() < amount) {
-            reload(spender);
-            return false;
-        }
+        if (getCount() < amount) return false;
         decrementCount(amount);
 
         //Roll once per ammo point
@@ -58,6 +55,10 @@ public class TheLivingAndTheDepartedEffect extends CUStatusEffect {
                 butterfly.addPotency(newPotency - butterfly.getPotency());
             }
         });
+
+        if (getCount() <= 0){
+            reload(spender);
+        }
 
         return true;
     }
