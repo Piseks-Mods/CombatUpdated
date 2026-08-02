@@ -26,23 +26,22 @@ public class EffectCommand {
     static LiteralArgumentBuilder<CommandSourceStack> register() {
         return Commands.literal("effect").then(Commands.argument("target", EntityArgument.entities()).then(Commands.argument("effect", StringArgumentType.word()).suggests(EFFECT_SUGGESTIONS)
 
-                        // get
-                        .then(Commands.literal("get").executes(ctx -> executeGet(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"))))
+                // get
+                .then(Commands.literal("get").executes(ctx -> executeGet(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"))))
 
-                        // set <count> <potency>
-                        .then(Commands.literal("set").then(Commands.argument("count", IntegerArgumentType.integer(0, 99)).then(Commands.argument("potency", IntegerArgumentType.integer(0, 99)).executes(ctx -> executeSet(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), IntegerArgumentType.getInteger(ctx, "count"), IntegerArgumentType.getInteger(ctx, "potency"))))))
+                // set <count> <potency>
+                .then(Commands.literal("set").then(Commands.argument("count", IntegerArgumentType.integer(0, 99)).then(Commands.argument("potency", IntegerArgumentType.integer(0, 99)).executes(ctx -> executeSet(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), IntegerArgumentType.getInteger(ctx, "count"), IntegerArgumentType.getInteger(ctx, "potency"))))))
 
-                        .then(Commands.literal("add")
-                                // add count <n>
-                                .then(Commands.literal("count").then(Commands.argument("n", IntegerArgumentType.integer(1, 99)).executes(ctx -> executeAdd(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), IntegerArgumentType.getInteger(ctx, "n"), 0))))
-                                // add potency <n>
-                                .then(Commands.literal("potency").then(Commands.argument("n", IntegerArgumentType.integer(1, 99)).executes(ctx -> executeAdd(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), 0, IntegerArgumentType.getInteger(ctx, "n"))))))
+                .then(Commands.literal("add")
+                        // add count <n>
+                        .then(Commands.literal("count").then(Commands.argument("n", IntegerArgumentType.integer(1, 99)).executes(ctx -> executeAdd(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), IntegerArgumentType.getInteger(ctx, "n"), 0))))
+                        // add potency <n>
+                        .then(Commands.literal("potency").then(Commands.argument("n", IntegerArgumentType.integer(1, 99)).executes(ctx -> executeAdd(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"), 0, IntegerArgumentType.getInteger(ctx, "n"))))))
 
-                        // clear
-                        .then(Commands.literal("clear").executes(ctx -> executeClear(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"))))))
-
+                // clear
+                .then(Commands.literal("clear").executes(ctx -> executeClear(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"))))
                 // trigger
-                .then(Commands.literal("trigger").executes(ctx -> executeTrigger(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"))));
+                .then(Commands.literal("trigger").executes(ctx -> executeTrigger(ctx.getSource(), EntityArgument.getEntities(ctx, "target"), StringArgumentType.getString(ctx, "effect"))))));
     }
 
     private static StatusEffectCapability.EffectType parseType(CommandSourceStack source, String raw) {
