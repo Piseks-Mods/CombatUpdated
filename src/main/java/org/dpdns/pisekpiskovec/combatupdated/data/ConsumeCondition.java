@@ -31,4 +31,11 @@ public record ConsumeCondition(StatusEffectCapability.EffectType effect, int pot
 
         return true;
     }
+
+    public void forceConsume(StatusEffectCapability cap) {
+        CUStatusEffect eff = cap.getEffect(effect);
+        if (eff.isExpired()) return;
+        if (count > 0) eff.decrementCount(Math.min(eff.getCount(), count));
+        if (potency > 0) eff.addPotency(-Math.min(eff.getPotency(), potency));
+    }
 }

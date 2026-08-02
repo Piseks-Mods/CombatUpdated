@@ -119,4 +119,15 @@ public class InflictParser {
         if (!json.has("inflicts")) return List.of();
         return parseArray(json.getAsJsonArray("inflicts"), fileId);
     }
+
+    public static List<ConsumeCondition> parseSpends(JsonObject json, ResourceLocation fileId) {
+        if (!json.has("spends")) return List.of();
+        JsonArray arr = json.getAsJsonArray("spends");
+        List<ConsumeCondition> result = new ArrayList<>(arr.size());
+        for (int i = 0; i < arr.size(); i++) {
+            ConsumeCondition c = parseConsumeCondition(arr.get(i).getAsJsonObject(), "spends", i, fileId);
+            if (c != null) result.add(c);
+        }
+        return Collections.unmodifiableList(result);
+    }
 }

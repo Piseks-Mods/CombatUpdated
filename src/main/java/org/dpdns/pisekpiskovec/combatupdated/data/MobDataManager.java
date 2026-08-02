@@ -28,7 +28,8 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
     // --- Data record ---
 
     public record MobData(RiskLevel riskLevel, AttackType attackType, Map<AttackType, ResistanceType> resistances,
-                          float staggerThreshold, List<InflictEntry> inflicts, List<InflictEntry> gains, MobSanityData sanity) {
+                          float staggerThreshold, List<InflictEntry> inflicts, List<InflictEntry> gains,
+                          List<ConsumeCondition> spends, MobSanityData sanity) {
         public boolean hasSanity() {
             return sanity.isPresent();
         }
@@ -41,7 +42,7 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
             return staggerThreshold < 0 ? Config.staggerThreshold : staggerThreshold;
         }
 
-        public static final MobData DEFAULT = new MobData(RiskLevel.ZAYIN, AttackType.BLUNT, Map.of(AttackType.SLASH, ResistanceType.NORMAL, AttackType.PIERCE, ResistanceType.NORMAL, AttackType.BLUNT, ResistanceType.NORMAL), -1, List.of(), List.of(), MobSanityData.NONE);
+        public static final MobData DEFAULT = new MobData(RiskLevel.ZAYIN, AttackType.BLUNT, Map.of(AttackType.SLASH, ResistanceType.NORMAL, AttackType.PIERCE, ResistanceType.NORMAL, AttackType.BLUNT, ResistanceType.NORMAL), -1, List.of(), List.of(), List.of(), MobSanityData.NONE);
     }
 
     // --- Singleton ---
@@ -123,6 +124,7 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
 
         List<InflictEntry> inflicts = InflictParser.parse(json, fileId);
         List<InflictEntry> gains = InflictParser.parse(json, "gains", fileId);
+        List<ConsumeCondition> spends = InflictParser.parseSpends(json, fileId);
 
         MobSanityData sanity = MobSanityData.NONE;
         if (json.has("sanity")) {
@@ -131,7 +133,7 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
             sanity = new MobSanityData(panicGains);
         }
 
-        return new MobData(riskLevel, attackType, Collections.unmodifiableMap(resistances), staggerThreshold, inflicts, gains, sanity);
+        return new MobData(riskLevel, attackType, Collections.unmodifiableMap(resistances), staggerThreshold, inflicts, gains, spends, sanity);
     }
 
     // --- Lookup ---

@@ -75,4 +75,17 @@ public class InflictHelper {
             }
         });
     }
+
+    /**
+     * Unconditionally consumes effects from `entity` up to the amounts listed.
+     * Used for the `spends` data pack array - no condition check, no effect applied.
+     */
+    public static void spend(LivingEntity entity, List<ConsumeCondition> spends) {
+        if (spends.isEmpty()) return;
+        StatusEffectCapability.get(entity).ifPresent(cap -> {
+            for (ConsumeCondition spend : spends) {
+                spend.forceConsume(cap);
+            }
+        });
+    }
 }

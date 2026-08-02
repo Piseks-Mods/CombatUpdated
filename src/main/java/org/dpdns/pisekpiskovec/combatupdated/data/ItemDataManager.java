@@ -26,8 +26,9 @@ import java.util.Map;
 public class ItemDataManager extends SimpleJsonResourceReloadListener {
     // --- Data record ---
 
-    public record ItemData(RiskLevel riskLevel, AttackType attackType, List<InflictEntry> inflicts, List<InflictEntry> gains) {
-        public static final ItemData DEFAULT = new ItemData(RiskLevel.ZAYIN, AttackType.BLUNT, List.of(), List.of());
+    public record ItemData(RiskLevel riskLevel, AttackType attackType, List<InflictEntry> inflicts,
+                           List<InflictEntry> gains, List<ConsumeCondition> spends) {
+        public static final ItemData DEFAULT = new ItemData(RiskLevel.ZAYIN, AttackType.BLUNT, List.of(), List.of(), List.of());
     }
 
     // --- Singleton ---
@@ -85,8 +86,9 @@ public class ItemDataManager extends SimpleJsonResourceReloadListener {
 
         List<InflictEntry> inflicts = InflictParser.parse(json, fileId);
         List<InflictEntry> gains = InflictParser.parse(json, "gains", fileId);
+        List<ConsumeCondition> spends = InflictParser.parseSpends(json, fileId);
 
-        return new ItemData(riskLevel, attackType, inflicts, gains);
+        return new ItemData(riskLevel, attackType, inflicts, gains, spends);
     }
 
     // --- Lookup ---
