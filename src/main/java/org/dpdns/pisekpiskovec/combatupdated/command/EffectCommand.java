@@ -11,6 +11,7 @@ import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
+import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
@@ -81,7 +82,10 @@ public class EffectCommand {
             StatusEffectCapability.get(living).ifPresent(cap -> {
                 // Clear first, then apply fresh
                 cap.getEffect(type).apply(0, 0); // expire
-                if (count > 0 || potency > 0) cap.apply(type, count, potency);
+                if (count > 0 || potency > 0)
+                    if (cap.getEffect(type).getStackType() == CUStatusEffect.StackType.INSTANT)
+                        cap.applyInstant(type, living, AttackType.BLUNT);
+                    else cap.apply(type, count, potency);
                 source.sendSuccess(() -> Component.literal("Set " + type.name() + " on " + living.getName().getString() + " → Count: " + count + " Potency: " + potency).withStyle(StatusCommand.colorFor(cap, type)), false);
             });
             affected++;
@@ -101,7 +105,9 @@ public class EffectCommand {
         for (var entity : targets) {
             if (!(entity instanceof LivingEntity living)) continue;
             StatusEffectCapability.get(living).ifPresent(cap -> {
-                cap.apply(type, count, potency);
+                if (cap.getEffect(type).getStackType() == CUStatusEffect.StackType.INSTANT)
+                    cap.applyInstant(type, living, AttackType.BLUNT);
+                else cap.apply(type, count, potency);
                 CUStatusEffect effect = cap.getEffect(type);
                 source.sendSuccess(() -> Component.literal("Updated " + type.name() + " on " + living.getName().getString() + " → Count: " + effect.getCount() + " Potency: " + effect.getPotency()).withStyle(StatusCommand.colorFor(cap, type)), false);
             });

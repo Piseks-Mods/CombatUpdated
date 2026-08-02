@@ -4,9 +4,6 @@ import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
-import org.dpdns.pisekpiskovec.combatupdated.effect.ReloadEffect;
-import org.dpdns.pisekpiskovec.combatupdated.effect.SinkingDelugeEffect;
-import org.dpdns.pisekpiskovec.combatupdated.effect.TremorBurstEffect;
 
 import java.util.List;
 
@@ -66,15 +63,7 @@ public class InflictHelper {
                 CUStatusEffect effect = recipientCap.getEffect(entry.effect());
 
                 if (effect.getStackType() == CUStatusEffect.StackType.INSTANT) {
-                    switch (entry.effect()) {
-                        case SINKING_DELUGE -> SinkingDelugeEffect.apply(recipient, attackType);
-                        case TREMOR_BURST -> TremorBurstEffect.apply(recipient);
-                        case RELOAD -> ReloadEffect.apply(recipient);
-                        case THE_LIVING_AND_THE_DEPARTED_RELOAD ->
-                                org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.ReloadEffect.apply(recipient);
-                        default -> {
-                        }
-                    }
+                    recipientCap.applyInstant(entry.effect(), recipient, attackType);
                 } else {
                     StatusEffectCapability.EffectType uniqueOf = effect.getUniqueOf();
                     if (!effect.isExpired() && uniqueOf != null && effect.getStackType() == CUStatusEffect.StackType.LOCKED) {
