@@ -1,0 +1,12 @@
+{
+  "item": "minecraft:iron_nugget",
+  "risk_level": "TETH",
+  "attack_type": "PIERCE",
+  "inflicts": [
+    {
+      "effect": "NAILS",
+      "count": 3,
+      "potency": 0
+    }
+  ]
+}

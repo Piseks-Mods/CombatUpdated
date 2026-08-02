@@ -52,6 +52,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final DefenseLevelDownEffect defense_level_down = new DefenseLevelDownEffect();
     private final DefenseLevelUpEffect defense_level_up = new DefenseLevelUpEffect();
     private final FragileEffect fragile = new FragileEffect();
+    private final NailsEffect nails = new NailsEffect();
     private final ParalyzeEffect paralyze = new ParalyzeEffect();
     private final SinkingDelugeEffect sinking_deluge = new SinkingDelugeEffect();
     private final TremorBurstEffect tremor_burst = new TremorBurstEffect();
@@ -144,7 +145,8 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             if (!effect.hasTrigger(type)) continue;
 
             int decrement;
-            if (et == EffectType.AMMO || et == EffectType.BUTTERFLY) decrement = 0; // Manages own count
+            if (et == EffectType.AMMO || et == EffectType.BUTTERFLY || et == EffectType.NAILS)
+                decrement = 0; // Manages own count
             else decrement = 1;
             effect.trigger(entity, type, decrement);
         }
@@ -166,6 +168,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case DEFENSE_LEVEL_UP -> defense_level_up;
             case FRAGILE -> fragile;
             case MAGIC_AMMO -> magic_ammo;
+            case NAILS -> nails;
             case PARALYZE -> paralyze;
             case POISE -> poise;
             case RELOAD -> reload;
@@ -216,6 +219,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR
+        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR
     }
 }
