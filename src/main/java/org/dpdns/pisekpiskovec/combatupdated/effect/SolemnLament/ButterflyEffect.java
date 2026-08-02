@@ -34,7 +34,7 @@ public class ButterflyEffect extends CUStatusEffect {
     }
 
     private void handleOnHit(LivingEntity entity, int theLiving, int theDeparted) {
-        // Heal attacker's SP: Livint / 4; min 1
+        // Heal attacker's SP: Living / 4; min 1
         LivingEntity attacker = StatusEffectCapability.get(entity).map(StatusEffectCapability::getAttackerContext).orElse(null);
 
         if (attacker != null) healSP(attacker, Math.max(1, theLiving / 4));
