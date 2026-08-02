@@ -16,10 +16,17 @@
       "effect": "TREMOR_BURST",
       "count": 1,
       "potency": 1,
-      "consume": {
+      "requireTarget": {
         "effect": "TREMOR",
         "count": 1
       }
+    }
+  ],
+  "gains": [
+    {
+      "effect": "THE_LIVING_AND_THE_DEPARTED",
+      "count": 0,
+      "potency": 20
     }
   ]
 }
