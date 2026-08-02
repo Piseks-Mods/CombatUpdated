@@ -144,8 +144,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             if (!effect.hasTrigger(type)) continue;
 
             int decrement;
-            if (et == EffectType.TREMOR && type == CUStatusEffect.TriggerType.TURN_END) decrement = 3;
-            else if (et == EffectType.BUTTERFLY) decrement = 0; // Handled inside onTrigger
+            if (et == EffectType.AMMO || et == EffectType.BUTTERFLY) decrement = 0; // Manages own count
             else decrement = 1;
             effect.trigger(entity, type, decrement);
         }

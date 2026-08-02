@@ -4,12 +4,19 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class AmmoEffect extends CUStatusEffect {
     public AmmoEffect() {
-        super(props().category(Category.NEUTRAL).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 1));
+        super(props().triggers(TriggerType.TURN_END).category(Category.NEUTRAL).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 10));
+    }
+
+    @Override
+    public boolean isExpired() {
+        return getCount() <= 0 && getPotency() <= 0;
     }
 
     @Override
     protected void onTrigger(LivingEntity entity, int potency, int count, TriggerType type) {
-
+        if (count == 0 && potency > 0) {
+            ReloadEffect.apply(entity);
+        }
     }
 
     /**
@@ -19,7 +26,7 @@ public class AmmoEffect extends CUStatusEffect {
      */
     public boolean spend(int amount) {
         if (getCount() < amount) return false;
-        decrementCount(amount);
+        apply(getCount() - amount, getPotency());
         return true;
     }
 
