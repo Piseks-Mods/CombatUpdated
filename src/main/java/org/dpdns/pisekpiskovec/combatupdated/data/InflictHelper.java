@@ -4,6 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.TheLivingAndTheDepartedEffect;
 
 import java.util.List;
 
@@ -80,11 +81,17 @@ public class InflictHelper {
      * Unconditionally consumes effects from `entity` up to the amounts listed.
      * Used for the `spends` data pack array - no condition check, no effect applied.
      */
-    public static void spend(LivingEntity entity, List<ConsumeCondition> spends) {
+    public static void spend(LivingEntity spender, LivingEntity target, List<ConsumeCondition> spends) {
         if (spends.isEmpty()) return;
-        StatusEffectCapability.get(entity).ifPresent(cap -> {
+        StatusEffectCapability.get(spender).ifPresent(cap -> {
             for (ConsumeCondition spend : spends) {
-                spend.forceConsume(cap);
+                CUStatusEffect eff = cap.getEffect(spend.effect());
+
+                if (eff instanceof TheLivingAndTheDepartedEffect tltd) {
+                    tltd.spend(spend.count(), spender, target);
+                } else {
+                    spend.forceConsume(cap);
+                }
             }
         });
     }

@@ -6,11 +6,7 @@
     {
       "effect": "TREMOR",
       "count": 0,
-      "potency": 3,
-      "consume": {
-        "effect": "THE_LIVING_AND_THE_DEPARTED",
-        "count": 1
-      }
+      "potency": 3
     },
     {
       "effect": "TREMOR_BURST",
@@ -27,6 +23,12 @@
       "effect": "THE_LIVING_AND_THE_DEPARTED",
       "count": 0,
       "potency": 20
+    }
+  ],
+  "spends": [
+    {
+      "effect": "THE_LIVING_AND_THE_DEPARTED",
+      "count": 1
     }
   ]
 }

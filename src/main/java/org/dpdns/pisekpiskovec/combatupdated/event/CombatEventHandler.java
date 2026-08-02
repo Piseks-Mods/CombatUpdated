@@ -154,9 +154,9 @@ public class CombatEventHandler {
 
         // --- Spend attacker's declared spends ---
         if (hasItemEntry) {
-            InflictHelper.spend(attacker, itemData.spends());
+            InflictHelper.spend(attacker, target, itemData.spends());
         }
-        InflictHelper.spend(attacker, MobDataManager.get(attacker).spends());
+        InflictHelper.spend(attacker, target, MobDataManager.get(attacker).spends());
 
         // --- Apply attacker's inflicts to target ---
         if (hasItemEntry) {
