@@ -23,6 +23,7 @@ import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.MagicBulletHandler;
 import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.MagicBulletType;
+import org.dpdns.pisekpiskovec.combatupdated.effect.Thoracalgia.NebulizerAlphaHandler;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 
 import java.util.Random;
@@ -37,6 +38,7 @@ public class CombatEventHandler {
         DamageSource source = event.getSource();
         Entity rawAttacker = source.getEntity();
         if (!(rawAttacker instanceof LivingEntity attacker)) return;
+        NebulizerAlphaHandler.tryFireCombatStart(attacker);
 
         // --- Resolve attacker risk + attack type ---
         RiskLevel attackerRisk;

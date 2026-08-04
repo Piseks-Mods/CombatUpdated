@@ -10,8 +10,11 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.DarkFlameEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.MagicAmmoEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.ButterflyEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.TheLivingAndTheDepartedEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.Thoracalgia.NebulizerAlphaEffect;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Consumer;
 
 public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
 
@@ -37,6 +40,11 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final SinkingEffect sinking = new SinkingEffect();
     private final TremorEffect tremor = new TremorEffect();
 
+    // --- Buffs ---
+    private final AttackPowerUpEffect attack_power_up = new AttackPowerUpEffect();
+    private final DefenseLevelUpEffect defense_level_up = new DefenseLevelUpEffect();
+    private final NebulizerAlphaEffect nebulizer_alpha = new NebulizerAlphaEffect();
+
     // --- Neutral ---
     private final AmmoEffect ammo = new AmmoEffect();
     private final MagicAmmoEffect magic_ammo = new MagicAmmoEffect();
@@ -46,11 +54,9 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
 
     // --- Debuffs ---
     private final AttackPowerDownEffect attack_power_down = new AttackPowerDownEffect();
-    private final AttackPowerUpEffect attack_power_up = new AttackPowerUpEffect();
     private final ButterflyEffect butterfly = new ButterflyEffect();
     private final DarkFlameEffect dark_flame = new DarkFlameEffect();
     private final DefenseLevelDownEffect defense_level_down = new DefenseLevelDownEffect();
-    private final DefenseLevelUpEffect defense_level_up = new DefenseLevelUpEffect();
     private final FragileEffect fragile = new FragileEffect();
     private final NailsEffect nails = new NailsEffect();
     private final ParalyzeEffect paralyze = new ParalyzeEffect();
@@ -62,7 +68,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
         return entity.getCapability(StatusEffectCapabilityProvider.CAPABILITY);
     }
 
-    public static void ifPresent(LivingEntity entity, java.util.function.Consumer<StatusEffectCapability> action) {
+    public static void ifPresent(LivingEntity entity, Consumer<StatusEffectCapability> action) {
         get(entity).ifPresent(action::accept);
     }
 
@@ -138,14 +144,14 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     /**
      * Fire all effects that respond to the given trigger. Removes expired effects.
      */
-    public void triggerAll(net.minecraft.world.entity.LivingEntity entity, CUStatusEffect.TriggerType type) {
+    public void triggerAll(LivingEntity entity, CUStatusEffect.TriggerType type) {
         for (EffectType et : EffectType.values()) {
             CUStatusEffect effect = getEffect(et);
             if (effect.isExpired()) continue;
             if (!effect.hasTrigger(type)) continue;
 
             int decrement;
-            if (et == EffectType.AMMO || et == EffectType.BUTTERFLY || et == EffectType.NAILS)
+            if (et == EffectType.AMMO || et == EffectType.BUTTERFLY || et == EffectType.NAILS || et == EffectType.NEBULIZER_ALPHA)
                 decrement = 0; // Manages own count
             else decrement = 1;
             effect.trigger(entity, type, decrement);
@@ -169,6 +175,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case FRAGILE -> fragile;
             case MAGIC_AMMO -> magic_ammo;
             case NAILS -> nails;
+            case NEBULIZER_ALPHA -> nebulizer_alpha;
             case PARALYZE -> paralyze;
             case POISE -> poise;
             case RELOAD -> reload;
@@ -219,6 +226,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR
+        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR
     }
 }

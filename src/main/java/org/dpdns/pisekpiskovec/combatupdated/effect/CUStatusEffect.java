@@ -13,6 +13,8 @@ public abstract class CUStatusEffect {
         ON_HIT, // entity receives a hit
         ON_ATTACK, // this entity lands a hit
         ON_USE, // entity uses an item (attack swing, place, right-click)
+        ON_CRIT, // When activating Poise condition
+        COMBAT_START,
     }
 
     public enum Category {POSITIVE, NEGATIVE, NEUTRAL}

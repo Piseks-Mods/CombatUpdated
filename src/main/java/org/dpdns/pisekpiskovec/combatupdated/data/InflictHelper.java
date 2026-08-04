@@ -1,10 +1,12 @@
 package org.dpdns.pisekpiskovec.combatupdated.data;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.TheLivingAndTheDepartedEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.Thoracalgia.NebulizerAlphaHandler;
 
 import java.util.List;
 
@@ -71,6 +73,12 @@ public class InflictHelper {
                         recipientCap.apply(uniqueOf, entry.count(), entry.potency());
                     } else {
                         recipientCap.apply(entry.effect(), entry.count(), entry.potency());
+                    }
+
+                    // Nebulizer α tracking: poise count applied to this recipient
+                    if (entry.effect() == StatusEffectCapability.EffectType.POISE && entry.count() > 0 && recipient.level() instanceof ServerLevel sl) {
+                        long day = sl.getDayTime() / 24000L;
+                        NebulizerAlphaHandler.onPoiseCountApplied(attackerSide, recipient, entry.count(), day);
                     }
                 }
             }
