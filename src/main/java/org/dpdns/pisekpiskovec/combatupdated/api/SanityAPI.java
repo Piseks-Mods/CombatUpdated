@@ -4,6 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.ISanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
+import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 
 import java.util.Optional;
 
@@ -14,9 +15,9 @@ public class SanityAPI {
      */
     public static Optional<ISanityCapability> get(LivingEntity entity) {
         var player = SanityCapability.get(entity);
-        if (player.isPresent()) return player.map(c -> (ISanityCapability) c);
+        if (player.isPresent()) return player.map(c -> c);
         var mob = MobSanityCapability.get(entity);
-        if (mob.isPresent()) return mob.map(c -> (ISanityCapability) c);
+        if (mob.isPresent() && MobDataManager.get(entity).hasSanity()) return mob.map(c -> c);
         return Optional.empty();
     }
 
