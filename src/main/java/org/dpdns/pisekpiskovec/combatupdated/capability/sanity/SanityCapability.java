@@ -9,7 +9,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 
-public class SanityCapability implements INBTSerializable<CompoundTag> {
+public class SanityCapability implements INBTSerializable<CompoundTag>, ISanityCapability {
     public static final int MIN_SANITY = -45;
     public static final int MAX_SANITY = 45;
 
@@ -19,6 +19,21 @@ public class SanityCapability implements INBTSerializable<CompoundTag> {
     private static final float LUCK_SCALAR = 0.1f;
 
     private int sanity = 0;
+
+    @Override
+    public int getMinSanity() {
+        return MIN_SANITY;
+    }
+
+    @Override
+    public int getMaxSanity() {
+        return MAX_SANITY;
+    }
+
+    @Override
+    public void sync(LivingEntity entity) {
+        if (entity instanceof Player player) syncLuck(player);
+    }
 
     // --- Static accessor ---
     public static LazyOptional<SanityCapability> get(LivingEntity entity) {
@@ -35,25 +50,12 @@ public class SanityCapability implements INBTSerializable<CompoundTag> {
         setSanity(this.sanity + amount);
     }
 
-    public void increaseAndSync(int amount, Player player) {
-        setSanityAndSync(this.sanity + amount, player);
-    }
-
     public void reduce(int amount) {
         setSanity(this.sanity - amount);
     }
 
-    public void reduceAndSync(int amount, Player player) {
-        setSanityAndSync(this.sanity - amount, player);
-    }
-
     public void setSanity(int value) {
         this.sanity = CUMath.clamp(MIN_SANITY, value, MAX_SANITY);
-    }
-
-    public void setSanityAndSync(int value, Player player) {
-        setSanity(value);
-        syncLuck(player);
     }
 
     public int getSanity() {

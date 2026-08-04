@@ -7,7 +7,6 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.data.InflictEntry;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
@@ -15,7 +14,7 @@ import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 
 import java.util.List;
 
-public class MobSanityCapability implements INBTSerializable<CompoundTag> {
+public class MobSanityCapability implements INBTSerializable<CompoundTag>, ISanityCapability {
 
     public static final int MIN_SANITY = -45;
     public static final int MAX_SANITY = 45;
@@ -23,6 +22,20 @@ public class MobSanityCapability implements INBTSerializable<CompoundTag> {
     private int sanity = 0;
     private boolean hasPanicked = false; // true after first panic, for turn-end reset
     private long lastKnownDay = -1;
+
+    @Override
+    public int getMinSanity() {
+        return MIN_SANITY;
+    }
+
+    @Override
+    public int getMaxSanity() {
+        return MAX_SANITY;
+    }
+
+    @Override
+    public void sync(LivingEntity entity) {
+    }
 
     // --- Static accessors ---
 
