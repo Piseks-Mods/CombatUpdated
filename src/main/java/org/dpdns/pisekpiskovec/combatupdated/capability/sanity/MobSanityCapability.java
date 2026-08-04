@@ -35,6 +35,9 @@ public class MobSanityCapability implements INBTSerializable<CompoundTag>, ISani
 
     @Override
     public void sync(LivingEntity entity) {
+        if (getSanity() <= MIN_SANITY) {
+            triggerPanic(entity);
+        }
     }
 
     // --- Static accessors ---

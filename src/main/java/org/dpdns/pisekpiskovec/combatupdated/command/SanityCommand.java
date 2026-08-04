@@ -8,9 +8,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapability;
-import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
+import org.dpdns.pisekpiskovec.combatupdated.api.SanityAPI;
 
 import java.util.Collection;
 
@@ -35,53 +33,24 @@ public class SanityCommand {
         int affected = 0;
         for (var entity : targets) {
             if (!(entity instanceof LivingEntity living)) continue;
-
-            // Try player sanity first
-            var playerCap = SanityCapability.get(living);
-            if (playerCap.isPresent() && living instanceof Player player) {
-                playerCap.ifPresent(cap -> {
-                    applyOp(cap, op, value, player);
-                    int s = cap.getSanity();
-                    source.sendSuccess(() -> Component.literal(player.getName().getString() + " sanity: " + s).withStyle(s >= 0 ? ChatFormatting.AQUA : ChatFormatting.RED), false);
-                });
+            if (SanityAPI.hasSanity(living)) {
+                applyOp(op, value, living);
+                int s = SanityAPI.getSanity(living);
+                source.sendSuccess(() -> Component.literal(living.getName().getString() + " sanity: " + s).withStyle(s >= 0 ? ChatFormatting.AQUA : ChatFormatting.RED), false);
                 affected++;
-                continue;
-            }
-
-            // Try mob sanity
-            var mobCap = MobSanityCapability.get(living);
-            if (mobCap.isPresent()) {
-                mobCap.ifPresent(cap -> {
-                    applyMobOp(cap, op, value);
-                    int s = cap.getSanity();
-                    source.sendSuccess(() -> Component.literal(living.getName().getString() + " sanity: " + s).withStyle(s >= 0 ? ChatFormatting.AQUA : ChatFormatting.RED), false);
-                });
-                affected++;
-                continue;
-            }
-
-            source.sendSuccess(() -> Component.literal(living.getName().getString() + " has no sanity capability.").withStyle(ChatFormatting.DARK_GRAY), false);
+            } else
+                source.sendSuccess(() -> Component.literal(living.getName().getString() + " has no sanity capability.").withStyle(ChatFormatting.DARK_GRAY), false);
         }
 
         if (affected == 0) source.sendFailure(Component.literal("No valid sanity targets found."));
         return affected;
     }
 
-    private static void applyOp(SanityCapability cap, String op, int value, Player player) {
+    private static void applyOp(String op, int value, LivingEntity entity) {
         switch (op) {
-            case "set" -> cap.setSanityAndSync(value, player);
-            case "add" -> cap.increaseAndSync(value, player);
-            case "reduce" -> cap.reduceAndSync(value, player);
-            case "get" -> {
-            }
-        }
-    }
-
-    private static void applyMobOp(MobSanityCapability cap, String op, int value) {
-        switch (op) {
-            case "set" -> cap.setSanity(value);
-            case "add" -> cap.increase(value);
-            case "reduce" -> cap.reduce(value);
+            case "set" -> SanityAPI.set(entity, value);
+            case "add" -> SanityAPI.increase(entity, value);
+            case "reduce" -> SanityAPI.reduce(entity, value);
             case "get" -> {
             }
         }
