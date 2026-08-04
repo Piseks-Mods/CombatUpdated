@@ -1,13 +1,14 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.api.ICUEntity;
 import org.dpdns.pisekpiskovec.combatupdated.api.ResistanceType;
+import org.dpdns.pisekpiskovec.combatupdated.api.SanityAPI;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
+import org.dpdns.pisekpiskovec.combatupdated.damage.TrueDamageSource;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 
 public class SinkingDelugeEffect extends CUStatusEffect {
@@ -44,23 +45,10 @@ public class SinkingDelugeEffect extends CUStatusEffect {
             if (spAfter < SanityCapability.MIN_SANITY) {
                 int excess = SanityCapability.MIN_SANITY - spAfter;
                 float hpDamage = applyTypeResistance(entity, excess, attackType);
-
-                if (isPlayerWithSanity && entity instanceof Player player) {
-                    SanityCapability.get(entity).ifPresent(c -> c.setSanityAndSync(SanityCapability.MIN_SANITY, player));
-                } else {
-                    MobSanityCapability.get(entity).ifPresent(c -> {
-                        c.setSanity(MobSanityCapability.MIN_SANITY);
-                        c.triggerPanic(entity);
-                    });
-                }
-
-                entity.setHealth(Math.max(0f, entity.getHealth() - hpDamage));
+                SanityAPI.set(entity, SanityCapability.MIN_SANITY);
+                entity.hurt(TrueDamageSource.get(entity), hpDamage);
             } else {
-                if (isPlayerWithSanity && entity instanceof Player player) {
-                    SanityCapability.get(entity).ifPresent(c -> c.setSanityAndSync(spAfter, player));
-                } else {
-                    MobSanityCapability.get(entity).ifPresent(c -> c.setSanity(spAfter));
-                }
+                SanityAPI.set(entity, spAfter);
             }
         });
     }

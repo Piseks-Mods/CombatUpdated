@@ -1,15 +1,16 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.api.ICUEntity;
 import org.dpdns.pisekpiskovec.combatupdated.api.ResistanceType;
-import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
+
+import static org.dpdns.pisekpiskovec.combatupdated.api.SanityAPI.getSanity;
+import static org.dpdns.pisekpiskovec.combatupdated.api.SanityAPI.increase;
 
 public class ButterflyEffect extends CUStatusEffect {
     public ButterflyEffect() {
@@ -22,9 +23,7 @@ public class ButterflyEffect extends CUStatusEffect {
     }
 
     @Override
-    protected void onTrigger(LivingEntity entity, int potency, int count, TriggerType type) {
-        int theLiving = potency;
-        int theDeparted = count;
+    protected void onTrigger(LivingEntity entity, int theLiving, int theDeparted, TriggerType type) {
 
         if (type == TriggerType.ON_HIT) {
             handleOnHit(entity, theLiving, theDeparted);
@@ -35,12 +34,10 @@ public class ButterflyEffect extends CUStatusEffect {
 
     private void handleOnHit(LivingEntity entity, int theLiving, int theDeparted) {
         // Heal attacker's SP: Living / 4; min 1
-        LivingEntity attacker = StatusEffectCapability.get(entity).map(StatusEffectCapability::getAttackerContext).orElse(null);
-
-        if (attacker != null) healSP(attacker, Math.max(1, theLiving / 4));
+        StatusEffectCapability.get(entity).map(StatusEffectCapability::getAttackerContext).ifPresent(attacker -> increase(attacker, Math.max(1, theLiving / 4)));
 
         // If this unit's SP < 0 and Departed > 0: deal Pierce dmg
-        if (theDeparted > 0 && getCurrentSP(entity) < 0) {
+        if (theDeparted > 0 && getSanity(entity) < 0) {
             int sinkingPotency = getSinkingPotency(entity);
 
             // floor(SinkingPotency / 5) per Departed, total capped at 30
@@ -63,22 +60,6 @@ public class ButterflyEffect extends CUStatusEffect {
             StatusEffectCapability.ifPresent(entity, cap -> cap.apply(StatusEffectCapability.EffectType.SINKING, 0, theLiving));
 
         apply(theLiving, 0);
-    }
-
-    private void healSP(LivingEntity entity, int amount) {
-        if (entity instanceof Player player) {
-            SanityCapability.get(entity).ifPresent(cap -> cap.increaseAndSync(amount, player));
-        } else {
-            MobSanityCapability.get(entity).ifPresent(cap -> cap.increase(amount));
-        }
-    }
-
-    private int getCurrentSP(LivingEntity entity) {
-        var playerSanity = SanityCapability.get(entity);
-        if (playerSanity.isPresent()) {
-            return playerSanity.map(SanityCapability::getSanity).orElse(0);
-        }
-        return MobSanityCapability.get(entity).map(MobSanityCapability::getSanity).orElse(Integer.MAX_VALUE);
     }
 
     private boolean hasSP(LivingEntity entity) {

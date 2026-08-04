@@ -1,10 +1,7 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.MobSanityCapability;
-import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
-import org.dpdns.pisekpiskovec.combatupdated.data.MobDataManager;
+import org.dpdns.pisekpiskovec.combatupdated.api.SanityAPI;
 
 public class SinkingEffect extends CUStatusEffect {
     public SinkingEffect() {
@@ -13,25 +10,8 @@ public class SinkingEffect extends CUStatusEffect {
 
     @Override
     protected void onTrigger(LivingEntity entity, int potency, int count, TriggerType type) {
-        // Players and mobs with sanity: always drain sanity
-        var sanityCap = SanityCapability.get(entity);
-        if (sanityCap.isPresent()) {
-            sanityCap.ifPresent(cap -> {
-                if (entity instanceof Player player) cap.reduceAndSync(potency, player);
-                else cap.reduce(potency);
-            });
-            return;
-        }
-
-        // Mobs without sanity: deal true HP damage (like Rupture)
-        MobDataManager.MobData mobData = MobDataManager.get(entity);
-        if (mobData.hasSanity()) {
-            MobSanityCapability.get(entity).ifPresent(cap -> {
-                cap.reduce(potency);
-                if (cap.getSanity() <= MobSanityCapability.MIN_SANITY) {
-                    cap.triggerPanic(entity);
-                }
-            });
+        if (SanityAPI.hasSanity(entity)) {
+            SanityAPI.reduce(entity, potency);
         } else {
             dealTrueDamage(entity, potency);
         }
