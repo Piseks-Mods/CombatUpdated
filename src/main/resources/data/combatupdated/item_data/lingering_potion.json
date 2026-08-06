@@ -1,0 +1,17 @@
+{
+  "item": "minecraft:lingering_potion",
+  "risk_level": "HE",
+  "attack_type": "SLASH",
+  "gains": [
+    {
+      "effect": "POISE",
+      "count": 1,
+      "potency": 0
+    },
+    {
+      "effect": "NEBULIZER_ALPHA",
+      "count": 1,
+      "potency": 0
+    }
+  ]
+}
