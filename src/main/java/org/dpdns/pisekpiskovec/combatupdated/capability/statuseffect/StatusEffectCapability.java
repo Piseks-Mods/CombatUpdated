@@ -62,6 +62,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final ParalyzeEffect paralyze = new ParalyzeEffect();
     private final SinkingDelugeEffect sinking_deluge = new SinkingDelugeEffect();
     private final TremorBurstEffect tremor_burst = new TremorBurstEffect();
+    private final TremorEverlastingEffect tremor_everlasting = new TremorEverlastingEffect();
 
     // --- Static accessor ---
     public static LazyOptional<StatusEffectCapability> get(LivingEntity entity) {
@@ -183,6 +184,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case THE_LIVING_AND_THE_DEPARTED_RELOAD -> reload_sl;
             case TREMOR_BURST -> tremor_burst;
             case TREMOR -> tremor;
+            case TREMOR_EVERLASTING -> tremor_everlasting;
         };
     }
 
@@ -223,6 +225,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR
+        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR_EVERLASTING, TREMOR
     }
 }
