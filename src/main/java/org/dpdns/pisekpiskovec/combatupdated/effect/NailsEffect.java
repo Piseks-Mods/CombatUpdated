@@ -5,7 +5,7 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffec
 
 public class NailsEffect extends CUStatusEffect {
     public NailsEffect() {
-        super(props().triggers(TriggerType.TURN_END).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(1).defaults(1, 1).uniqueOf(StatusEffectCapability.EffectType.BLEED));
+        super(props().triggers(TriggerType.TURN_END).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxCount(99).maxPotency(1).defaults(1, 1).uniqueOf(StatusEffectCapability.EffectType.BLEED).managesOwnCount(true));
     }
 
     @Override

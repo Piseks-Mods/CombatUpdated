@@ -35,6 +35,7 @@ public abstract class CUStatusEffect {
         int maxPotency = 99;
         int defaultCount = 1;
         int defaultPotency = 1;
+        boolean managesOwnCount = false;
 
         public Properties triggers(TriggerType... t) {
             this.triggers = Set.of(t);
@@ -71,6 +72,11 @@ public abstract class CUStatusEffect {
             this.uniqueOf = basicEffectName;
             return this;
         }
+
+        public Properties managesOwnCount(boolean manages) {
+            this.managesOwnCount = manages;
+            return this;
+        }
     }
 
     public static Properties props() {
@@ -87,6 +93,7 @@ public abstract class CUStatusEffect {
     private final int maxPotency;
     private final int defaultCount;
     private final int defaultPotency;
+    private final boolean managesOwnCount;
 
     protected CUStatusEffect(Properties p) {
         this.triggerTypes = p.triggers;
@@ -97,6 +104,7 @@ public abstract class CUStatusEffect {
         this.defaultCount = p.defaultCount;
         this.defaultPotency = p.defaultPotency;
         this.uniqueOf = p.uniqueOf;
+        this.managesOwnCount = p.managesOwnCount;
     }
 
     // --- Core trigger entry point ---
@@ -204,6 +212,10 @@ public abstract class CUStatusEffect {
 
     public int getPotency() {
         return potency;
+    }
+
+    public boolean managesOwnCount() {
+        return managesOwnCount;
     }
 
     public boolean isExpired() {

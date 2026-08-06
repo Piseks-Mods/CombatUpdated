@@ -150,10 +150,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             if (effect.isExpired()) continue;
             if (!effect.hasTrigger(type)) continue;
 
-            int decrement;
-            if (et == EffectType.AMMO || et == EffectType.BUTTERFLY || et == EffectType.NAILS || et == EffectType.NEBULIZER_ALPHA)
-                decrement = 0; // Manages own count
-            else decrement = 1;
+            int decrement = effect.managesOwnCount() ? 0 : 1;
             effect.trigger(entity, type, decrement);
         }
     }

@@ -14,7 +14,7 @@ import static org.dpdns.pisekpiskovec.combatupdated.api.SanityAPI.increase;
 
 public class ButterflyEffect extends CUStatusEffect {
     public ButterflyEffect() {
-        super(props().triggers(TriggerType.TURN_END, TriggerType.ON_HIT).category(Category.NEGATIVE).stackType(StackType.LOCKED).maxCount(15).maxPotency(15).defaults(0, 0).uniqueOf(StatusEffectCapability.EffectType.SINKING));
+        super(props().triggers(TriggerType.TURN_END, TriggerType.ON_HIT).category(Category.NEGATIVE).stackType(StackType.LOCKED).maxCount(15).maxPotency(15).defaults(0, 0).uniqueOf(StatusEffectCapability.EffectType.SINKING).managesOwnCount(true));
     }
 
     @Override

@@ -14,7 +14,7 @@ public class NebulizerAlphaEffect extends CUStatusEffect {
     private long lastGainedBy = -1;
 
     public NebulizerAlphaEffect() {
-        super(props().triggers(TriggerType.COMBAT_START).category(Category.POSITIVE).stackType(StackType.STACKABLE).maxCount(5).maxPotency(9).defaults(1, 0));
+        super(props().triggers(TriggerType.COMBAT_START).category(Category.POSITIVE).stackType(StackType.STACKABLE).maxCount(5).maxPotency(9).defaults(1, 0).managesOwnCount(true));
     }
 
     @Override

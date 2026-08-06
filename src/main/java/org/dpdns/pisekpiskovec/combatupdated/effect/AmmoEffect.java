@@ -4,7 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class AmmoEffect extends CUStatusEffect {
     public AmmoEffect() {
-        super(props().triggers(TriggerType.TURN_END).category(Category.NEUTRAL).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 10));
+        super(props().triggers(TriggerType.TURN_END).category(Category.NEUTRAL).stackType(StackType.STACKABLE).maxCount(99).maxPotency(99).defaults(1, 10).managesOwnCount(true));
     }
 
     @Override
