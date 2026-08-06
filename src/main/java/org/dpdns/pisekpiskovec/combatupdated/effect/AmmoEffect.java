@@ -15,7 +15,7 @@ public class AmmoEffect extends CUStatusEffect {
     @Override
     protected void onTrigger(LivingEntity entity, int potency, int count, TriggerType type) {
         if (count == 0 && potency > 0) {
-            ReloadEffect.apply(entity);
+            reload();
         }
     }
 
