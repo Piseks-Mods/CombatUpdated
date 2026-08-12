@@ -2,6 +2,7 @@ package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
+import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 
 public class TremorEffect extends CUStatusEffect {
     public TremorEffect() {
@@ -15,30 +16,18 @@ public class TremorEffect extends CUStatusEffect {
     }
 
     /**
-     * Called by TremorBurstEffect - not a normal trigger flow.
-     * <p>
-     * Raises the target's stagger threshold by Tremor Potency (flat HP).
-     * Then check if current HP is at or below the new effective threshold -
-     * if so, applies stagger for (count * 1.5) ticks rounded up.
-     * Tremor count decrements by 1. Works identically for players and mobs.
-     *
-     * @return true if expired
+     * Called by TremorBurstEffect.apply() when a burst is applied to this entity.
      */
-    public boolean applyBurst(LivingEntity entity) {
-        StaggerCapability.get(entity).ifPresent(stagger -> {
-            // 1. Raise threshold by potency
-            stagger.addThresholdBonus(getPotency());
-
-            // 2. Check if current HP is now at or below the effective threshold
-            float effectiveThreshold = stagger.getEffectiveThreshold(entity);
-            if (entity.getHealth() <= effectiveThreshold && !stagger.isOnCooldown()) {
-                int staggerTicks = (int) Math.ceil(getCount() * 1.5f);
-                stagger.applyStagger(staggerTicks);
-                stagger.setCooldown(100);
-            }
+    public static void onTremorBurst(LivingEntity entity) {
+        StatusEffectCapability.get(entity).ifPresent(cap -> {
+            CUStatusEffect eff = cap.getEffect(StatusEffectCapability.EffectType.TREMOR);
+            if (!(eff instanceof TremorEffect t) || t.isExpired()) return;
+            onTremorBurst(entity, t.getPotency());
         });
+    }
 
-        // 3. Decrement count by 1
-        return decrementCount(1);
+    public static void onTremorBurst(LivingEntity entity, int potency) {
+        // Raise stagger threshold by this effect's potency
+        StaggerCapability.get(entity).ifPresent(s -> s.addThresholdBonus(potency));
     }
 }

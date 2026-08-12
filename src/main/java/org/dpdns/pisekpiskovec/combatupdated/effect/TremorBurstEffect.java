@@ -1,7 +1,6 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
-import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 
 public class TremorBurstEffect extends CUStatusEffect {
     public TremorBurstEffect() {
@@ -14,13 +13,7 @@ public class TremorBurstEffect extends CUStatusEffect {
     }
 
     public static void apply(LivingEntity entity) {
-        StatusEffectCapability.get(entity).ifPresent(cap -> {
-            TremorEffect tremor = (TremorEffect) cap.getEffect(StatusEffectCapability.EffectType.TREMOR);
-
-            if (tremor.isExpired()) return; // No Tremor stack - nothing happens
-            tremor.applyBurst(entity);
-        });
-
+        TremorEffect.onTremorBurst(entity);
         TremorEverlastingEffect.onTremorBurst(entity);
         TremorSuperpositionEffect.onTremorBurst(entity);
     }
