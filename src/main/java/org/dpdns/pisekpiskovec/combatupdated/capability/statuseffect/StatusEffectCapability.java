@@ -63,6 +63,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final SinkingDelugeEffect sinking_deluge = new SinkingDelugeEffect();
     private final TremorBurstEffect tremor_burst = new TremorBurstEffect();
     private final TremorEverlastingEffect tremor_everlasting = new TremorEverlastingEffect();
+    private final TremorSuperpositionEffect tremor_superposition = new TremorSuperpositionEffect();
 
     // --- Static accessor ---
     public static LazyOptional<StatusEffectCapability> get(LivingEntity entity) {
@@ -185,6 +186,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case TREMOR_BURST -> tremor_burst;
             case TREMOR -> tremor;
             case TREMOR_EVERLASTING -> tremor_everlasting;
+            case TREMOR_SUPERPOSITION -> tremor_superposition;
         };
     }
 
@@ -197,12 +199,12 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             CUStatusEffect effect = getEffect(type);
 
             if (effect.getStackType() == CUStatusEffect.StackType.INSTANT) continue; // Skip INSTANT
-
             if (effect.isExpired()) continue; // No point in storing zeroes
 
             CompoundTag effectTag = new CompoundTag();
             effectTag.putInt("count", effect.getCount());
             effectTag.putInt("potency", effect.getPotency());
+            effect.serializeExtra(effectTag);
             tag.put(type.name().toLowerCase(), effectTag);
         }
         return tag;
@@ -217,14 +219,15 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             CompoundTag effectTag = nbt.getCompound(key);
             int count = effectTag.getInt("count");
             int potency = effectTag.getInt("potency");
-            // Apply directly - bypasses stacking logic since we're restoring state
-            getEffect(type).apply(count, potency);
+            CUStatusEffect eff = getEffect(type);
+            eff.apply(count, potency);
+            eff.deserializeExtra(effectTag);
         }
     }
 
     // --- Effect type enum ---
 
     public enum EffectType {
-        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR_EVERLASTING, TREMOR
+        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR_EVERLASTING, TREMOR_SUPERPOSITION, TREMOR
     }
 }

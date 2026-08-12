@@ -1,5 +1,6 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.damage.TrueDamageSource;
@@ -220,5 +221,19 @@ public abstract class CUStatusEffect {
 
     public boolean isExpired() {
         return count <= 0;
+    }
+
+    // --- Serialization hooks ---
+
+    /**
+     * Override to persist extra state beyond count/potency
+     */
+    public void serializeExtra(CompoundTag tag) {
+    }
+
+    /**
+     * Override to restore extra state on NBT load.
+     */
+    public void deserializeExtra(CompoundTag tag) {
     }
 }

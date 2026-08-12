@@ -48,7 +48,10 @@ public class InflictParser {
                 RequireCondition require = entry.has("require") ? parseRequestCondition(entry.getAsJsonObject("require"), "require", i, fileId) : null;
                 RequireCondition requireTarget = entry.has("requireTarget") ? parseRequestCondition(entry.getAsJsonObject("requireTarget"), "requireTarget", i, fileId) : null;
 
-                result.add(new InflictEntry(effectType, count, potency, consume, drain, require, requireTarget));
+                boolean amplitudeConversion = entry.has("amplitude_conversion") && entry.get("amplitude_conversion").getAsBoolean();
+                boolean amplitudeEntanglement = entry.has("amplitude_entanglement") && entry.get("amplitude_entanglement").getAsBoolean();
+
+                result.add(new InflictEntry(effectType, count, potency, consume, drain, require, requireTarget, amplitudeConversion, amplitudeEntanglement));
             } catch (Exception e) {
                 CombatUpdated.LOGGER.warn("[CombatUpdated] inflicts[{}] in '{}' failed to parse: {}", i, fileId, e.getMessage());
             }

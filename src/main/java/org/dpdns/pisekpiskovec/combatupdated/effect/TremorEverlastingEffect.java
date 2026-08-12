@@ -31,27 +31,24 @@ public class TremorEverlastingEffect extends CUStatusEffect {
         StatusEffectCapability.get(entity).ifPresent(cap -> {
             CUStatusEffect eff = cap.getEffect(StatusEffectCapability.EffectType.TREMOR_EVERLASTING);
             if (!(eff instanceof TremorEverlastingEffect te) || te.isExpired()) return;
-
-            int potency = te.getPotency();
-            int count = te.getCount();
-
-            // Raise stagger threshold by this effect's potency
-            StaggerCapability.get(entity).ifPresent(s -> s.addThresholdBonus(potency));
-
-            IN_EVERLASTING_BURST.set(true);
-            try {
-                // (Tremor Potency) % chance; max 50 %
-                if (RNG.nextInt(100) < Math.min(potency, 50)) {
-                    TremorBurstEffect.apply(entity);
-                }
-
-                // (Tremor Count) % chance; max 50 %
-                if (RNG.nextInt(100) < Math.min(count, 50)) {
-                    TremorBurstEffect.apply(entity);
-                }
-            } finally {
-                IN_EVERLASTING_BURST.set(false);
-            }
+            onTremorBurst(entity, te.getPotency(), te.getCount());
         });
+    }
+
+    public static void onTremorBurst(LivingEntity entity, int potency, int count) {
+        if (IN_EVERLASTING_BURST.get()) return;
+
+        // Raise stagger threshold by this effect's potency
+        StaggerCapability.get(entity).ifPresent(s -> s.addThresholdBonus(potency));
+
+        IN_EVERLASTING_BURST.set(true);
+        try {
+            // (Tremor Potency) % chance; max 50 %
+            if (RNG.nextInt(100) < Math.min(potency, 50)) TremorBurstEffect.apply(entity);
+            // (Tremor Count) % chance; max 50 %
+            if (RNG.nextInt(100) < Math.min(count, 50)) TremorBurstEffect.apply(entity);
+        } finally {
+            IN_EVERLASTING_BURST.set(false);
+        }
     }
 }

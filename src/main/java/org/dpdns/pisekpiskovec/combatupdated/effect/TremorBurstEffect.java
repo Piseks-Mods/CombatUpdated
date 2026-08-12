@@ -14,12 +14,14 @@ public class TremorBurstEffect extends CUStatusEffect {
     }
 
     public static void apply(LivingEntity entity) {
-        TremorEverlastingEffect.onTremorBurst(entity);
         StatusEffectCapability.get(entity).ifPresent(cap -> {
             TremorEffect tremor = (TremorEffect) cap.getEffect(StatusEffectCapability.EffectType.TREMOR);
 
             if (tremor.isExpired()) return; // No Tremor stack - nothing happens
             tremor.applyBurst(entity);
         });
+
+        TremorEverlastingEffect.onTremorBurst(entity);
+        TremorSuperpositionEffect.onTremorBurst(entity);
     }
 }

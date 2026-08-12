@@ -7,6 +7,8 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffec
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.TheLivingAndTheDepartedEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.Thoracalgia.NebulizerAlphaHandler;
+import org.dpdns.pisekpiskovec.combatupdated.effect.TremorAmplitudeHelper;
+import org.dpdns.pisekpiskovec.combatupdated.effect.TremorType;
 
 import java.util.List;
 
@@ -68,8 +70,14 @@ public class InflictHelper {
                 if (effect.getStackType() == CUStatusEffect.StackType.INSTANT) {
                     recipientCap.applyInstant(entry.effect(), recipient, attackType);
                 } else {
+                    TremorType tremorType = TremorType.fromEffectType(entry.effect());
                     StatusEffectCapability.EffectType uniqueOf = effect.getUniqueOf();
-                    if (!effect.isExpired() && uniqueOf != null && effect.getStackType() == CUStatusEffect.StackType.LOCKED) {
+
+                    if (tremorType != null && entry.amplitudeConversion()) {
+                        TremorAmplitudeHelper.applyConversion(recipientCap, tremorType);
+                    } else if (tremorType != null && entry.amplitudeEntanglement()) {
+                        TremorAmplitudeHelper.applyEntanglement(recipientCap, tremorType);
+                    } else if (!effect.isExpired() && uniqueOf != null && effect.getStackType() == CUStatusEffect.StackType.LOCKED) {
                         recipientCap.apply(uniqueOf, entry.count(), entry.potency());
                     } else {
                         recipientCap.apply(entry.effect(), entry.count(), entry.potency());
