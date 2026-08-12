@@ -130,15 +130,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     public void applyInstant(EffectType type, LivingEntity entity, AttackType attackType) {
         CUStatusEffect effect = getEffect(type);
         if (effect.getStackType() != CUStatusEffect.StackType.INSTANT) return;
-        switch (type) {
-            case SINKING_DELUGE -> SinkingDelugeEffect.apply(entity, attackType);
-            case TREMOR_BURST -> TremorBurstEffect.apply(entity);
-            case RELOAD -> ReloadEffect.apply(entity);
-            case THE_LIVING_AND_THE_DEPARTED_RELOAD ->
-                    org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.ReloadEffect.apply(entity);
-            default -> {
-            }
-        }
+        effect.fireInstant(entity, attackType);
     }
 
     // --- Trigger dispatch ---

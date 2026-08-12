@@ -1,6 +1,7 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
+import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 
 public class TremorBurstEffect extends CUStatusEffect {
     public TremorBurstEffect() {
@@ -16,5 +17,10 @@ public class TremorBurstEffect extends CUStatusEffect {
         TremorEffect.onTremorBurst(entity);
         TremorEverlastingEffect.onTremorBurst(entity);
         TremorSuperpositionEffect.onTremorBurst(entity);
+    }
+
+    @Override
+    public void fireInstant(LivingEntity entity, AttackType attackType) {
+        apply(entity);
     }
 }

@@ -18,10 +18,10 @@ public class SinkingDelugeEffect extends CUStatusEffect {
 
     @Override
     protected void onTrigger(LivingEntity entity, int potency, int count, TriggerType type) {
-        // No trigger type
     }
 
-    public static void apply(LivingEntity entity, AttackType attackType) {
+    @Override
+    public void fireInstant(LivingEntity entity, AttackType attackType) {
         StatusEffectCapability.get(entity).ifPresent(cap -> {
             SinkingEffect sinking = (SinkingEffect) cap.getEffect(StatusEffectCapability.EffectType.SINKING);
             if (sinking.isExpired()) return;

@@ -2,6 +2,7 @@ package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
+import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.damage.TrueDamageSource;
 import org.jetbrains.annotations.Nullable;
@@ -132,6 +133,9 @@ public abstract class CUStatusEffect {
     }
 
     protected abstract void onTrigger(LivingEntity entity, int potency, int count, TriggerType type);
+
+    public void fireInstant(LivingEntity entity, AttackType attackType) {
+    }
 
     // --- Stack management ---
 

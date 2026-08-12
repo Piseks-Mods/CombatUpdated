@@ -1,6 +1,7 @@
 package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
+import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 
 public class ReloadEffect extends CUStatusEffect {
@@ -18,7 +19,8 @@ public class ReloadEffect extends CUStatusEffect {
      * Reload: lose all current Ammo, restore count to capacity (potency).
      * Does nothing if the entity has no Ammo effect active.
      */
-    public static void apply(LivingEntity entity) {
+    @Override
+    public void fireInstant(LivingEntity entity, AttackType attackType) {
         StatusEffectCapability.get(entity).ifPresent(cap -> {
             CUStatusEffect ammo = cap.getEffect(StatusEffectCapability.EffectType.AMMO);
             if (ammo instanceof AmmoEffect ammoEffect) {
