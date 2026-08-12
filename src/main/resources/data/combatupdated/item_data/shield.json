@@ -24,6 +24,10 @@
       "consume": {
         "effect": "TREMOR",
         "count": 10
+      },
+      "drain": {
+        "effect": "TREMOR",
+        "count": 1
       }
     }
   ]

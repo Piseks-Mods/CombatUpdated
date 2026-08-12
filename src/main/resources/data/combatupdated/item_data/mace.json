@@ -3,10 +3,26 @@
   "risk_level": "HE",
   "attack_type": "BLUNT",
   "inflicts": [
-    { "effect": "TREMOR", "count": 4, "potency": 5 },
-    { "effect": "TREMOR_BURST", "count": 0, "potency": 0 }
+    {
+      "effect": "TREMOR",
+      "count": 4,
+      "potency": 5
+    },
+    {
+      "effect": "TREMOR_BURST",
+      "count": 0,
+      "potency": 0,
+      "drain": {
+        "effect": "TREMOR",
+        "count": 1
+      }
+    }
   ],
   "gains": [
-    { "effect": "TREMOR", "count": 3, "potency": 0 }
+    {
+      "effect": "TREMOR",
+      "count": 3,
+      "potency": 0
+    }
   ]
 }

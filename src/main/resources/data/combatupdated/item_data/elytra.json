@@ -17,7 +17,7 @@
       "effect": "TREMOR_BURST",
       "count": 1,
       "potency": 1,
-      "requireTarget": {
+      "drain": {
         "effect": "TREMOR",
         "count": 1
       }
