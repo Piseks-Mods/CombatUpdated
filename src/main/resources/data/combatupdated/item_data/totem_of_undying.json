@@ -1,0 +1,13 @@
+{
+  "item": "minecraft:totem_of_undying",
+  "risk_level": "HE",
+  "attack_type": "BLUNT",
+  "inflicts": [
+    {
+      "effect": "TREMOR_EVERLASTING",
+      "count": 6,
+      "potency": 0,
+      "amplitude_conversion": true
+    }
+  ]
+}
