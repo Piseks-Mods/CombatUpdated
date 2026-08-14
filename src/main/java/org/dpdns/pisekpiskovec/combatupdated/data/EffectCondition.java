@@ -3,13 +3,20 @@ package org.dpdns.pisekpiskovec.combatupdated.data;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
-/**
- * A conditional requirement attached to an InflictEntry.
- * Before the effect is applied, the specified side's effect must have
- * at least the required potency/count - which are then consumed.
- * If either requirement isn't met, the inflict/gain is skipped entirely.
- */
-public record ConsumeCondition(StatusEffectCapability.EffectType effect, int potency, int count) {
+public record EffectCondition(StatusEffectCapability.EffectType effect, int potency, int count, boolean consume) {
+    /**
+     * Checks if the condition is met on the given entity.
+     *
+     * @return true if met, false if not met
+     */
+    public boolean check(StatusEffectCapability cap) {
+        CUStatusEffect eff = cap.getEffect(effect);
+        if (eff.isExpired()) return false;
+        // Check both requirements
+        if (potency > 0 && eff.getPotency() < potency) return false;
+        return count <= 0 || eff.getCount() >= count;
+    }
+
     /**
      * Checks if the condition is met on the given entity, and if so, consumes
      * the required potency/count.
@@ -18,20 +25,17 @@ public record ConsumeCondition(StatusEffectCapability.EffectType effect, int pot
      */
     public boolean checkAndConsume(StatusEffectCapability cap) {
         CUStatusEffect eff = cap.getEffect(effect);
-
-        if (eff.isExpired()) return false;
-
-        // Check both requirements before consuming either
-        if (potency > 0 && eff.getPotency() < potency) return false;
-        if (count > 0 && eff.getCount() < count) return false;
-
-        // All checks passed - consume
-        if (potency > 0) eff.addPotency(-potency);
-        if (count > 0) eff.decrementCount(count);
-
-        return true;
+        if (check(cap) && consume) {
+            if (potency > 0) eff.addPotency(-potency);
+            if (count > 0) eff.decrementCount(count);
+            return true;
+        }
+        return false;
     }
 
+    /**
+     * Forcefully consume the required potency/count
+     */
     public void forceConsume(StatusEffectCapability cap) {
         CUStatusEffect eff = cap.getEffect(effect);
         if (eff.isExpired()) return;
