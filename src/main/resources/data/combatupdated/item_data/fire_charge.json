@@ -1,13 +1,13 @@
 {
-  "entity": "minecraft:small_fireball",
+  "entity": "minecraft:fire_charge",
   "risk_level": "ZAYIN",
   "attack_type": "BLUNT",
-  "resistances": {
-    "SLASH": "INEFFECTIVE",
-    "PIERCE": "INEFFECTIVE",
-    "BLUNT": "INEFFECTIVE"
-  },
   "inflicts": [
+    {
+      "effect": "BURN",
+      "count": 1,
+      "potency": 3
+    },
     {
       "effect": "TREMOR",
       "count": 0,

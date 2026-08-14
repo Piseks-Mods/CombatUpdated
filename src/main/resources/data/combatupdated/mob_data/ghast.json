@@ -6,5 +6,26 @@
     "SLASH": "WEAK",
     "PIERCE": "ENDURED",
     "BLUNT": "FATAL"
+  },
+  "inflicts": [
+    {
+      "effect": "BURN",
+      "count": 1,
+      "potency": 6
+    },
+    {
+      "effect": "SINKING",
+      "count": 1,
+      "potency": 0
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "FRAGILE",
+        "count": 2,
+        "potency": 0
+      }
+    ]
   }
 }
