@@ -64,6 +64,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final SinkingDelugeEffect sinking_deluge = new SinkingDelugeEffect();
     private final TremorBurstEffect tremor_burst = new TremorBurstEffect();
     private final TremorEverlastingEffect tremor_everlasting = new TremorEverlastingEffect();
+    private final TremorScorchEffect tremor_scorch = new TremorScorchEffect();
     private final TremorSuperpositionEffect tremor_superposition = new TremorSuperpositionEffect();
 
     // --- Static accessor ---
@@ -180,6 +181,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case TREMOR_BURST -> tremor_burst;
             case TREMOR -> tremor;
             case TREMOR_EVERLASTING -> tremor_everlasting;
+            case TREMOR_SCORCH -> tremor_scorch;
             case TREMOR_SUPERPOSITION -> tremor_superposition;
         };
     }
@@ -222,6 +224,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, PHOTOELECTRICITY, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR_EVERLASTING, TREMOR_SUPERPOSITION, TREMOR
+        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, PHOTOELECTRICITY, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR_EVERLASTING, TREMOR_SCORCH, TREMOR_SUPERPOSITION, TREMOR
     }
 }

@@ -16,6 +16,7 @@ public class TremorBurstEffect extends CUStatusEffect {
     public static void apply(LivingEntity entity) {
         TremorEffect.onTremorBurst(entity);
         TremorEverlastingEffect.onTremorBurst(entity);
+        TremorScorchEffect.onTremorBurst(entity);
         TremorSuperpositionEffect.onTremorBurst(entity);
     }
 
