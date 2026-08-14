@@ -11,8 +11,8 @@ import org.jetbrains.annotations.Nullable;
  * @param potency potency to apply (uses max-of-existing rule in StatusEffectCapability)
  */
 public record InflictEntry(StatusEffectCapability.EffectType effect, int count, int potency,
-                           @Nullable ConsumeCondition consume, @Nullable ConsumeCondition drain,
-                           @Nullable RequireCondition require, @Nullable RequireCondition requireTarget,
+                           @Nullable EffectCondition consume, @Nullable EffectCondition drain,
+                           @Nullable EffectCondition require, @Nullable EffectCondition requireTarget,
                            boolean amplitudeConversion, boolean amplitudeEntanglement) {
     public InflictEntry(StatusEffectCapability.EffectType effect, int count, int potency) {
         this(effect, count, potency, null, null, null, null, false, false);

@@ -29,7 +29,7 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
 
     public record MobData(RiskLevel riskLevel, AttackType attackType, Map<AttackType, ResistanceType> resistances,
                           float staggerThreshold, List<InflictEntry> inflicts, List<InflictEntry> gains,
-                          List<ConsumeCondition> spends, MobSanityData sanity) {
+                          List<EffectCondition> spends, MobSanityData sanity) {
         public boolean hasSanity() {
             return sanity.isPresent();
         }
@@ -124,7 +124,7 @@ public class MobDataManager extends SimpleJsonResourceReloadListener {
 
         List<InflictEntry> inflicts = InflictParser.parse(json, fileId);
         List<InflictEntry> gains = InflictParser.parse(json, "gains", fileId);
-        List<ConsumeCondition> spends = InflictParser.parseSpends(json, fileId);
+        List<EffectCondition> spends = InflictParser.parseSpends(json, fileId);
 
         MobSanityData sanity = MobSanityData.NONE;
         if (json.has("sanity")) {

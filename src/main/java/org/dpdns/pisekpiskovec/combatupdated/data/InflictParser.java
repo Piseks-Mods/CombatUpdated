@@ -42,11 +42,11 @@ public class InflictParser {
                 int count = entry.has("count") ? CUMath.clamp(0, entry.get("count").getAsInt(), 99) : 0;
                 int potency = entry.has("potency") ? CUMath.clamp(0, entry.get("potency").getAsInt(), 99) : 0;
 
-                ConsumeCondition consume = entry.has("consume") ? parseConsumeCondition(entry.getAsJsonObject("consume"), "consume", i, fileId) : null;
-                ConsumeCondition drain = entry.has("drain") ? parseConsumeCondition(entry.getAsJsonObject("drain"), "drain", i, fileId) : null;
+                EffectCondition consume = entry.has("consume") ? parseConsumeCondition(entry.getAsJsonObject("consume"), "consume", i, fileId) : null;
+                EffectCondition drain = entry.has("drain") ? parseConsumeCondition(entry.getAsJsonObject("drain"), "drain", i, fileId) : null;
 
-                RequireCondition require = entry.has("require") ? parseRequestCondition(entry.getAsJsonObject("require"), "require", i, fileId) : null;
-                RequireCondition requireTarget = entry.has("requireTarget") ? parseRequestCondition(entry.getAsJsonObject("requireTarget"), "requireTarget", i, fileId) : null;
+                EffectCondition require = entry.has("require") ? parseRequestCondition(entry.getAsJsonObject("require"), "require", i, fileId) : null;
+                EffectCondition requireTarget = entry.has("requireTarget") ? parseRequestCondition(entry.getAsJsonObject("requireTarget"), "requireTarget", i, fileId) : null;
 
                 boolean amplitudeConversion = entry.has("amplitude_conversion") && entry.get("amplitude_conversion").getAsBoolean();
                 boolean amplitudeEntanglement = entry.has("amplitude_entanglement") && entry.get("amplitude_entanglement").getAsBoolean();
@@ -60,7 +60,7 @@ public class InflictParser {
         return Collections.unmodifiableList(result);
     }
 
-    private static @Nullable ConsumeCondition parseConsumeCondition(JsonObject json, String key, int idx, ResourceLocation fileId) {
+    private static @Nullable EffectCondition parseConsumeCondition(JsonObject json, String key, int idx, ResourceLocation fileId) {
         if (!json.has("effect")) {
             CombatUpdated.LOGGER.warn("[CombatUpdate] {}[{}] in '{}' missing 'effect', skipping,", key, idx, fileId);
             return null;
@@ -81,10 +81,10 @@ public class InflictParser {
             CombatUpdated.LOGGER.warn("[CombatUpdate] {}[{}] in '{}' has no potency and count, skipping,", key, idx, fileId);
             return null;
         }
-        return new ConsumeCondition(effectType, potency, count);
+        return new EffectCondition(effectType, potency, count, true);
     }
 
-    private static @Nullable RequireCondition parseRequestCondition(JsonObject json, String key, int idx, ResourceLocation fileId) {
+    private static @Nullable EffectCondition parseRequestCondition(JsonObject json, String key, int idx, ResourceLocation fileId) {
         if (!json.has("effect")) {
             CombatUpdated.LOGGER.warn("[CombatUpdate] {}[{}] in '{}' missing 'effect', skipping,", key, idx, fileId);
             return null;
@@ -105,7 +105,7 @@ public class InflictParser {
             CombatUpdated.LOGGER.warn("[CombatUpdate] {}[{}] in '{}' has no potency and count, skipping,", key, idx, fileId);
             return null;
         }
-        return new RequireCondition(effectType, potency, count);
+        return new EffectCondition(effectType, potency, count, false);
     }
 
     /**
@@ -123,12 +123,12 @@ public class InflictParser {
         return parseArray(json.getAsJsonArray("inflicts"), fileId);
     }
 
-    public static List<ConsumeCondition> parseSpends(JsonObject json, ResourceLocation fileId) {
+    public static List<EffectCondition> parseSpends(JsonObject json, ResourceLocation fileId) {
         if (!json.has("spends")) return List.of();
         JsonArray arr = json.getAsJsonArray("spends");
-        List<ConsumeCondition> result = new ArrayList<>(arr.size());
+        List<EffectCondition> result = new ArrayList<>(arr.size());
         for (int i = 0; i < arr.size(); i++) {
-            ConsumeCondition c = parseConsumeCondition(arr.get(i).getAsJsonObject(), "spends", i, fileId);
+            EffectCondition c = parseConsumeCondition(arr.get(i).getAsJsonObject(), "spends", i, fileId);
             if (c != null) result.add(c);
         }
         return Collections.unmodifiableList(result);

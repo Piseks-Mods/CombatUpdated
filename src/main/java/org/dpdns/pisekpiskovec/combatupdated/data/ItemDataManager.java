@@ -27,7 +27,7 @@ public class ItemDataManager extends SimpleJsonResourceReloadListener {
     // --- Data record ---
 
     public record ItemData(RiskLevel riskLevel, AttackType attackType, List<InflictEntry> inflicts,
-                           List<InflictEntry> gains, List<ConsumeCondition> spends) {
+                           List<InflictEntry> gains, List<EffectCondition> spends) {
         public static final ItemData DEFAULT = new ItemData(RiskLevel.ZAYIN, AttackType.BLUNT, List.of(), List.of(), List.of());
     }
 
@@ -86,7 +86,7 @@ public class ItemDataManager extends SimpleJsonResourceReloadListener {
 
         List<InflictEntry> inflicts = InflictParser.parse(json, fileId);
         List<InflictEntry> gains = InflictParser.parse(json, "gains", fileId);
-        List<ConsumeCondition> spends = InflictParser.parseSpends(json, fileId);
+        List<EffectCondition> spends = InflictParser.parseSpends(json, fileId);
 
         return new ItemData(riskLevel, attackType, inflicts, gains, spends);
     }
