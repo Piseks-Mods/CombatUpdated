@@ -60,6 +60,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     private final FragileEffect fragile = new FragileEffect();
     private final NailsEffect nails = new NailsEffect();
     private final ParalyzeEffect paralyze = new ParalyzeEffect();
+    private final PhotoelectricityEffect photoelectricity = new PhotoelectricityEffect();
     private final SinkingDelugeEffect sinking_deluge = new SinkingDelugeEffect();
     private final TremorBurstEffect tremor_burst = new TremorBurstEffect();
     private final TremorEverlastingEffect tremor_everlasting = new TremorEverlastingEffect();
@@ -168,6 +169,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case NAILS -> nails;
             case NEBULIZER_ALPHA -> nebulizer_alpha;
             case PARALYZE -> paralyze;
+            case PHOTOELECTRICITY -> photoelectricity;
             case POISE -> poise;
             case RELOAD -> reload;
             case RUPTURE -> rupture;
@@ -220,6 +222,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR_EVERLASTING, TREMOR_SUPERPOSITION, TREMOR
+        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, PHOTOELECTRICITY, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR_EVERLASTING, TREMOR_SUPERPOSITION, TREMOR
     }
 }

@@ -1,0 +1,33 @@
+{
+  "item": "minecraft:daylight_detector",
+  "risk_level": "TETH",
+  "attack_type": "BLUNT",
+  "inflicts": [
+    {
+      "effect": "RUPTURE",
+      "count": 0,
+      "potency": 2
+    },
+    {
+      "effect": "PHOTOELECTRICITY",
+      "count": 2,
+      "potency": 0
+    },
+    {
+      "effect": "PHOTOELECTRICITY",
+      "count": 1,
+      "potency": 0,
+      "require": {
+        "effect": "CHARGE",
+        "potency": 3
+      }
+    }
+  ],
+  "gains": [
+    {
+      "effect": "CHARGE",
+      "count": 1,
+      "potency": 0
+    }
+  ]
+}
