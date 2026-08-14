@@ -9,7 +9,7 @@ public record EffectCondition(StatusEffectCapability.EffectType effect, int pote
      *
      * @return true if met, false if not met
      */
-    public boolean check(StatusEffectCapability cap) {
+    private boolean check(StatusEffectCapability cap) {
         CUStatusEffect eff = cap.getEffect(effect);
         if (eff.isExpired()) return false;
         // Check both requirements
@@ -24,13 +24,13 @@ public record EffectCondition(StatusEffectCapability.EffectType effect, int pote
      * @return true if met and consumed, false if not met (nothing consumed)
      */
     public boolean checkAndConsume(StatusEffectCapability cap) {
-        CUStatusEffect eff = cap.getEffect(effect);
-        if (check(cap) && consume) {
+        if (!check(cap)) return false;
+        if (consume) {
+            CUStatusEffect eff = cap.getEffect(effect);
             if (potency > 0) eff.addPotency(-potency);
             if (count > 0) eff.decrementCount(count);
-            return true;
         }
-        return false;
+        return true;
     }
 
     /**
