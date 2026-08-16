@@ -62,6 +62,9 @@ public class TremorSuperpositionEffect extends CUStatusEffect {
             if (tSup.hasType(TremorType.EVERLASTING)) {
                 TremorEverlastingEffect.onTremorBurst(entity, tSup.getPotency(), tSup.getCount());
             }
+            if (tSup.hasType(TremorType.SCORCH)) {
+                TremorScorchEffect.onTremorBurst(entity);
+            }
         });
     }
 }

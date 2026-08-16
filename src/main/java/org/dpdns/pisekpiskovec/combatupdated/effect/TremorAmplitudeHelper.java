@@ -23,7 +23,7 @@ public class TremorAmplitudeHelper {
         int savedCount = cap.getEffect(current.effectType).getCount();
         int savedPotency = cap.getEffect(current.effectType).getPotency();
         cap.getEffect(current.effectType).apply(0, 0);
-        cap.getEffect(newType.effectType).apply(savedCount, savedPotency);
+        cap.apply(newType.effectType, savedCount, savedPotency);
     }
 
     /**

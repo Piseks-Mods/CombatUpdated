@@ -4,7 +4,7 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffec
 import org.jetbrains.annotations.Nullable;
 
 public enum TremorType {
-    BASE(StatusEffectCapability.EffectType.TREMOR), EVERLASTING(StatusEffectCapability.EffectType.TREMOR_EVERLASTING);
+    BASE(StatusEffectCapability.EffectType.TREMOR), EVERLASTING(StatusEffectCapability.EffectType.TREMOR_EVERLASTING), SCORCH(StatusEffectCapability.EffectType.TREMOR_SCORCH);
 
     public final StatusEffectCapability.EffectType effectType;
 
