@@ -43,6 +43,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Buffs ---
     private final AttackPowerUpEffect attack_power_up = new AttackPowerUpEffect();
     private final DefenseLevelUpEffect defense_level_up = new DefenseLevelUpEffect();
+    private final HasteEffect haste = new HasteEffect();
     private final NebulizerAlphaEffect nebulizer_alpha = new NebulizerAlphaEffect();
 
     // --- Neutral ---
@@ -169,6 +170,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case DEFENSE_LEVEL_DOWN -> defense_level_down;
             case DEFENSE_LEVEL_UP -> defense_level_up;
             case FRAGILE -> fragile;
+            case HASTE -> haste;
             case LASSO -> lasso;
             case MAGIC_AMMO -> magic_ammo;
             case NAILS -> nails;
@@ -228,6 +230,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BIND, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, LASSO, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, PHOTOELECTRICITY, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR_EVERLASTING, TREMOR_SCORCH, TREMOR_SUPERPOSITION, TREMOR
+        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BIND, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, HASTE, LASSO, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, PHOTOELECTRICITY, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR_EVERLASTING, TREMOR_SCORCH, TREMOR_SUPERPOSITION, TREMOR
     }
 }

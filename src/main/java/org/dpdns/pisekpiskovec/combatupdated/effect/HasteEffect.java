@@ -2,10 +2,10 @@ package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
 
-public class BindEffect extends CUStatusEffect {
+public class HasteEffect extends CUStatusEffect {
 
-    public BindEffect() {
-        super(props().triggers(TriggerType.TURN_END).category(Category.NEGATIVE).stackType(StackType.STACKABLE).maxPotency(0).maxCount(99).defaults(1, 0));
+    public HasteEffect() {
+        super(props().triggers(TriggerType.TURN_END).category(Category.POSITIVE).stackType(StackType.STACKABLE).maxPotency(0).maxCount(99).defaults(1, 0));
     }
 
     @Override

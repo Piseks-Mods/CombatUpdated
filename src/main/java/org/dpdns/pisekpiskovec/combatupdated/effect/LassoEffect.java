@@ -14,7 +14,7 @@ public class LassoEffect extends CUStatusEffect {
         int speed = Math.min(SpeedCalculator.getEffectiveSpeed(entity), 5);
         StatusEffectCapability.ifPresent(entity, cap -> {
             cap.apply(StatusEffectCapability.EffectType.RUPTURE, 0, speed);
-            cap.apply(StatusEffectCapability.EffectType.BIND, 1, 1);
+            cap.apply(StatusEffectCapability.EffectType.BIND, 1, 0);
         });
     }
 }

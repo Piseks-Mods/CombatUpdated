@@ -16,11 +16,13 @@ public class SpeedCalculator {
      */
     public static int getEffectiveSpeed(LivingEntity entity) {
         int base = getBaseSpeed(entity);
-        int[] bindReduction = {0};
+        int[] adjustment = {0};
         StatusEffectCapability.get(entity).ifPresent(cap -> {
             CUStatusEffect bind = cap.getEffect(StatusEffectCapability.EffectType.BIND);
-            if (!bind.isExpired()) bindReduction[0] = bind.getPotency();
+            CUStatusEffect haste = cap.getEffect(StatusEffectCapability.EffectType.HASTE);
+            if (!bind.isExpired()) adjustment[0] -= bind.getCount();
+            if (!haste.isExpired()) adjustment[0] += haste.getCount();
         });
-        return Math.max(0, base - bindReduction[0]);
+        return Math.max(0, base + adjustment[0]);
     }
 }
