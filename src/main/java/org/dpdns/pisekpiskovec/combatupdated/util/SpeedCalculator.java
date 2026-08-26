@@ -7,7 +7,7 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
 public class SpeedCalculator {
     public static int getBaseSpeed(LivingEntity entity) {
-        return (int) Math.floor(entity.getAttributeValue(Attributes.MOVEMENT_SPEED) / 0.2);
+        return (int) Math.floor((entity.getAttributeValue(Attributes.MOVEMENT_SPEED) * Math.PI) / 0.2);
     }
 
     /**
