@@ -7,6 +7,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.dpdns.pisekpiskovec.combatupdated.CombatUpdated;
 import org.dpdns.pisekpiskovec.combatupdated.api.AttackContext;
+import org.dpdns.pisekpiskovec.combatupdated.api.EvadeResult;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.damage.DamageCalculator;
@@ -18,6 +19,7 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.MagicBulletHandl
 import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.MagicBulletType;
 import org.dpdns.pisekpiskovec.combatupdated.effect.Thoracalgia.NebulizerAlphaHandler;
 import org.dpdns.pisekpiskovec.combatupdated.util.DamageModifiers;
+import org.dpdns.pisekpiskovec.combatupdated.util.EvadeCalculator;
 
 @Mod.EventBusSubscriber(modid = CombatUpdated.MODID)
 public class CombatEventHandler {
@@ -35,15 +37,30 @@ public class CombatEventHandler {
         damage = mods.apply(damage, attacker, target);
         event.setAmount(damage);
 
+        EvadeResult evade = EvadeCalculator.calculate(attacker, target, ctx.isStaggered());
+        if (evade == EvadeResult.FULL) {
+            event.setCanceled(true);
+            StatusEffectCapability.ifPresent(target, cap -> cap.triggerAll(target, CUStatusEffect.TriggerType.ON_EVADE));
+            StatusEffectCapability.ifPresent(attacker, cap -> cap.triggerAll(attacker, CUStatusEffect.TriggerType.ON_ATTACK));
+            NebulizerAlphaHandler.tryFireCombatStart(attacker);
+            return;
+        }
+
         NebulizerAlphaHandler.tryFireCombatStart(attacker);
         StatusEffectCapability.ifPresent(attacker, cap -> cap.triggerAll(attacker, CUStatusEffect.TriggerType.ON_ATTACK));
-        StatusEffectCapability.ifPresent(target, cap -> cap.setAttackerContext(attacker));
-        StatusEffectCapability.ifPresent(target, cap -> cap.triggerAll(target, CUStatusEffect.TriggerType.ON_HIT));
-        StatusEffectCapability.ifPresent(target, cap -> cap.setAttackerContext(null));
+        if (evade == EvadeResult.PARTIAL) {
+            StatusEffectCapability.ifPresent(target, cap -> cap.triggerAll(target, CUStatusEffect.TriggerType.ON_EVADE));
+        } else {
+            StatusEffectCapability.ifPresent(target, cap -> cap.setAttackerContext(attacker));
+            StatusEffectCapability.ifPresent(target, cap -> cap.triggerAll(target, CUStatusEffect.TriggerType.ON_HIT));
+            StatusEffectCapability.ifPresent(target, cap -> cap.setAttackerContext(null));
+        }
 
-        ctx.applyInflictsAndGains(attacker, target, ctx.attackType());
-        InflictHelper.spend(attacker, target, MobDataManager.get(attacker).spends());
-        if (ctx.hasItemEntry()) InflictHelper.spend(attacker, target, ctx.itemData().spends());
+        if (evade == EvadeResult.NONE) {
+            ctx.applyInflictsAndGains(attacker, target, ctx.attackType());
+            InflictHelper.spend(attacker, target, MobDataManager.get(attacker).spends());
+            if (ctx.hasItemEntry()) InflictHelper.spend(attacker, target, ctx.itemData().spends());
+        }
 
         MagicBulletType bullet = MagicBulletHandler.getActiveBullet(attacker);
         if (bullet != null) {

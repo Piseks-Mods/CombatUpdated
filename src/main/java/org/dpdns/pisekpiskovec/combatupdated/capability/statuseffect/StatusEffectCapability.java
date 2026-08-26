@@ -54,10 +54,12 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
 
     // --- Debuffs ---
     private final AttackPowerDownEffect attack_power_down = new AttackPowerDownEffect();
+    private final BindEffect bind = new BindEffect();
     private final ButterflyEffect butterfly = new ButterflyEffect();
     private final DarkFlameEffect dark_flame = new DarkFlameEffect();
     private final DefenseLevelDownEffect defense_level_down = new DefenseLevelDownEffect();
     private final FragileEffect fragile = new FragileEffect();
+    private final LassoEffect lasso = new LassoEffect();
     private final NailsEffect nails = new NailsEffect();
     private final ParalyzeEffect paralyze = new ParalyzeEffect();
     private final PhotoelectricityEffect photoelectricity = new PhotoelectricityEffect();
@@ -158,6 +160,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case AMMO -> ammo;
             case ATTACK_POWER_DOWN -> attack_power_down;
             case ATTACK_POWER_UP -> attack_power_up;
+            case BIND -> bind;
             case BLEED -> bleed;
             case BURN -> burn;
             case BUTTERFLY -> butterfly;
@@ -166,6 +169,7 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
             case DEFENSE_LEVEL_DOWN -> defense_level_down;
             case DEFENSE_LEVEL_UP -> defense_level_up;
             case FRAGILE -> fragile;
+            case LASSO -> lasso;
             case MAGIC_AMMO -> magic_ammo;
             case NAILS -> nails;
             case NEBULIZER_ALPHA -> nebulizer_alpha;
@@ -224,6 +228,6 @@ public class StatusEffectCapability implements INBTSerializable<CompoundTag> {
     // --- Effect type enum ---
 
     public enum EffectType {
-        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, PHOTOELECTRICITY, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR_EVERLASTING, TREMOR_SCORCH, TREMOR_SUPERPOSITION, TREMOR
+        AMMO, ATTACK_POWER_DOWN, ATTACK_POWER_UP, BIND, BLEED, BURN, BUTTERFLY, CHARGE, DARK_FLAME, DEFENSE_LEVEL_DOWN, DEFENSE_LEVEL_UP, FRAGILE, LASSO, MAGIC_AMMO, NAILS, NEBULIZER_ALPHA, PARALYZE, PHOTOELECTRICITY, POISE, RELOAD, RUPTURE, SINKING_DELUGE, SINKING, THE_LIVING_AND_THE_DEPARTED, THE_LIVING_AND_THE_DEPARTED_RELOAD, TREMOR_BURST, TREMOR_EVERLASTING, TREMOR_SCORCH, TREMOR_SUPERPOSITION, TREMOR
     }
 }
