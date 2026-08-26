@@ -14,6 +14,7 @@ import org.dpdns.pisekpiskovec.combatupdated.capability.sanity.SanityCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.stagger.StaggerCapability;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
+import org.dpdns.pisekpiskovec.combatupdated.util.SpeedCalculator;
 
 import java.util.Collection;
 
@@ -78,6 +79,9 @@ public class StatusCommand {
                 source.sendSuccess(() -> Component.literal("  Not staggered (threshold: " + String.format("%.1f", cap.getEffectiveThreshold(entity)) + " HP)").withStyle(ChatFormatting.WHITE), false);
             }
         });
+
+        // --- Speed ---
+        source.sendSuccess(() -> Component.literal("  Speed: " + String.format("%2d", SpeedCalculator.getEffectiveSpeed(entity))).withStyle(ChatFormatting.WHITE), false);
     }
 
     static ChatFormatting colorFor(StatusEffectCapability cap, StatusEffectCapability.EffectType type) {
