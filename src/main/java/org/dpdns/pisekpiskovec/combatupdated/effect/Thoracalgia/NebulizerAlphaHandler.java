@@ -5,12 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
 import org.dpdns.pisekpiskovec.combatupdated.effect.CUStatusEffect;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class NebulizerAlphaHandler {
-    private static final Map<Integer, Long> lastCombatStartDay = new HashMap<>();
-
     /**
      * Called from CombatEventHandler on every attack.
      * Fires COMBAT_START trigger on the attacker at most once per day.
@@ -18,10 +13,6 @@ public class NebulizerAlphaHandler {
     public static void tryFireCombatStart(LivingEntity attacker) {
         if (!(attacker.level() instanceof ServerLevel sl)) return;
         long currentDay = sl.getDayTime() / 24000L;
-        int id = attacker.getId();
-
-        if (lastCombatStartDay.getOrDefault(id, -1L) == currentDay) return;
-        lastCombatStartDay.put(id, currentDay);
 
         StatusEffectCapability.get(attacker).ifPresent(cap -> {
             CUStatusEffect nebA = cap.getEffect(StatusEffectCapability.EffectType.NEBULIZER_ALPHA);
@@ -29,8 +20,6 @@ public class NebulizerAlphaHandler {
                 cap.triggerAll(attacker, CUStatusEffect.TriggerType.COMBAT_START);
             }
         });
-
-        lastCombatStartDay.entrySet().removeIf(e -> currentDay - e.getValue() > 2); // Prune stale entries
     }
 
     /**
