@@ -1,0 +1,17 @@
+{
+  "item": "minecraft:lead",
+  "risk_level": "TETH",
+  "attack_type": "BLUNT",
+  "inflicts": [
+    {
+      "effect": "LASSO",
+      "count": 0,
+      "potency": 2
+    },
+    {
+      "effect": "RUPTURE",
+      "count": 0,
+      "potency": 1
+    }
+  ]
+}
