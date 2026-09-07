@@ -1,0 +1,22 @@
+{
+  "item": "minecraft:rotten_flesh",
+  "risk_level": "ZAYIN",
+  "attack_type": "BLUNT",
+  "inflicts": [
+    {
+      "effect": "TREMOR",
+      "count": 0,
+      "potency": 2
+    },
+    {
+      "effect": "TREMOR_DECAY",
+      "count": 0,
+      "potency": 2,
+      "requireTarget": {
+        "effect": "TREMOR",
+        "potency": 20
+      },
+      "amplitude_conversion": true
+    }
+  ]
+}
