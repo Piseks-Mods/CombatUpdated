@@ -17,6 +17,7 @@ public class TremorBurstEffect extends CUStatusEffect {
         TremorEffect.onTremorBurst(entity);
         TremorEverlastingEffect.onTremorBurst(entity);
         TremorScorchEffect.onTremorBurst(entity);
+        TremorDecayEffect.onTremorBurst(entity);
         TremorSuperpositionEffect.onTremorBurst(entity);
     }
 

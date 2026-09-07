@@ -59,12 +59,11 @@ public class TremorSuperpositionEffect extends CUStatusEffect {
             CUStatusEffect sup = cap.getEffect(StatusEffectCapability.EffectType.TREMOR_SUPERPOSITION);
             if (!(sup instanceof TremorSuperpositionEffect tSup) || tSup.isExpired()) return;
 
-            if (tSup.hasType(TremorType.EVERLASTING)) {
+            if (tSup.hasType(TremorType.BASE)) TremorEffect.onTremorBurst(entity);
+            if (tSup.hasType(TremorType.EVERLASTING))
                 TremorEverlastingEffect.onTremorBurst(entity, tSup.getPotency(), tSup.getCount());
-            }
-            if (tSup.hasType(TremorType.SCORCH)) {
-                TremorScorchEffect.onTremorBurst(entity);
-            }
+            if (tSup.hasType(TremorType.SCORCH)) TremorScorchEffect.onTremorBurst(entity);
+            if (tSup.hasType(TremorType.DECAY)) TremorDecayEffect.onTremorBurst(entity);
         });
     }
 }
