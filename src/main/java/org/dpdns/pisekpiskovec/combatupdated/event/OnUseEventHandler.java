@@ -1,5 +1,6 @@
 package org.dpdns.pisekpiskovec.combatupdated.event;
 
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -27,8 +28,10 @@ public class OnUseEventHandler {
     // Attack swing
     @SubscribeEvent
     public static void onAttack(LivingAttackEvent event) {
-        if (!shouldTrigger(event.getEntity())) return;
-        fireOnUse(event.getEntity());
+        Entity rawAttacker = event.getSource().getEntity();
+        if (!(rawAttacker instanceof LivingEntity attacker)) return;
+        if (!shouldTrigger(attacker)) return;
+        fireOnUse(attacker);
     }
 
     // Right-click on block (opening chest, going to bed, shielding, etc.)
