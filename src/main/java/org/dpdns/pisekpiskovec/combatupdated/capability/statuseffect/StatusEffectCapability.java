@@ -11,6 +11,7 @@ import org.dpdns.pisekpiskovec.combatupdated.effect.MagicBullet.MagicAmmoEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.ButterflyEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.SolemnLament.TheLivingAndTheDepartedEffect;
 import org.dpdns.pisekpiskovec.combatupdated.effect.Thoracalgia.NebulizerAlphaEffect;
+import org.dpdns.pisekpiskovec.combatupdated.effect.keyword.*;
 import org.dpdns.pisekpiskovec.combatupdated.util.CUMath;
 import org.jetbrains.annotations.Nullable;
 

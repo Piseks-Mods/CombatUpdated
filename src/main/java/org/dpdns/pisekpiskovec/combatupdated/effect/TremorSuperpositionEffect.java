@@ -3,6 +3,7 @@ package org.dpdns.pisekpiskovec.combatupdated.effect;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.capability.statuseffect.StatusEffectCapability;
+import org.dpdns.pisekpiskovec.combatupdated.effect.keyword.TremorEffect;
 
 import java.util.EnumSet;
 import java.util.Set;

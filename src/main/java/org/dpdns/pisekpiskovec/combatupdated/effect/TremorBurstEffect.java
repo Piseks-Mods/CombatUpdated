@@ -2,6 +2,7 @@ package org.dpdns.pisekpiskovec.combatupdated.effect;
 
 import net.minecraft.world.entity.LivingEntity;
 import org.dpdns.pisekpiskovec.combatupdated.api.AttackType;
+import org.dpdns.pisekpiskovec.combatupdated.effect.keyword.TremorEffect;
 
 public class TremorBurstEffect extends CUStatusEffect {
     public TremorBurstEffect() {
