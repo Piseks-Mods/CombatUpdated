@@ -6,5 +6,19 @@
     "SLASH": "ENDURED",
     "PIERCE": "NORMAL",
     "BLUNT": "ENDURED"
+  },
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "SINKING",
+        "count": 4,
+        "potency": 3
+      },
+      {
+        "effect": "DEFENSE_LEVEL_UP",
+        "count": 6,
+        "potency": 1
+      }
+    ]
   }
 }

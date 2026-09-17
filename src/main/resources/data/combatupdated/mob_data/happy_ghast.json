@@ -22,7 +22,7 @@
         "potency": 3
       },
       {
-        "effect": "POWER_DOWN",
+        "effect": "ATTACK_POWER_DOWN",
         "count": 1,
         "potency": 1
       }

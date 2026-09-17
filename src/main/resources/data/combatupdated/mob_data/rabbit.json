@@ -6,5 +6,24 @@
     "SLASH": "WEAK",
     "PIERCE": "WEAK",
     "BLUNT": "NORMAL"
+  },
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "SINKING",
+        "count": 4,
+        "potency": 3
+      },
+      {
+        "effect": "HASTE",
+        "count": 4,
+        "potency": 1
+      },
+      {
+        "effect": "FRAGILE",
+        "count": 3,
+        "potency": 1
+      }
+    ]
   }
 }

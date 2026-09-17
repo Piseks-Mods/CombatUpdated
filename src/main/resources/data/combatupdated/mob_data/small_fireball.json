@@ -22,11 +22,7 @@
     {
       "effect": "TREMOR_BURST",
       "count": 0,
-      "potency": 0,
-      "drain": {
-        "effect": "TREMOR_SCORCH",
-        "count": 1
-      }
+      "potency": 0
     }
   ]
 }

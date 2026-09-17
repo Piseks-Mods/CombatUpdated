@@ -6,5 +6,21 @@
     "SLASH": "ENDURED",
     "PIERCE": "ENDURED",
     "BLUNT": "NORMAL"
+  },
+  "inflicts": [
+    {
+      "effect": "NAILS",
+      "count": 3,
+      "potency": 1,
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "ATTACK_POWER_UP",
+        "count": 3,
+        "potency": 1
+      }
+    ]
   }
 }

@@ -7,4 +7,16 @@
     "PIERCE": "FATAL",
     "BLUNT": "INEFFECTIVE"
   }
+  "inflicts": [
+    {
+      "effect": "BURN",
+      "count": 0,
+      "potency": 8
+    },
+    {
+      "effect": "TREMOR_BURST",
+      "count": 0,
+      "potency": 0
+    }
+  ]
 }

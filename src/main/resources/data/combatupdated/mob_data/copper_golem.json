@@ -6,5 +6,19 @@
     "SLASH": "ENDURED",
     "PIERCE": "ENDURED",
     "BLUNT": "ENDURED"
+  },
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "CHARGE",
+        "count": 2,
+        "potency": 0
+      },
+      {
+        "effect": "PARALYZE",
+        "count": 3,
+        "potency": 1
+      }
+    ]
   }
 }

@@ -6,5 +6,12 @@
     "SLASH": "FATAL",
     "PIERCE": "NORMAL",
     "BLUNT": "INEFFECTIVE"
-  }
+  },
+  "inflicts": [
+    {
+      "effect": "BIND",
+      "count": 3,
+      "potency": 1,
+    }
+  ],
 }

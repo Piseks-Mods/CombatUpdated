@@ -4,7 +4,21 @@
   "attack_type": "BLUNT",
   "resistances": {
     "SLASH": "NORMAL",
-    "PIERCE": "ENDURED",
-    "BLUNT": "NORMAL"
+    "PIERCE": "NORMAL",
+    "BLUNT": "ENDURED"
+  },
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "SINKING",
+        "count": 4,
+        "potency": 3
+      },
+      {
+        "effect": "FRAGILE",
+        "count": 3,
+        "potency": 1
+      }
+    ]
   }
 }
