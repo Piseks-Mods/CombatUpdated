@@ -6,5 +6,24 @@
     "SLASH": "ENDURED",
     "PIERCE": "NORMAL",
     "BLUNT": "ENDURED"
+  },
+  "inflicts": [
+    {
+      "effect": "BIND",
+      "count": 3
+    },
+    {
+      "effect": "BURN",
+      "potency": 3,
+      "count": 1
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "FRAGILE",
+        "count": 1
+      }
+    ]
   }
 }

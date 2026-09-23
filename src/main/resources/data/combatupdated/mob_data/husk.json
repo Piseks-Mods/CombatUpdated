@@ -6,5 +6,11 @@
     "SLASH": "ENDURED",
     "PIERCE": "WEAK",
     "BLUNT": "WEAK"
-  }
+  },
+  "inflicts": [
+    {
+      "effect": "TREMOR",
+      "count": 4,
+    }
+  ]
 }

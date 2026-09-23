@@ -22,7 +22,7 @@
   "sanity": {
     "panic-gains": [
       {
-        "effect": "FRAGILE",
+        "effect": "ATTACK_POWER_UP",
         "count": 2,
         "potency": 0
       }

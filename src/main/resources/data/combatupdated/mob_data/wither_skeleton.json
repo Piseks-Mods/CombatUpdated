@@ -6,5 +6,45 @@
     "SLASH": "NORMAL",
     "PIERCE": "ENDURED",
     "BLUNT": "FATAL"
-  }
+  },
+  "inflicts": [
+    {
+      "effect": "BURN",
+      "potency": 0,
+      "count": 1,
+      "consume": {
+        "effect": "CHARGE",
+        "count": 2
+      }
+    },
+    {
+      "effect": "TREMOR_DECAY",
+      "potency": 0,
+      "count": 0,
+      "amplitude_conversion": true,
+      "require": {
+        "effect": "CHARGE",
+        "count": 10
+      }
+    }
+  ],
+  "gains": [
+    {
+      "effect": "CHARGE",
+      "count": 1
+    },
+    {
+      "effect": "CHARGE",
+      "count": 2,
+      "requireTarget": {
+        "effect": "TREMOR_SCORCH",
+        "count": 1
+      }
+    },
+    {
+      "effect": "POISE",
+      "potency": 2,
+      "count": 0
+    }
+  ]
 }

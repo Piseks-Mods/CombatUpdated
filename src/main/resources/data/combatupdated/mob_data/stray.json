@@ -6,5 +6,37 @@
     "SLASH": "NORMAL",
     "PIERCE": "ENDURED",
     "BLUNT": "FATAL"
-  }
+  },
+  "inflicts": [
+    {
+      "effect": "SINKING",
+      "potency": 0,
+      "count": 1,
+      "consume": {
+        "effect": "AMMO",
+        "count": 1
+      }
+    }
+  ],
+  "gains": [
+    {
+      "effect": "AMMO",
+      "potency": 16,
+      "count": 0
+    },
+    {
+      "effect": "RELOAD",
+      "potency": 0,
+      "count": 0,
+      "consume": {
+        "effect": "POISE",
+        "potency": 12
+      }
+    },
+    {
+      "effect": "POISE",
+      "potency": 2,
+      "count": 0
+    }
+  ]
 }

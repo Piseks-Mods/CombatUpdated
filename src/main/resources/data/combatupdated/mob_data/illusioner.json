@@ -6,5 +6,43 @@
     "SLASH": "NORMAL",
     "PIERCE": "WEAK",
     "BLUNT": "WEAK"
+  },
+  "inflicts": [
+    {
+      "effect": "SINKING",
+      "potency": 3,
+      "count": 2,
+      "reqire": {
+        "effect": "MAGIC_AMMO",
+        "count": 3
+      }
+    },
+    {
+      "effect": "RUPTURE",
+      "potency": 3,
+      "count": 2,
+      "reqire": {
+        "effect": "MAGIC_AMMO",
+        "count": 6
+      }
+    },
+  ],
+  "gains": [
+    {
+      "effect": "MAGIC_AMMO",
+      "count": 1
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "ATTACK_POWER_UP",
+        "count": 1
+      },
+      {
+        "effect": "FRAGILE",
+        "count": 2
+      }
+    ]
   }
 }

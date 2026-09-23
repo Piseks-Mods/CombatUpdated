@@ -6,5 +6,43 @@
     "SLASH": "NORMAL",
     "PIERCE": "WEAK",
     "BLUNT": "INEFFECTIVE"
+  },
+  "inflicts": [
+    {
+      "effect": "TREMOR",
+      "potency": 4,
+      "count": 1,
+      "consume": {
+        "effect": "TREMOR",
+        "count": 3
+      }
+    },
+    {
+      "effect": "TREMOR_EVERLASTING",
+      "potency": 0,
+      "count": 0,
+      "amplitude_conversion": true
+      "require": {
+        "effect": "TREMOR",
+        "count": 9
+      }
+    },
+    {
+      "effect": "TREMOR_BURST",
+      "potency": 0,
+      "count": 0
+    },
+    {
+      "effect": "PARALYZE",
+      "count": 1
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "TREMOR",
+        "count": 3
+      }
+    ]
   }
 }

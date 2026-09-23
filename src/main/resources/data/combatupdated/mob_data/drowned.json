@@ -6,5 +6,11 @@
     "SLASH": "NORMAL",
     "PIERCE": "ENDURED",
     "BLUNT": "ENDURED"
-  }
+  },
+  "inflicts": [
+    {
+      "effect": "SINKING",
+      "count": 4,
+    }
+  ]
 }

@@ -6,5 +6,11 @@
     "SLASH": "NORMAL",
     "PIERCE": "WEAK",
     "BLUNT": "NORMAL"
+  },
+  "inflicts": [
+    {
+      "effect": "BURN",
+      "count": 4
     }
+  ]
 }

@@ -6,5 +6,23 @@
     "SLASH": "INEFFECTIVE",
     "PIERCE": "WEAK",
     "BLUNT": "INEFFECTIVE"
-  }
+  },
+  "inflicts": [
+    {
+      "effect": "RUPTURE",
+      "count": 8
+    },
+    {
+      "effect": "SINKING",
+      "potency": 8
+    },
+    {
+      "effect": "TREMOR",
+      "potency": 8
+    },
+    {
+      "effect": "TREMOR_BURST",
+      "potency": 0
+    }
+  ]
 }

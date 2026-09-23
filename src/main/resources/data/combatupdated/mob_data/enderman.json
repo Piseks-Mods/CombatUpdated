@@ -6,5 +6,61 @@
     "SLASH": "NORMAL",
     "PIERCE": "WEAK",
     "BLUNT": "NORMAL"
+  },
+  "inflicts": [
+    {
+      "effect": "RUPTURE",
+      "count": 1,
+      "consume": {
+        "effect": "CHARGE",
+        "count": 1
+      }
+    },
+    {
+      "effect": "RUPTURE",
+      "potency": 2,
+      "require": {
+        "effect": "CHARGE",
+        "count": 15
+      }
+    },
+  ],
+  "gains": [
+    {
+      "effect": "CHARGE",
+      "potency": 1,
+      "consume": {
+        "effect": "CHARGE",
+        "count": 20
+      }
+    },
+    {
+      "effect": "CHARGE",
+      "count": 1
+    },
+    {
+      "effect": "ATTACK_POWER_UP",
+      "count": 1,
+      "require": {
+        "effect": "CHARGE",
+        "potency": 2
+      }
+    },
+    {
+      "effect": "ATTACK_POWER_UP",
+      "count": 2,
+      "requireTarget": {
+        "effect": "RUPTURE",
+        "potency": 14
+      }
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "FRAGILE",
+        "count": 2
+      }
+    ]
   }
 }

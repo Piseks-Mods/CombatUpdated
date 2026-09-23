@@ -8,6 +8,10 @@
     "BLUNT": "INEFFECTIVE"
   },
   "inflicts": [
-  { "effect": "SINKING_DELUGE", "count": 1, "potency": 1 }
-]
+    {
+      "effect": "SINKING_DELUGE",
+      "count": 0,
+      "potency": 0
+    }
+  ]
 }

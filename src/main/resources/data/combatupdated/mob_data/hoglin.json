@@ -6,5 +6,23 @@
     "SLASH": "WEAK",
     "PIERCE": "WEAK",
     "BLUNT": "NORMAL"
+  },
+  "inflicts": [
+    {
+      "effect": "RUPTURE",
+      "count": 2
+    },
+    {
+      "effect": "BLEED",
+      "potency": 2
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "FRAGILE",
+        "count": 2
+      }
+    ]
   }
 }
