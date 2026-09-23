@@ -6,5 +6,57 @@
     "SLASH": "ENDURED",
     "PIERCE": "NORMAL",
     "BLUNT": "INEFFECTIVE"
+  },
+  "inflicts": [
+    {
+      "effect": "SINKING",
+      "count": 4,
+      "potency": 8
+    },
+    {
+      "effect": "TREMOR",
+      "count": 10
+    },
+    {
+      "effect": "TREMOR_BURST",
+      "count": 0,
+      "potency": 0,
+      "drain": {
+        "effect": "TREMOR",
+        "count": 1,
+        "potency": 3
+      }
+    },
+    {
+      "effect": "SINKING_DELUGE",
+      "count": 0,
+      "potency": 0,
+      "require": {
+        "effect": "NAILS",
+        "count": 4
+      }
+    },
+    {
+      "effect": "NAILS",
+      "count": 3
+    }
+  ],
+  "gains": [
+    {
+      "effect": "NAILS",
+      "count": 1,
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "ATTACK_POWER_UP",
+        "count": 3
+      },
+      {
+        "effect": "NAILS",
+        "count": 3,
+      }
+    ]
   }
 }

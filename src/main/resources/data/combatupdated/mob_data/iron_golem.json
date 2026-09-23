@@ -6,5 +6,24 @@
     "SLASH": "INEFFECTIVE",
     "PIERCE": "INEFFECTIVE",
     "BLUNT": "INEFFECTIVE"
+  },
+  "inflicts": [
+    {
+      "effect": "TREMOR",
+      "count": 2,
+      "potency": 2
+    }
+  ]
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "ATTACK_POWER_UP",
+        "count": 3
+      },
+      {
+        "effect": "DEFENSE_LEVEL_UP",
+        "count": 8
+      }
+    ]
   }
 }

@@ -6,5 +6,38 @@
     "SLASH": "NORMAL",
     "PIERCE": "FATAL",
     "BLUNT": "ENDURED"
+  },
+  "inflicts": [
+    {
+      "effect": "SINKING",
+      "count": 2,
+      "potency": 6
+    },
+    {
+      "effect": "TREMOR",
+      "count": 3
+    },
+    {
+      "effect": "NAILS",
+      "count": 1
+    }
+  ],
+  "gains": [
+    {
+      "effect": "NAILS",
+      "count": 2,
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "ATTACK_POWER_UP",
+        "count": 1
+      },
+      {
+        "effect": "NAILS",
+        "count": 3,
+      }
+    ]
   }
 }

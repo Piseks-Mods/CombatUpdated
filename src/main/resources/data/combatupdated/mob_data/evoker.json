@@ -6,5 +6,41 @@
     "SLASH": "NORMAL",
     "PIERCE": "NORMAL",
     "BLUNT": "NORMAL"
+  },
+  "inflicts": [
+    {
+      "effect": "RUPTURE",
+      "count": 2
+    },
+    {
+      "effect": "SINKING",
+      "potency": 3,
+      "drain": {
+        "effect": "RUPTURE",
+        "count": 5
+      }
+    }
+  ],
+  "gains": [
+    {
+      "effect": "POISE",
+      "potency": 2
+    },
+    {
+      "effect": "POISE",
+      "potency": 3,
+      "requireTarget": {
+        "effect": "RUPTURE",
+        "count": 4
+      }
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "FRAGILE",
+        "count": 2
+      }
+    ]
   }
 }
