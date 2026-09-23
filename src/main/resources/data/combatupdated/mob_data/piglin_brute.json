@@ -6,5 +6,29 @@
     "SLASH": "NORMAL",
     "PIERCE": "NORMAL",
     "BLUNT": "NORMAL"
+  },
+  "inflicts": [
+    {
+      "effect": "BURN",
+      "potency": 4,
+      "count": 1
+    },
+    {
+      "effect": "BLEED",
+      "potency": 2,
+      "count": 6
+    }
+  ],
+  "sanity": {
+    "sanity-gains": [
+      {
+        "effect": "FRAGILE",
+        "count": 1
+      },
+      {
+        "effect": "ATTACK_POWER_DOWN",
+        "count": 3
+      }
+    ]
   }
 }

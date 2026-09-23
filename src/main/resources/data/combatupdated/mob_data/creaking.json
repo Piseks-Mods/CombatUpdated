@@ -6,5 +6,42 @@
     "SLASH": "ENDURED",
     "PIERCE": "ENDURED",
     "BLUNT": "INEFFECTIVE"
-  }
+  },
+  "inflicts": [
+    {
+      "effect": "RUPTURE",
+      "potency": 4,
+      "count": 3
+    },
+    {
+      "effect": "BIND",
+      "count": 1,
+      "consume": {
+        "effect": "BIND",
+        "count": 1
+      }
+    }
+  ],
+  "gains": [
+    {
+      "effect": "BLEED",
+      "count": 1
+    },
+    {
+      "effect": "BIND",
+      "count": 6,
+      "consume": {
+        "effect": "BLEED",
+        "count": 6
+      }
+    },
+    {
+      "effect": "BURN",
+      "potency": 1,
+      "drain": {
+        "effect": "BURN",
+        "count": 1
+      }
+    }
+  ]
 }

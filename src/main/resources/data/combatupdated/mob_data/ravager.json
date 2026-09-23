@@ -6,5 +6,58 @@
     "SLASH": "ENDURED",
     "PIERCE": "NORMAL",
     "BLUNT": "INEFFECTIVE"
+  },
+  "inflicts": [
+    {
+      "effect": "RUPTURE",
+      "potency": 6
+    },
+    {
+      "effect": "DEFENSEL_LEVEL_DOWN",
+      "count": 1,
+      "require": {
+        "effect": "TREMOR",
+        "count": 10
+      }
+      "consume": {
+        "effect": "TREMOR",
+        "count": 6
+      }
+    },
+    {
+      "effect": "TREMOR_BURST",
+      "count": 1,
+      "consume": {
+        "effect": "TREMOR",
+        "count": 10
+      }
+    },
+    {
+      "effect": "BLEED",
+      "count": 6,
+      "requireTarget": {
+        "effect": "SINKING",
+        "count": 1
+      }
+    }
+  ],
+  "gains": [
+    {
+      "effect": "TREMOR",
+      "count": 1
+    }
+  ],
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "SINKING",
+        "count": 4,
+        "potency": 3
+      },
+      {
+        "effect": "FRAGILE",
+        "count": 3,
+      }
+    ]
   }
 }
