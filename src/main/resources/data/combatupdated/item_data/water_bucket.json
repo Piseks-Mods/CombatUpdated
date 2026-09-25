@@ -5,15 +5,15 @@
   "inflicts": [
     {
       "effect": "SINKING",
-      "count": 4,
-      "potency": 8
+      "potency": 8,
+      "count": 4
     }
   ],
   "gains": [
     {
       "effect": "SINKING",
-      "count": 1,
-      "potency": 3
+      "potency": 3,
+      "count": 1
     }
   ]
 }

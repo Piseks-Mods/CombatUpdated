@@ -5,13 +5,11 @@
   "inflicts": [
     {
       "effect": "TREMOR",
-      "count": 5,
-      "potency": 0
+      "count": 5
     },
     {
-      "effect": "POWER_DOWN",
+      "effect": "ATTACK_POWER_DOWN",
       "count": 1,
-      "potency": 1,
       "drain": {
         "effect": "TREMOR",
         "count": 20
@@ -19,8 +17,6 @@
     },
     {
       "effect": "TREMOR_BURST",
-      "count": 0,
-      "potency": 0,
       "consume": {
         "effect": "TREMOR",
         "count": 10

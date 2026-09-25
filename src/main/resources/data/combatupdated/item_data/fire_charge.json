@@ -5,24 +5,19 @@
   "inflicts": [
     {
       "effect": "BURN",
-      "count": 1,
-      "potency": 3
+      "potency": 3,
+      "count": 1
     },
     {
       "effect": "TREMOR",
-      "count": 0,
       "potency": 6
     },
     {
       "effect": "TREMOR_SCORCH",
-      "count": 0,
-      "potency": 0,
       "amplitude_conversion": true
     },
     {
       "effect": "TREMOR_BURST",
-      "count": 0,
-      "potency": 0,
       "drain": {
         "effect": "TREMOR_SCORCH",
         "count": 1

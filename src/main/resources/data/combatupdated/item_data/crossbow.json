@@ -3,9 +3,17 @@
   "risk_level": "TETH",
   "attack_type": "PIERCE",
   "inflicts": [
-    { "effect": "RUPTURE", "count": 2, "potency": 4 }
+    {
+      "effect": "RUPTURE",
+      "potency": 4,
+      "count": 2
+    }
   ],
   "gains": [
-    { "effect": "POISE", "count": 7, "potency": 2 }
+    {
+      "effect": "POISE",
+      "potency": 2,
+      "count": 7
+    }
   ]
 }

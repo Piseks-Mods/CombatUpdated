@@ -1,5 +1,11 @@
 {
   "item": "minecraft:copper_hoe",
   "risk_level": "ZAYIN",
-  "attack_type": "PIERCE"
+  "attack_type": "PIERCE",
+  "inflicts": [
+    {
+      "effect": "PHOTOELECTRICITY",
+      "count": 1
+    }
+  ]
 }

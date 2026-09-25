@@ -3,6 +3,10 @@
   "risk_level": "ZAYIN",
   "attack_type": "SLASH",
   "inflicts": [
-    { "effect": "BLEED", "count": 3, "potency": 1 }
+    {
+      "effect": "BLEED",
+      "potency": 1,
+      "count": 3
+    }
   ]
 }

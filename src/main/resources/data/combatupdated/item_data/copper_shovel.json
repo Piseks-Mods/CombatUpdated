@@ -1,5 +1,11 @@
 {
   "item": "minecraft:copper_shovel",
   "risk_level": "ZAYIN",
-  "attack_type": "BLUNT"
+  "attack_type": "BLUNT",
+  "inflicts": [
+    {
+      "effect": "PHOTOELECTRICITY",
+      "count": 1
+    }
+  ]
 }

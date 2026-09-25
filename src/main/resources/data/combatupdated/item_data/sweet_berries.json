@@ -5,13 +5,12 @@
   "inflicts": [
     {
       "effect": "BLEED",
-      "count": 1,
-      "potency": 0
+      "count": 1
     },
     {
       "effect": "RUPTURE",
-      "count": 4,
       "potency": 4,
+      "count": 4,
       "drain": {
         "effect": "BLEED",
         "potency": 8

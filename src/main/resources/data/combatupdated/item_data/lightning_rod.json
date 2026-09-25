@@ -3,6 +3,13 @@
   "risk_level": "TETH",
   "attack_type": "BLUNT",
   "inflicts": [
-    { "effect": "PARALYZE", "count": 1, "potency": 0, "require": { "effect": "CHARGE", "potency": 4 } }
+    {
+      "effect": "PARALYZE",
+      "count": 1,
+      "require": {
+        "effect": "CHARGE",
+        "potency": 4
+      }
+    }
   ]
 }

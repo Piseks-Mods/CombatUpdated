@@ -5,12 +5,10 @@
   "inflicts": [
     {
       "effect": "LASSO",
-      "count": 0,
-      "potency": 2
+      "count": 2
     },
     {
       "effect": "RUPTURE",
-      "count": 0,
       "potency": 1
     }
   ]

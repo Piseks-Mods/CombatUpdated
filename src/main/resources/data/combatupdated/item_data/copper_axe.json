@@ -1,5 +1,11 @@
 {
   "item": "minecraft:copper_axe",
   "risk_level": "ZAYIN",
-  "attack_type": "SLASH"
+  "attack_type": "SLASH",
+  "inflicts": [
+    {
+      "effect": "PHOTOELECTRICITY",
+      "count": 1
+    }
+  ]
 }

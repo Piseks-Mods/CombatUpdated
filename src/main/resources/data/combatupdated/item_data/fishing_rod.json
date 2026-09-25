@@ -3,9 +3,16 @@
   "risk_level": "ZAYIN",
   "attack_type": "PIERCE",
   "inflicts": [
-    { "effect": "SINKING", "count": 2, "potency": 3 }
+    {
+      "effect": "SINKING",
+      "potency": 3,
+      "count": 2
+    }
   ],
   "gains": [
-    { "effect": "TREMOR", "count": 5, "potency": 0 }
+    {
+      "effect": "TREMOR",
+      "count": 5
+    }
   ]
 }

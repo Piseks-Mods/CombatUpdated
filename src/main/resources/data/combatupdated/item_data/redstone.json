@@ -5,8 +5,7 @@
   "gains": [
     {
       "effect": "CHARGE",
-      "count": 1,
-      "potency": 0
+      "count": 1
     }
   ]
 }
