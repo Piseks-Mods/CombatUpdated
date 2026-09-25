@@ -110,7 +110,7 @@ public class MobSanityCapability implements INBTSerializable<CompoundTag>, ISani
             var goalSelectorField = pathfinder.goalSelector.getClass().getDeclaredField("availableGoals");
             goalSelectorField.setAccessible(true);
 
-            @SuppressWarnings("unchecked") var goals = (Iterable<?>) goalSelectorField.get(pathfinder.goalSelector);
+            var goals = (Iterable<?>) goalSelectorField.get(pathfinder.goalSelector);
 
             for (Object wrappedGoal : goals) {
                 var goalField = wrappedGoal.getClass().getDeclaredField("goal");
