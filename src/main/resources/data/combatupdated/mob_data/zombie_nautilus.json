@@ -10,8 +10,7 @@
   "inflicts": [
     {
       "effect": "SINKING",
-      "count": 2,
-      "potency": 0
+      "count": 2
     }
   ]
 }

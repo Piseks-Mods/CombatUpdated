@@ -11,21 +11,18 @@
     "panic-gains": [
       {
         "effect": "ATTACK_POWER_UP",
-        "count": 2,
-        "potency": 1
+        "count": 2
       }
     ]
   },
   "inflicts": [
     {
       "effect": "NAILS",
-      "count": 1,
-      "potency": 1
+      "count": 1
     },
     {
       "effect": "FRAGILE",
-      "count": 6,
-      "potency": 1
-    },
+      "count": 6
+    }
   ]
 }

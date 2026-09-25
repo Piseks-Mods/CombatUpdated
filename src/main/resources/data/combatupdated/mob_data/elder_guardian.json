@@ -10,8 +10,8 @@
   "inflicts": [
     {
       "effect": "SINKING",
-      "count": 4,
-      "potency": 8
+      "potency": 8,
+      "count": 4
     },
     {
       "effect": "TREMOR",
@@ -19,8 +19,6 @@
     },
     {
       "effect": "TREMOR_BURST",
-      "count": 0,
-      "potency": 0,
       "drain": {
         "effect": "TREMOR",
         "count": 1,
@@ -29,8 +27,6 @@
     },
     {
       "effect": "SINKING_DELUGE",
-      "count": 0,
-      "potency": 0,
       "require": {
         "effect": "NAILS",
         "count": 4
@@ -44,7 +40,7 @@
   "gains": [
     {
       "effect": "NAILS",
-      "count": 1,
+      "count": 1
     }
   ],
   "sanity": {
@@ -55,7 +51,7 @@
       },
       {
         "effect": "NAILS",
-        "count": 3,
+        "count": 3
       }
     ]
   }

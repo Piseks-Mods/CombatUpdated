@@ -10,12 +10,11 @@
   "inflicts": [
     {
       "effect": "BIND",
-      "count": 3,
-      "potency": 1
+      "potency": 1,
+      "count": 3
     },
     {
       "effect": "TREMOR",
-      "count": 0,
       "potency": 1
     }
   ]

@@ -10,8 +10,8 @@
   "inflicts": [
     {
       "effect": "POISE",
-      "count": 3,
-      "potency": 1
+      "potency": 1,
+      "count": 3
     },
     {
       "effect": "TREMOR",
@@ -19,9 +19,7 @@
     },
     {
       "effect": "TREMOR_EVERLASTING",
-      "count": 0,
-      "potency": 0,
-      "amplitude_conversion": true
+      "amplitude_conversion": true,
       "requireTarget": {
         "effect": "TREMOR",
         "potency": 6
@@ -29,20 +27,18 @@
     },
     {
       "effect": "TREMOR_BURST",
-      "count": 0,
-      "potency": 0,
       "requireTarget": {
         "effect": "POISE",
-        "count": 1,
-        "potency": 3
+        "potency": 3,
+        "count": 1
       }
     }
   ],
   "gains": [
     {
       "effect": "POISE",
-      "count": 7,
-      "potency": 2
+      "potency": 2,
+      "count": 7
     }
   ],
   "sanity": {

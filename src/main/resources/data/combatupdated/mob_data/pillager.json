@@ -29,7 +29,7 @@
     {
       "effect": "POISE",
       "potency": 1,
-      "reqire": {
+      "require": {
         "effect": "AMMO",
         "count": 3
       }

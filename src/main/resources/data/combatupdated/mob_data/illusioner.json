@@ -12,7 +12,7 @@
       "effect": "SINKING",
       "potency": 3,
       "count": 2,
-      "reqire": {
+      "require": {
         "effect": "MAGIC_AMMO",
         "count": 3
       }
@@ -21,11 +21,11 @@
       "effect": "RUPTURE",
       "potency": 3,
       "count": 2,
-      "reqire": {
+      "require": {
         "effect": "MAGIC_AMMO",
         "count": 6
       }
-    },
+    }
   ],
   "gains": [
     {

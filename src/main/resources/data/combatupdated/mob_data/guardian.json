@@ -10,8 +10,8 @@
   "inflicts": [
     {
       "effect": "SINKING",
-      "count": 2,
-      "potency": 6
+      "potency": 6,
+      "count": 2
     },
     {
       "effect": "TREMOR",
@@ -25,7 +25,7 @@
   "gains": [
     {
       "effect": "NAILS",
-      "count": 2,
+      "count": 2
     }
   ],
   "sanity": {
@@ -36,7 +36,7 @@
       },
       {
         "effect": "NAILS",
-        "count": 3,
+        "count": 3
       }
     ]
   }

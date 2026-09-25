@@ -10,10 +10,10 @@
   "inflicts": [
     {
       "effect": "TREMOR",
-      "count": 2,
-      "potency": 2
+      "potency": 2,
+      "count": 2
     }
-  ]
+  ],
   "sanity": {
     "panic-gains": [
       {

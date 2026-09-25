@@ -10,24 +10,19 @@
   "inflicts": [
     {
       "effect": "RUPTURE",
-      "count": 1,
-      "potency": 3
+      "potency": 3,
+      "count": 1
     },
     {
       "effect": "TREMOR",
-      "count": 0,
       "potency": 6
     },
     {
       "effect": "TREMOR_DECAY",
-      "count": 0,
-      "potency": 0,
       "amplitude_conversion": true
     },
     {
-      "effect": "TREMOR_BURST",
-      "count": 0,
-      "potency": 0
+      "effect": "TREMOR_BURST"
     }
   ]
 }

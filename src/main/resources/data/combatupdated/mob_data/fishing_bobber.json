@@ -10,8 +10,7 @@
   "inflicts": [
     {
       "effect": "BIND",
-      "count": 3,
-      "potency": 1,
+      "count": 3
     }
-  ],
+  ]
 }

@@ -10,13 +10,11 @@
   "inflicts": [
     {
       "effect": "RUPTURE",
-      "count": 0,
-      "potency": 1
+      "potency": 1,
     },
     {
       "effect": "SINKING",
       "count": 2,
-      "potency": 0,
       "consume": {
         "effect": "AMMO",
         "count": 1
@@ -26,7 +24,6 @@
   "gains": [
     {
       "effect": "AMMO",
-      "count": 0
       "potency": 8
     }
   ],
@@ -34,13 +31,11 @@
     "panic-gains": [
       {
         "effect": "BURN",
-        "count": 4,
-        "potency": 3
+        "potency": 3,
+        "count": 4
       },
       {
-        "effect": "RELOAD",
-        "count": 0,
-        "potency": 0
+        "effect": "RELOAD"
       }
     ]
   }

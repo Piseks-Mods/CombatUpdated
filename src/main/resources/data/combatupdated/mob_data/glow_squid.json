@@ -11,13 +11,11 @@
     "panic-gains": [
       {
         "effect": "FRAGILE",
-        "count": 4,
-        "potency": 1
+        "count": 4
       },
       {
         "effect": "PHOTOELECTRICITY",
-        "count": 2,
-        "potency": 1
+        "count": 2
       }
     ]
   }

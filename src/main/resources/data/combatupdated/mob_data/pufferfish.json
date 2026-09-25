@@ -10,16 +10,14 @@
   "inflicts": [
     {
       "effect": "NAILS",
-      "count": 3,
-      "potency": 1,
+      "count": 3
     }
   ],
   "sanity": {
     "panic-gains": [
       {
         "effect": "ATTACK_POWER_UP",
-        "count": 3,
-        "potency": 1
+        "count": 3
       }
     ]
   }

@@ -6,5 +6,13 @@
     "SLASH": "NORMAL",
     "PIERCE": "NORMAL",
     "BLUNT": "NORMAL"
+  },
+  "sanity": {
+    "panic-gains": [
+      {
+        "effect": "FRAGILE",
+        "count": 2
+      }
+    ]
   }
 }

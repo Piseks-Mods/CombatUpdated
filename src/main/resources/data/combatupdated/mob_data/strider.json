@@ -11,13 +11,11 @@
     "panic-gains": [
       {
         "effect": "BURN",
-        "count": 2,
-        "potency": 0
+        "count": 2
       },
       {
         "effect": "DEFENSE_LEVEL_DOWN",
-        "count": 3,
-        "potency": 1
+        "count": 3
       }
     ]
   }

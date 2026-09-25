@@ -9,9 +9,7 @@
   },
   "inflicts": [
     {
-      "effect": "SINKING_DELUGE",
-      "count": 0,
-      "potency": 0
+      "effect": "SINKING_DELUGE"
     }
   ]
 }

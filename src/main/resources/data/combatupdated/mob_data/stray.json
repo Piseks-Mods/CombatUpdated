@@ -10,7 +10,6 @@
   "inflicts": [
     {
       "effect": "SINKING",
-      "potency": 0,
       "count": 1,
       "consume": {
         "effect": "AMMO",
@@ -21,13 +20,10 @@
   "gains": [
     {
       "effect": "AMMO",
-      "potency": 16,
-      "count": 0
+      "potency": 16
     },
     {
       "effect": "RELOAD",
-      "potency": 0,
-      "count": 0,
       "consume": {
         "effect": "POISE",
         "potency": 12
@@ -35,8 +31,7 @@
     },
     {
       "effect": "POISE",
-      "potency": 2,
-      "count": 0
+      "potency": 2
     }
   ]
 }

@@ -11,8 +11,7 @@
     "panic-gains": [
       {
         "effect": "FRAGILE",
-        "count": 4,
-        "potency": 1
+        "count": 4
       }
     ]
   }

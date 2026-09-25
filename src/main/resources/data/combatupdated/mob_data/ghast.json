@@ -10,21 +10,19 @@
   "inflicts": [
     {
       "effect": "BURN",
-      "count": 1,
-      "potency": 6
+      "potency": 6,
+      "count": 1
     },
     {
       "effect": "SINKING",
-      "count": 1,
-      "potency": 0
+      "count": 1
     }
   ],
   "sanity": {
     "panic-gains": [
       {
         "effect": "ATTACK_POWER_UP",
-        "count": 2,
-        "potency": 0
+        "count": 2
       }
     ]
   }

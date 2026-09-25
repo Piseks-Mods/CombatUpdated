@@ -21,8 +21,7 @@
       "potency": 8
     },
     {
-      "effect": "TREMOR_BURST",
-      "potency": 0
+      "effect": "TREMOR_BURST"
     }
   ]
 }

@@ -10,7 +10,7 @@
   "inflicts": [
     {
       "effect": "TREMOR",
-      "count": 4,
+      "count": 4
     }
   ]
 }

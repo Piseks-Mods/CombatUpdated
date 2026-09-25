@@ -10,24 +10,18 @@
   "inflicts": [
     {
       "effect": "FRAGILE",
-      "count": 1,
-      "potency": 1
+      "count": 1
     },
     {
       "effect": "TREMOR",
-      "count": 0,
       "potency": 6
     },
     {
       "effect": "TREMOR_SCORCH",
-      "count": 0,
-      "potency": 0,
       "amplitude_conversion": true
     },
     {
-      "effect": "TREMOR_BURST",
-      "count": 0,
-      "potency": 0
+      "effect": "TREMOR_BURST"
     }
   ]
 }

@@ -11,18 +11,16 @@
     "panic-gains": [
       {
         "effect": "SINKING",
-        "count": 4,
-        "potency": 3
+        "potency": 3,
+        "count": 4
       },
       {
         "effect": "HASTE",
-        "count": 4,
-        "potency": 1
+        "count": 4
       },
       {
         "effect": "FRAGILE",
-        "count": 3,
-        "potency": 1
+        "count": 3
       }
     ]
   }

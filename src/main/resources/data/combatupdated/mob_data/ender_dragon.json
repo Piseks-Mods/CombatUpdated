@@ -18,8 +18,6 @@
     },
     {
       "effect": "SINKING_DELUGE",
-      "potency": 0,
-      "count": 0,
       "consume": {
         "effect": "POISE",
         "potency": "20"

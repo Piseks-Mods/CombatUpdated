@@ -18,7 +18,7 @@
       "require": {
         "effect": "TREMOR",
         "count": 10
-      }
+      },
       "consume": {
         "effect": "TREMOR",
         "count": 6
@@ -56,7 +56,7 @@
       },
       {
         "effect": "FRAGILE",
-        "count": 3,
+        "count": 3
       }
     ]
   }

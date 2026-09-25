@@ -10,13 +10,13 @@
   "inflicts": [
     {
       "effect": "BURN",
-      "potency": 4,
-      "count": 1
+      "count": 1,
+      "potency": 4
     },
     {
       "effect": "BLEED",
-      "potency": 2,
-      "count": 6
+      "count": 6,
+      "potency": 2
     }
   ],
   "sanity": {

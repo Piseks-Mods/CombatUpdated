@@ -11,8 +11,8 @@
     "panic-gains": [
       {
         "effect": "SINKING",
-        "count": 4,
-        "potency": 3
+        "potency": 3,
+        "count": 4
       }
     ]
   }
