@@ -6,5 +6,55 @@
     "SLASH": "INEFFECTIVE",
     "PIERCE": "ENDURED",
     "BLUNT": "ENDURED"
-  }
+  },
+  "inflicts": [
+    {
+      "effect": "RUPTURE",
+      "potency": 3
+    },
+    {
+      "effect": "SINKING",
+      "potency": 3
+    },
+    {
+      "effect": "SINKING_DELUGE",
+      "potency": 0,
+      "count": 0,
+      "consume": {
+        "effect": "POISE",
+        "potency": "20"
+      }
+    },
+    {
+      "effect": "PARALYZE",
+      "count": 6,
+      "drain": {
+        "effect": "RUPTURE",
+        "potency": 20
+      }
+    },
+    {
+      "effect": "DEFENSE_LEVEL_UP",
+      "count": 2,
+      "consume": {
+        "effect": "SINKING",
+        "count": 20
+      }
+    }
+  ],
+  "gains": [
+    {
+      "effect": "POISE",
+      "potency": 6,
+      "count": 1
+    },
+    {
+      "effect": "DEFENSE_LEVEL_UP",
+      "count": 4,
+      "consume": {
+        "effect": "POISE",
+        "count": 3
+      }
+    }
+  ]
 }

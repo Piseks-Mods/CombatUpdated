@@ -6,5 +6,44 @@
     "SLASH": "ENDURED",
     "PIERCE": "INEFFECTIVE",
     "BLUNT": "INEFFECTIVE"
-  }
+  },
+  "inflicts": [
+    {
+      "effect": "RUPTURE",
+      "potency": 1,
+      "count": 3
+    },
+    {
+      "effect": "BURN",
+      "potency": 3
+    },
+    {
+      "effect": "TREMOR_DECAY",
+      "potency": 7,
+      "count": 10
+    }
+  ],
+  "gains": [
+    {
+      "effect": "POISE",
+      "potency": 2,
+      "count": 2
+    },
+    {
+      "effect": "DEFENSE_LEVEL_DOWN",
+      "count": 1,
+      "consume": {
+        "effect": "RUPTURE",
+        "potency": 6
+      }
+    },
+    {
+      "effect": "ATTACK_POWER_UP",
+      "count": 1,
+      "require": {
+        "effect": "SINKING",
+        "count": 6
+      }
+    }
+  ]
 }
